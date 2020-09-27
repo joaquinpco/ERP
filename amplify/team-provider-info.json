@@ -10,6 +10,11 @@
       "StackName": "amplify-erp-deverp-193807",
       "StackId": "arn:aws:cloudformation:eu-west-1:346171509377:stack/amplify-erp-deverp-193807/355d1f00-00e8-11eb-bebb-02c4fae2d862",
       "AmplifyAppId": "d1qkjx7rj73wbw"
+    },
+    "categories": {
+      "auth": {
+        "erp92e6fed0": {}
+      }
     }
   }
 }
