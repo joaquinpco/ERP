@@ -27,7 +27,17 @@ export class LoginPage implements OnInit
         this.loginProps = new LoginProps();
     }
 
-    ngOnInit() { }
+    async ngOnInit() {
+      try
+      {
+        await Auth.currentAuthenticatedUser();
+      }
+      catch(err)
+      {
+        this.router.navigate(['/home']);
+        console.log(err);
+      }
+    }
 
     async login()
     {
@@ -43,7 +53,11 @@ export class LoginPage implements OnInit
             const user = await Auth.signIn(details.username, details.password);
             console.log(user);
 
-            this.router.navigate(['/home']);
+            if(user.challengeName === undefined)
+            {
+              this.router.navigate(['/home']);
+            }
+            
         } catch(err)
         {
             console.log(err);
