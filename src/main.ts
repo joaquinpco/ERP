@@ -8,7 +8,9 @@ import Amplify from 'aws-amplify';
 import awsmobile from './aws-exports';
 
 if (environment.production) {
+
   enableProdMode();
+
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
