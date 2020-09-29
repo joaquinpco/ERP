@@ -31,10 +31,10 @@ export class LoginPage implements OnInit
       try
       {
         await Auth.currentAuthenticatedUser();
+        this.router.navigate(['/home']);
       }
       catch(err)
       {
-        this.router.navigate(['/home']);
         console.log(err);
       }
     }
@@ -57,7 +57,15 @@ export class LoginPage implements OnInit
             {
               this.router.navigate(['/home']);
             }
-            
+            else
+            {
+              if(user.challengeName === "NEW_PASSWORD_REQUIRED")
+              {
+                console.log("Setear contraseña");
+                const u = await Auth.completeNewPassword(user, details.password, user.challengeParam.requiredAttributes);
+                this.router.navigate(["/home"]);
+              }
+            }     
         } catch(err)
         {
             console.log(err);

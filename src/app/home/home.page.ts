@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
 
 @Component({
   selector: 'app-home',
@@ -24,5 +24,13 @@ export class HomePage implements OnInit{
       this.router.navigate(['/login']);
       console.log(err);
     }
+  }
+
+  async ionViewWillEnter()
+  {
+    const ress = await API.get('rrhh', '/rrhh', {
+      queryStringParameters: {}
+    });
+    console.log(ress);
   }
 }

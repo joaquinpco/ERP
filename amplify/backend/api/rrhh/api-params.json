@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/rrhh",
+            "lambdaFunction": "rrhh",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/rrhh"
+        }
+    ],
+    "resourceName": "rrhh",
+    "apiName": "rrhh",
+    "functionArns": [
+        {
+            "lambdaFunction": "rrhh"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-erp-deverp-193807-authRole",
+        "unAuthRoleName": "amplify-erp-deverp-193807-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "rrhh",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
