@@ -7,41 +7,6 @@ See the License for the specific language governing permissions and limitations 
 */
 
 
-try
-{
-  const { Sequelize, Model, DataTypes } = require('sequelize');
-  const sequelize = new Sequelize(
-      process.env.DATABASE_URL,
-      {
-          dialect: 'postgres',
-          dialectOptions: {
-              ssl: {
-                  require: true,
-                  rejectUnauthorized: false
-              }
-          }
-      }
-  );
-
-  class User extends Model {}
-
-  User.init({
-      id: {
-          type: DataTypes.BIGINT,
-          autoIncrement: true,
-          primaryKey: true
-      },
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      fullname: DataTypes.STRING,
-      isActive: DataTypes.BOOLEAN
-  }, { sequelize, modelName: 'user' });
-}
-catch(err)
-{
-
-}
-
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -65,7 +30,8 @@ app.use(function(req, res, next) {
 
 app.get('/rrhh', function(req, res) {
   // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+  let event = require('./event.json');
+  res.json({success: 'get call succeed!' + event.key1, url: req.url});
 });
 
 app.get('/rrhh/*', function(req, res) {
