@@ -6,7 +6,6 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -23,15 +22,46 @@ app.use(function(req, res, next) {
   next()
 });
 
+const event = require('./event.json');
+  const { Sequelize, Model, DataTypes } = require('sequelize');
+  const sequelize = new Sequelize(
+       event.DATABASE_URL,
+      {
+          dialect: 'postgres',
+          dialectOptions: {
+              ssl: {
+                  require: true,
+                  rejectUnauthorized: false
+              }
+          }
+      }
+  );
 
+  class User extends Model {}
+
+  User.init({
+      id: {
+          type: DataTypes.BIGINT,
+          autoIncrement: true,
+          primaryKey: true
+      },
+      username: DataTypes.STRING,
+      password: DataTypes.STRING,
+      fullname: DataTypes.STRING,
+      isActive: DataTypes.BOOLEAN
+  }, { sequelize, modelName: 'user' });
 /**********************
  * Example get method *
  **********************/
 
-app.get('/rrhh', function(req, res) {
+app.get('/rrhh', async function(req, res) {
   // Add your code here
-  let event = require('./event.json');
-  res.json({success: 'get call succeed!' + event.key1, url: req.url});
+  await sequelize.sync();
+  res.json({
+    success: 'get call succeed!', 
+    url: req.url,
+    user: await User.findAll()
+  });
 });
 
 app.get('/rrhh/*', function(req, res) {
@@ -43,8 +73,15 @@ app.get('/rrhh/*', function(req, res) {
 * Example post method *
 ****************************/
 
-app.post('/rrhh', function(req, res) {
+app.post('/rrhh', async function(req, res) {
   // Add your code here
+  await User.create({
+    username: 'perico',
+    password: 'perico',
+    fullname: 'perico perez',
+    isActive: true
+  });
+  await sequelize.sync();
   res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 

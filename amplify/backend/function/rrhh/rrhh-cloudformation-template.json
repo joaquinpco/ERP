@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-erp-deverp-193807-deployment",
-          "S3Key": "amplify-builds/rrhh-55517554394a61375046-build.zip"
+          "S3Key": "amplify-builds/rrhh-6f63366b573649437542-build.zip"
         }
       }
     },
