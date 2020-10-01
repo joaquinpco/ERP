@@ -22,34 +22,9 @@ app.use(function(req, res, next) {
   next()
 });
 
-const event = require('./event.json');
-  const { Sequelize, Model, DataTypes } = require('sequelize');
-  const sequelize = new Sequelize(
-       event.DATABASE_URL,
-      {
-          dialect: 'postgres',
-          dialectOptions: {
-              ssl: {
-                  require: true,
-                  rejectUnauthorized: false
-              }
-          }
-      }
-  );
+const sequelize = require('./sequelize');
+const User = require('./User');
 
-  class User extends Model {}
-
-  User.init({
-      id: {
-          type: DataTypes.BIGINT,
-          autoIncrement: true,
-          primaryKey: true
-      },
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      fullname: DataTypes.STRING,
-      isActive: DataTypes.BOOLEAN
-  }, { sequelize, modelName: 'user' });
 /**********************
  * Example get method *
  **********************/
