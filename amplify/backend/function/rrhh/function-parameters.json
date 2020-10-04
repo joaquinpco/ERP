@@ -1,3 +1,13 @@
 {
+  "permissions": {
+    "auth": {
+      "erpae2b4175": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
   "lambdaLayers": []
 }

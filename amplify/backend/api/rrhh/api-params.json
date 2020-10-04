@@ -26,8 +26,8 @@
     "privacy": {
         "auth": 1,
         "unauth": 0,
-        "authRoleName": "amplify-erp-deverp-193807-authRole",
-        "unAuthRoleName": "amplify-erp-deverp-193807-unauthRole"
+        "authRoleName": "amplify-erp-dev-230350-authRole",
+        "unAuthRoleName": "amplify-erp-dev-230350-unauthRole"
     },
     "dependsOn": [
         {
