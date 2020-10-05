@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth, API } from 'aws-amplify';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ import { Auth, API } from 'aws-amplify';
 export class HomePage implements OnInit{
 
   constructor(
-    public router: Router
+    public router: Router,
+    public menuCtrl: MenuController
   ) {}
 
   async ngOnInit()
@@ -28,6 +30,7 @@ export class HomePage implements OnInit{
 
   async ionViewWillEnter()
   {
+    this.menuCtrl.enable(true, 'main-menu');
     const ress = await API.get('rrhh', '/rrhh', {
       queryStringParameters: {}
     });

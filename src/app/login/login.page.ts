@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 
 import { Auth } from 'aws-amplify';
 export class LoginProps
@@ -21,10 +21,12 @@ export class LoginPage implements OnInit
     constructor(
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
-        public router: Router
+        public router: Router,
+        public menuCtrl: MenuController
     )
     {
         this.loginProps = new LoginProps();
+        this.menuCtrl.enable(false, 'main-menu');
     }
 
     async ngOnInit() {
