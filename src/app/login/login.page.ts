@@ -26,7 +26,6 @@ export class LoginPage implements OnInit
     )
     {
         this.loginProps = new LoginProps();
-        this.menuCtrl.enable(false, 'main-menu');
     }
 
     async ngOnInit() {
@@ -39,6 +38,11 @@ export class LoginPage implements OnInit
       {
         console.log(err);
       }
+    }
+
+    ionViewWillEnter()
+    {
+      this.menuCtrl.enable(false, 'main-menu');
     }
 
     async login()

@@ -10,6 +10,8 @@ import { MenuController } from '@ionic/angular';
 })
 export class HomePage implements OnInit{
 
+  public action : string;
+
   constructor(
     public router: Router,
     public menuCtrl: MenuController
@@ -19,6 +21,7 @@ export class HomePage implements OnInit{
   {
     try
     {
+      this.action = "update";
       await Auth.currentAuthenticatedUser();
     }
     catch(err)
