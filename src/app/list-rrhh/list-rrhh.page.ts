@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListRRHHPage implements OnInit {
 
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter()
+  {
+    
   }
 
 }

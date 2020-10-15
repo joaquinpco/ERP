@@ -25,12 +25,42 @@ app.use(function(req, res, next) {
 const sequelize = require('./sequelize');
 const User = require('./User');
 
+const env = require('./event.json');
+
+const AWS = require('aws-sdk');
+
+const USER_POOL_REGION = "eu-west-1";
+
+AWS.config.update({ 
+                    region: USER_POOL_REGION, 
+                    'accessKeyId': env.ACCESS_KEY_ID, 
+                    'secretAccessKey': env.SECRET_ACCESS_KEY 
+                  });
+const cognito = new AWS.CognitoIdentityServiceProvider();
+
+var params = {
+  UserPoolId: env.POOL_ID
+};
+
+(async () => {
+  try
+  {
+    const dataUser = await cognito.listUsers(params).promise();
+    console.log(dataUser.Users[0].Attributes);
+  }
+  catch(err)
+  {
+    console.error(err);
+  }
+})();
 /**********************
  * Example get method *
  **********************/
 
 app.get('/rrhh', async function(req, res) {
   // Add your code here
+ 
+
   await sequelize.sync();
   res.json({
     success: 'get call succeed!', 
