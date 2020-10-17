@@ -9,19 +9,24 @@ import { API } from 'aws-amplify';
 
 export class ListRRHHPage implements OnInit {
 
-  public usersData:Object;
+  public users:Array<any>;
 
-  constructor() {}
+  constructor() 
+  {
+    this.users = [];
+  }
 
   ngOnInit() {}
 
   async ionViewWillEnter()
   {
-    this.usersData = await API.get('rrhh', '/rrhh', {
+    const ress = await API.get('rrhh', '/rrhh', {
       queryStringParameters: {}
     });
-    
-    console.log(this.usersData);
+
+    this.users = ress.Users;
+
+    console.log(this.users);
   }
 
 }
