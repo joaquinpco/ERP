@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card ng-for="let user of usersData.dataUsers.Users">
     <ion-card-header>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-subtitle>Email: {{ user }}</ion-card-subtitle>
       <ion-card-title>Card Title</ion-card-title>
     </ion-card-header>
   

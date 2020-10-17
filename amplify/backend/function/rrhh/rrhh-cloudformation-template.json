@@ -76,7 +76,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-erp-dev-230350-deployment",
-          "S3Key": "amplify-builds/rrhh-6678552f53376a556864-build.zip"
+          "S3Key": "amplify-builds/rrhh-70785838567247775456-build.zip"
         }
       }
     },

@@ -34,10 +34,6 @@ export class HomePage implements OnInit{
   async ionViewWillEnter()
   {
     this.menuCtrl.enable(true, 'main-menu');
-    const ress = await API.get('rrhh', '/rrhh', {
-      queryStringParameters: {}
-    });
-    console.log(ress);
   }
 
 }

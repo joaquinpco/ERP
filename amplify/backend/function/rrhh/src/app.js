@@ -54,11 +54,7 @@ app.get('/rrhh', async function(req, res) {
   {
     const dataUsers = await cognito.listUsers(params).promise();
     console.log(dataUsers);
-    res.json({
-      success: 'get call success!',
-      url: req.url,
-      users: dataUsers
-    });
+    res.json({ dataUsers });
   }
   catch(err)
   {
