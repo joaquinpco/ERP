@@ -11,11 +11,15 @@ import { MenuController } from '@ionic/angular';
 export class HomePage implements OnInit{
 
   public action : string;
+  public users : Array<any>;
 
   constructor(
     public router: Router,
     public menuCtrl: MenuController
-  ) {}
+  )
+  {
+    this.users = [];
+  }
 
   async ngOnInit()
   {
@@ -37,6 +41,8 @@ export class HomePage implements OnInit{
     const ress = await API.get('rrhh', '/rrhh', {
       queryStringParameters: {}
     });
+
+    this.users = ress.Users;
     console.log(ress);
   }
 
