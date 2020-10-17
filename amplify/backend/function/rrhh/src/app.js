@@ -52,18 +52,24 @@ app.get('/rrhh', async function(req, res) {
 
   try
   {
-    const dataUser = await cognito.listUsers(params).promise();
-    console.log(dataUser.Users[0].Attributes);
+    const dataUsers = await cognito.listUsers(params).promise();
+    console.log(dataUsers);
     res.json({
-      success: 'get call succeed!', 
+      success: 'get call success!',
       url: req.url,
-      user: dataUser
+      users: dataUsers
     });
   }
   catch(err)
   {
     console.error(err);
   }
+  /*await sequelize.sync();
+  res.json({
+    success: 'get call succeed!', 
+    url: req.url,
+    user: await User.findAll()
+  });*/
 });
 
 app.get('/rrhh/*', function(req, res) {
