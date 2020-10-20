@@ -38,20 +38,17 @@ AWS.config.update({
                   });
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
-var params = {
-  UserPoolId: env.POOL_ID
-};
-
 /**********************
  * Example get method *
  **********************/
 
 app.get('/rrhh', async function(req, res) {
   // Add your code here
- 
-
   try
   {
+    var params = {
+      UserPoolId: env.POOL_ID
+    };
     const dataUsers = await cognito.listUsers(params).promise();
     console.log(dataUsers);
     res.json(dataUsers);
