@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { API } from 'aws-amplify';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list-rrhh',
@@ -11,7 +12,9 @@ export class ListRRHHPage implements OnInit {
 
   public users:Array<any>;
 
-  constructor() 
+  constructor(
+    public loadingCtrl: LoadingController,
+  ) 
   {
     this.users = [];
   }
@@ -20,11 +23,18 @@ export class ListRRHHPage implements OnInit {
 
   async ionViewWillEnter()
   {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait....'
+    });
+    await loading.present();
+
     const ress = await API.get('rrhh', '/rrhh', {
       queryStringParameters: {}
     });
 
     this.users = ress.Users;
+
+    loading.dismiss();
 
     console.log(this.users);
   }
