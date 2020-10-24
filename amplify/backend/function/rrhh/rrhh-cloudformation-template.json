@@ -13,6 +13,10 @@
     "autherpae2b4175UserPoolId": {
       "Type": "String",
       "Default": "autherpae2b4175UserPoolId"
+    },
+    "functionconfigurationName": {
+      "Type": "String",
+      "Default": "functionconfigurationName"
     }
   },
   "Conditions": {
@@ -62,6 +66,9 @@
             },
             "AUTH_ERPAE2B4175_USERPOOLID": {
               "Ref": "autherpae2b4175UserPoolId"
+            },
+            "FUNCTION_CONFIGURATION_NAME": {
+              "Ref": "functionconfigurationName"
             }
           }
         },
@@ -76,7 +83,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-erp-dev-230350-deployment",
-          "S3Key": "amplify-builds/rrhh-3571756776663264794c-build.zip"
+          "S3Key": "amplify-builds/rrhh-6c7953336869596b6e6b-build.zip"
         }
       }
     },
@@ -278,6 +285,41 @@
                       ":userpool/",
                       {
                         "Ref": "autherpae2b4175UserPoolId"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "lambda:Create*",
+                "lambda:Put*",
+                "lambda:Add*",
+                "lambda:Get*",
+                "lambda:List*",
+                "lambda:Invoke*",
+                "lambda:Update*",
+                "lambda:Delete*",
+                "lambda:Remove*"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:lambda:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":function:",
+                      {
+                        "Ref": "functionconfigurationName"
                       }
                     ]
                   ]

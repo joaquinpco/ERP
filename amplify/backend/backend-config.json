@@ -19,6 +19,13 @@
           "attributes": [
             "UserPoolId"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "configuration",
+          "attributes": [
+            "Name"
+          ]
         }
       ]
     },
