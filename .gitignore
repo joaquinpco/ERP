@@ -45,6 +45,3 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
-
-#RDS Config
-amplify/backend/function/rrhh/src/event.json
