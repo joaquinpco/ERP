@@ -52,93 +52,93 @@ const User = require('./User');
 
   cognito = new AWS.CognitoIdentityServiceProvider();
 
-})();
-/**********************
- * Example get method *
- **********************/
+  /**********************
+   * Example get method *
+   **********************/
 
-app.get('/rrhh', async function(req, res) {
-  // Add your code here
-  try
-  {
-    var params = {
-      UserPoolId: env.POOL_ID
-    };
-    const dataUsers = await cognito.listUsers(params).promise();
-    console.log("DB URL:" + env.DATABASE_URL);
-    res.json(dataUsers);
-  }
-  catch(err)
-  {
-    console.error(err);
-  }
-  /*await sequelize.sync();
-  res.json({
-    success: 'get call succeed!', 
-    url: req.url,
-    user: await User.findAll()
-  });*/
-});
-
-app.get('/rrhh/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
-
-/****************************
-* Example post method *
-****************************/
-
-app.post('/rrhh', async function(req, res) {
-  // Add your code here
-  await User.create({
-    username: 'perico',
-    password: 'perico',
-    fullname: 'perico perez',
-    isActive: true
+  app.get('/rrhh', async function(req, res) {
+    // Add your code here
+    try
+    {
+      var params = {
+        UserPoolId: env.POOL_ID
+      };
+      const dataUsers = await cognito.listUsers(params).promise();
+      console.log("DB URL:" + env.DATABASE_URL);
+      res.json(dataUsers);
+    }
+    catch(err)
+    {
+      console.error(err);
+    }
+    /*await sequelize.sync();
+    res.json({
+      success: 'get call succeed!', 
+      url: req.url,
+      user: await User.findAll()
+    });*/
   });
-  await sequelize.sync();
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
 
-app.post('/rrhh/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
+  app.get('/rrhh/*', function(req, res) {
+    // Add your code here
+    res.json({success: 'get call succeed!', url: req.url});
+  });
 
-/****************************
-* Example put method *
-****************************/
+  /****************************
+  * Example post method *
+  ****************************/
 
-app.put('/rrhh', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
+  app.post('/rrhh', async function(req, res) {
+    // Add your code here
+    await User.create({
+      username: 'perico',
+      password: 'perico',
+      fullname: 'perico perez',
+      isActive: true
+    });
+    await sequelize.sync();
+    res.json({success: 'post call succeed!', url: req.url, body: req.body})
+  });
 
-app.put('/rrhh/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
+  app.post('/rrhh/*', function(req, res) {
+    // Add your code here
+    res.json({success: 'post call succeed!', url: req.url, body: req.body})
+  });
 
-/****************************
-* Example delete method *
-****************************/
+  /****************************
+  * Example put method *
+  ****************************/
 
-app.delete('/rrhh', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
+  app.put('/rrhh', function(req, res) {
+    // Add your code here
+    res.json({success: 'put call succeed!', url: req.url, body: req.body})
+  });
 
-app.delete('/rrhh/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
+  app.put('/rrhh/*', function(req, res) {
+    // Add your code here
+    res.json({success: 'put call succeed!', url: req.url, body: req.body})
+  });
 
-app.listen(3001, function() {
-    console.log("App started")
-});
-// Export the app object. When executing the application local this does nothing. However,
-// to port it to AWS Lambda we will create a wrapper around that will load the app from
-// this file
+  /****************************
+  * Example delete method *
+  ****************************/
+
+  app.delete('/rrhh', function(req, res) {
+    // Add your code here
+    res.json({success: 'delete call succeed!', url: req.url});
+  });
+
+  app.delete('/rrhh/*', function(req, res) {
+    // Add your code here
+    res.json({success: 'delete call succeed!', url: req.url});
+  });
+
+  app.listen(3001, function() {
+      console.log("App started")
+  });
+  // Export the app object. When executing the application local this does nothing. However,
+  // to port it to AWS Lambda we will create a wrapper around that will load the app from
+  // this file
+})();
 module.exports = app;
 
