@@ -29,121 +29,105 @@ app.use(function(req, res, next) {
 
 const AWS = require('aws-sdk');
 
-let cognito = undefined;
-let sequelize = undefined;
-let env = {};
-
 const User = require('./User');
 
-(async ()=> {
+const sequelize = require("./sequelize");
 
-  const getSequelize = require("./sequelize");
+AWS.config.update({ 
+  region: process.env.REGION, 
+  accessKeyId: process.env.ACCESS_KEY_ID, 
+  secretAccessKey: process.env.SECRET_ACCESS_KEY 
+});
 
-  sequelize = await getSequelize();
+const cognito = new AWS.CognitoIdentityServiceProvider();
 
-  AWS.config.update({ 
-    region: process.env.REGION, 
-    accessKeyId: process.env.ACCESS_KEY_ID, 
-    secretAccessKey: process.env.SECRET_ACCESS_KEY 
+const customUsersPoolParams = require('./cognito');
+
+(async ()=>{
+  await cognito.addCustomAttributes(customUsersPoolParams).promise();
+})()
+
+/**********************
+ * Example get method *
+ **********************/
+
+app.get('/rrhh', async function(req, res) {
+  // Add your code here
+  try
+  {
+    var params = {
+      UserPoolId: process.env.POOL_ID
+    };
+    const dataUsers = await cognito.listUsers(params).promise();
+    //console.log("DB URL:" + process.env.DATABASE_URL);
+    res.json(dataUsers);
+  }
+  catch(err)
+  {
+    console.error(err);
+  }
+});
+
+app.get('/rrhh/*', function(req, res) {
+  // Add your code here
+  res.json({success: 'get call succeed!', url: req.url});
+});
+
+/****************************
+* Example post method *
+****************************/
+
+app.post('/rrhh', async function(req, res) {
+  // Add your code here
+  await User.create({
+    username: 'perico',
+    password: 'perico',
+    fullname: 'perico perez',
+    isActive: true
   });
+  await sequelize.sync();
+  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+});
 
-  const lambda = new AWS.Lambda();
+app.post('/rrhh/*', function(req, res) {
+  // Add your code here
+  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+});
 
-  const configuration = await lambda.getFunctionConfiguration({
-    FunctionName: "configuration-dev",
-  }).promise();
+/****************************
+* Example put method *
+****************************/
 
-  env = configuration.Environment.Variables;
+app.put('/rrhh', function(req, res) {
+  // Add your code here
+  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+});
 
-  cognito = new AWS.CognitoIdentityServiceProvider();
+app.put('/rrhh/*', function(req, res) {
+  // Add your code here
+  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+});
 
-  /**********************
-   * Example get method *
-   **********************/
+/****************************
+* Example delete method *
+****************************/
 
-  app.get('/rrhh', async function(req, res) {
-    // Add your code here
-    try
-    {
-      var params = {
-        UserPoolId: env.POOL_ID
-      };
-      const dataUsers = await cognito.listUsers(params).promise();
-      console.log("DB URL:" + env.DATABASE_URL);
-      res.json(dataUsers);
-    }
-    catch(err)
-    {
-      console.error(err);
-    }
-    /*await sequelize.sync();
-    res.json({
-      success: 'get call succeed!', 
-      url: req.url,
-      user: await User.findAll()
-    });*/
-  });
+app.delete('/rrhh', function(req, res) {
+  // Add your code here
+  res.json({success: 'delete call succeed!', url: req.url});
+});
 
-  app.get('/rrhh/*', function(req, res) {
-    // Add your code here
-    res.json({success: 'get call succeed!', url: req.url});
-  });
+app.delete('/rrhh/*', function(req, res) {
+  // Add your code here
+  res.json({success: 'delete call succeed!', url: req.url});
+});
 
-  /****************************
-  * Example post method *
-  ****************************/
+app.listen(3000, function() {
+    console.log("App started")
+});
+// Export the app object. When executing the application local this does nothing. However,
+// to port it to AWS Lambda we will create a wrapper around that will load the app from
+// this file
 
-  app.post('/rrhh', async function(req, res) {
-    // Add your code here
-    await User.create({
-      username: 'perico',
-      password: 'perico',
-      fullname: 'perico perez',
-      isActive: true
-    });
-    await sequelize.sync();
-    res.json({success: 'post call succeed!', url: req.url, body: req.body})
-  });
-
-  app.post('/rrhh/*', function(req, res) {
-    // Add your code here
-    res.json({success: 'post call succeed!', url: req.url, body: req.body})
-  });
-
-  /****************************
-  * Example put method *
-  ****************************/
-
-  app.put('/rrhh', function(req, res) {
-    // Add your code here
-    res.json({success: 'put call succeed!', url: req.url, body: req.body})
-  });
-
-  app.put('/rrhh/*', function(req, res) {
-    // Add your code here
-    res.json({success: 'put call succeed!', url: req.url, body: req.body})
-  });
-
-  /****************************
-  * Example delete method *
-  ****************************/
-
-  app.delete('/rrhh', function(req, res) {
-    // Add your code here
-    res.json({success: 'delete call succeed!', url: req.url});
-  });
-
-  app.delete('/rrhh/*', function(req, res) {
-    // Add your code here
-    res.json({success: 'delete call succeed!', url: req.url});
-  });
-
-  app.listen(3001, function() {
-      console.log("App started")
-  });
-  // Export the app object. When executing the application local this does nothing. However,
-  // to port it to AWS Lambda we will create a wrapper around that will load the app from
-  // this file
-})();
 module.exports = app;
 
