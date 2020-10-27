@@ -4,7 +4,7 @@
 var params = {
     CustomAttributes: [ /* required */
       {
-        AttributeDataType: String,
+        AttributeDataType: 'String',
         DeveloperOnlyAttribute: false,
         Mutable: true,
         Name: 'FIRST_NAME',
@@ -15,7 +15,7 @@ var params = {
         }
       },
       {
-        AttributeDataType: String,
+        AttributeDataType: 'String',
         DeveloperOnlyAttribute: false,
         Mutable: true,
         Name: 'LAST_NAME',
@@ -23,10 +23,10 @@ var params = {
         StringAttributeConstraints: {
           MaxLength: '30',
           MinLength: '3'
-        },
+        }
       },
       {
-        AttributeDataType: String,
+        AttributeDataType: 'String',
         DeveloperOnlyAttribute: false,
         Mutable: true,
         Name: 'ROLE',
@@ -34,7 +34,7 @@ var params = {
         StringAttributeConstraints: {
           MaxLength: '30',
           MinLength: '3'
-        },
+        }
       }
       /* more items */
     ],

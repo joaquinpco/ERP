@@ -44,7 +44,11 @@ const cognito = new AWS.CognitoIdentityServiceProvider();
 const customUsersPoolParams = require('./cognito');
 
 (async ()=>{
-  await cognito.addCustomAttributes(customUsersPoolParams).promise();
+  try
+  {
+    await cognito.addCustomAttributes(customUsersPoolParams).promise();
+  }
+  catch(err){}
 })()
 
 /**********************
