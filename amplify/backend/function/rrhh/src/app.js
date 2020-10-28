@@ -60,7 +60,10 @@ app.get('/rrhh', async function(req, res) {
   try
   {
     var params = {
-      UserPoolId: process.env.POOL_ID
+      UserPoolId: process.env.POOL_ID,
+      "AttributesToGet": [
+        'email'
+      ]
     };
     const dataUsers = await cognito.listUsers(params).promise();
     //console.log("DB URL:" + process.env.DATABASE_URL);
