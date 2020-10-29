@@ -59,7 +59,14 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
   try
   {
     var params = {
-      UserPoolId: process.env.POOL_ID
+      UserPoolId: process.env.POOL_ID,
+      AttributesToGet: [
+        'email',
+        'custom:FIRST_NAME',
+        'custom:LAST_NAME',
+        'custom:ROLE'
+        /* more items */
+      ]
     };
     const dataUsers = await cognito.listUsers(params).promise();
 

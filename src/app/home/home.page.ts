@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth, API } from 'aws-amplify';
-import { MenuController } from '@ionic/angular';
+import { MenuController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,8 @@ export class HomePage implements OnInit{
 
   constructor(
     public router: Router,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    public loadingCtrl: LoadingController,
   ) {}
 
   async ngOnInit()
@@ -34,6 +35,37 @@ export class HomePage implements OnInit{
   async ionViewWillEnter()
   {
     this.menuCtrl.enable(true, 'main-menu');
+    
+    //Check if user has custom attr Defined
+    this.loadingCtrl.create();
+
+    try
+    {
+      const user = await Auth.currentAuthenticatedUser();
+
+      const { attributes } = user;
+
+      console.log(attributes);
+
+      if(!attributes.hasOwnProperty('custom:FIRST_NAME'))
+      {
+        let result = await Auth.updateUserAttributes(user, {
+          'custom:FIRST_NAME': 'DEFAULT',
+          'custom:LAST_NAME': 'DEFAULT',
+          'custom:ROLE': 'DEFAULT'
+        });
+      }
+
+      this.loadingCtrl.dismiss();
+    }
+    catch(err)
+    {
+      console.error(err);
+    }
+    finally
+    {
+      this.loadingCtrl.dismiss();
+    }
   }
 
 }
