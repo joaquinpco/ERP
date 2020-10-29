@@ -1,15 +1,13 @@
-/* Amplify Params - DO NOT EDIT
-	AUTH_ERPAE2B4175_USERPOOLID
-	ENV
-	FUNCTION_CONFIGURATION_NAME
-	REGION
-Amplify Params - DO NOT EDIT *//*
+/*
 Copyright 2017 - 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
     http://aws.amazon.com/apache2.0/
 or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
 */
+
+
+
 
 var express = require('express')
 var bodyParser = require('body-parser')
@@ -29,8 +27,6 @@ app.use(function(req, res, next) {
 
 const AWS = require('aws-sdk');
 
-const User = require('./User');
-
 const sequelize = require("./sequelize");
 
 AWS.config.update({ 
@@ -49,24 +45,24 @@ const customUsersPoolParams = require('./cognito');
     await cognito.addCustomAttributes(customUsersPoolParams).promise();
   }
   catch(err){}
-})()
+})();
 
 /**********************
  * Example get method *
  **********************/
 
-app.get('/rrhh', async function(req, res) {
+app.get('/erp', function(req, res) {
   // Add your code here
+});
+
+app.get('/erp/rrhh/listUsers', async function(req, res){
   try
   {
     var params = {
-      UserPoolId: process.env.POOL_ID,
-      "AttributesToGet": [
-        'email'
-      ]
+      UserPoolId: process.env.POOL_ID
     };
     const dataUsers = await cognito.listUsers(params).promise();
-    //console.log("DB URL:" + process.env.DATABASE_URL);
+
     res.json(dataUsers);
   }
   catch(err)
@@ -75,7 +71,7 @@ app.get('/rrhh', async function(req, res) {
   }
 });
 
-app.get('/rrhh/*', function(req, res) {
+app.get('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
 });
@@ -84,19 +80,12 @@ app.get('/rrhh/*', function(req, res) {
 * Example post method *
 ****************************/
 
-app.post('/rrhh', async function(req, res) {
+app.post('/erp', function(req, res) {
   // Add your code here
-  await User.create({
-    username: 'perico',
-    password: 'perico',
-    fullname: 'perico perez',
-    isActive: true
-  });
-  await sequelize.sync();
   res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
-app.post('/rrhh/*', function(req, res) {
+app.post('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
@@ -105,12 +94,12 @@ app.post('/rrhh/*', function(req, res) {
 * Example put method *
 ****************************/
 
-app.put('/rrhh', function(req, res) {
+app.put('/erp', function(req, res) {
   // Add your code here
   res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-app.put('/rrhh/*', function(req, res) {
+app.put('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
@@ -119,12 +108,12 @@ app.put('/rrhh/*', function(req, res) {
 * Example delete method *
 ****************************/
 
-app.delete('/rrhh', function(req, res) {
+app.delete('/erp', function(req, res) {
   // Add your code here
   res.json({success: 'delete call succeed!', url: req.url});
 });
 
-app.delete('/rrhh/*', function(req, res) {
+app.delete('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'delete call succeed!', url: req.url});
 });
@@ -132,9 +121,8 @@ app.delete('/rrhh/*', function(req, res) {
 app.listen(3000, function() {
     console.log("App started")
 });
+
 // Export the app object. When executing the application local this does nothing. However,
 // to port it to AWS Lambda we will create a wrapper around that will load the app from
 // this file
-
-module.exports = app;
-
+module.exports = app

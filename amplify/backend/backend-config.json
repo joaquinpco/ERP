@@ -8,28 +8,7 @@
     }
   },
   "function": {
-    "rrhh": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "erpae2b4175",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "configuration",
-          "attributes": [
-            "Name"
-          ]
-        }
-      ]
-    },
-    "configuration": {
+    "erp": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
@@ -37,13 +16,13 @@
     }
   },
   "api": {
-    "rrhh": {
+    "ERP": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "rrhh",
+          "resourceName": "erp",
           "attributes": [
             "Name",
             "Arn"

@@ -1,15 +1,13 @@
 {
-  "name": "rrhh",
+  "name": "erp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "amazon-cognito-identity-js": "^4.4.0",
-    "aws-sdk": "^2.771.0",
-    "aws-serverless-express": "^3.3.8",
+    "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "pg": "^8.3.3",
+    "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5"
   },

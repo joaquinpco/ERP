@@ -28,15 +28,22 @@ export class ListRRHHPage implements OnInit {
     });
     await loading.present();
 
-    const ress = await API.get('rrhh', '/rrhh', {
-      queryStringParameters: {}
-    });
+    try
+    {
+      const ress = await API.get('ERP', '/erp/rrhh/listUsers', {
+        queryStringParameters: {}
+      });
+      this.users = ress.Users;
 
-    this.users = ress.Users;
+      loading.dismiss();
 
-    loading.dismiss();
-
-    console.log(this.users);
+      console.log(this.users);
+    }
+    catch(err)
+    {
+      console.log(err);
+    }
+    
   }
 
 }

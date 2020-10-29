@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/erp",
+            "lambdaFunction": "erp",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "ERP",
+    "apiName": "ERP",
+    "functionArns": [
+        {
+            "lambdaFunction": "erp"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-erp-dev-230350-authRole",
+        "unAuthRoleName": "amplify-erp-dev-230350-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "erp",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "e7b9a160"
+}
