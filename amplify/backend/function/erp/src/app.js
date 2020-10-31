@@ -28,6 +28,7 @@ app.use(function(req, res, next) {
 const AWS = require('aws-sdk');
 
 const sequelize = require("./sequelize");
+const Audit = require('./models/Audit');
 
 AWS.config.update({ 
   region: process.env.REGION, 
@@ -50,6 +51,52 @@ const customUsersPoolParams = require('./cognito');
 /**********************
  * Example get method *
  **********************/
+
+function normalizeUser(user)
+{
+  const { attributes } = user;
+  
+  let normalizeAttributes = {};
+  for(const attr of attributes)
+  {
+    normalizeAttributes[attr.Name] = attr.Value;
+  }
+  user.normalizeAttributes = normalizeAttributes;
+
+  return user;
+}
+
+app.put('/normalizeUser', async function(req, res) {
+  try
+  {
+    var params = {
+      UserAttributes: [
+        {
+          Name: 'CUSTOM:PERICO',
+          Value: 'DEFAULT'
+        },
+      ],
+      UserPoolId: process.env.POOL_ID,
+      Username: req.params.Username,
+    };
+
+    const user = normalizeUser(
+      await cognito.adminUpdateUserAttributes(params).promise()
+    );
+
+    await Audit.create({
+      description: 'Normalize user ' + req.params.Username + ' and return with normalize attributes.',
+      moment: sequelize.literal('CURRENT_TIMESTAMP'),
+    });
+    await sequelize.sync();
+
+    res.json(user);
+  }
+  catch(err)
+  {
+    console.error(err);
+  }
+});
 
 app.get('/erp', function(req, res) {
   // Add your code here

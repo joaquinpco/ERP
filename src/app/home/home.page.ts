@@ -41,13 +41,19 @@ export class HomePage implements OnInit{
 
     try
     {
+
       const user = await Auth.currentAuthenticatedUser();
 
-      const { attributes } = user;
+      const normalizeUser = await API.put('ERP', 'normalizeUser', {
+        Username: user.Username
+      });
+      
+      console.log(user);
+      console.log(normalizeUser);
 
-      console.log(attributes);
+      const { normalizeAttributes } = normalizeUser;
 
-      if(!attributes.hasOwnProperty('custom:FIRST_NAME'))
+      if(!normalizeAttributes.hasOwnProperty('custom:FIRST_NAME'))
       {
         let result = await Auth.updateUserAttributes(user, {
           'custom:FIRST_NAME': 'DEFAULT',
