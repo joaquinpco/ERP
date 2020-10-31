@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Attribute, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth, API } from 'aws-amplify';
 import { MenuController, LoadingController } from '@ionic/angular';
@@ -36,25 +36,19 @@ export class HomePage implements OnInit{
   {
     this.menuCtrl.enable(true, 'main-menu');
     
-    //Check if user has custom attr Defined
-    this.loadingCtrl.create();
+    const loading = await this.loadingCtrl.create({
+      message: 'Retrieving info. Please, wait...'
+    });
+
+    await loading.present();
 
     try
     {
       const user = await Auth.currentAuthenticatedUser();
 
-      const { attributes } = user;
-
-      console.log(attributes);
-
-      if(!attributes.hasOwnProperty('custom:FIRST_NAME'))
-      {
-        let result = await Auth.updateUserAttributes(user, {
-          'custom:FIRST_NAME': 'DEFAULT',
-          'custom:LAST_NAME': 'DEFAULT',
-          'custom:ROLE': 'DEFAULT'
-        });
-      }
+      const normalizeUser = await API.put('ERP', 'normalizeUser', {
+        Username: user.Username
+      });
 
       this.loadingCtrl.dismiss();
     }

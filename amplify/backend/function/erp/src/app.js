@@ -29,6 +29,8 @@ const AWS = require('aws-sdk');
 
 const sequelize = require("./sequelize");
 
+const Audit = require('./models/Audit');
+
 AWS.config.update({ 
   region: process.env.REGION, 
   accessKeyId: process.env.ACCESS_KEY_ID, 
@@ -47,9 +49,74 @@ const customUsersPoolParams = require('./cognito');
   catch(err){}
 })();
 
+/********************
+ * KeyVal User funcs *
+ ********************/
+
+ function normalizeUser(user)
+ {
+   const { attributes } = user;
+
+   let normalizeAttr = {};
+   for(const attr of attributes)
+   {
+     normalizeAttr[attr.Name] = attr.Value;
+   }
+
+   user.normalizeAttr = normalizeAttr;
+
+   return user;
+ }
+
 /**********************
- * Example get method *
+ * Route methods  *
  **********************/
+app.put('/normalizeUser', async function(req, res){
+  try
+  {
+
+    var paramsGet = {
+      UserPoolId: process.env.POOL_ID, /* required */
+      Username: req.params.Username /* required */
+    }
+
+    const currentUser = await cognito.adminGetUser(paramsGet).promise();
+
+    const currentUserNormalized = normalizeUser(currentUser);
+
+    if(currentUserNormalized.normalizeAttr['custom:FIRST_NAME'] === undefined)
+    {
+      var paramsPut = {
+        UserAttributes: [
+          {
+            Name: 'custom:FIRST_NAME',
+            Value: 'DEFAULT'
+          },
+          {
+            Name: 'custom:LAST_NAME',
+            Value: 'DEFAULT'
+          },
+          {
+            Name: 'custom:ROLE',
+            Value: 'DEFAULT'
+          }
+        ],
+        UserPoolId: process.env.POOL_ID,
+        Username: req.params.Username
+      };
+
+      await cognito.adminUpdateUserAttributes(paramsPut).promise();
+
+    }
+
+    res.json(user);
+  }
+  catch(err)
+  {
+    console.error(err);
+  }
+});
+
 
 app.get('/erp', function(req, res) {
   // Add your code here
