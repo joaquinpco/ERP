@@ -36,8 +36,6 @@ export class ListRRHHPage implements OnInit {
       this.users = ress.Users;
 
       loading.dismiss();
-
-      console.log(this.users);
     }
     catch(err)
     {

@@ -29,7 +29,7 @@ const AWS = require('aws-sdk');
 
 const sequelize = require("./sequelize");
 
-const Audit = require('./models/Audit');
+//const Audit = require('./models/Audit');
 
 AWS.config.update({ 
   region: process.env.REGION, 
@@ -71,16 +71,19 @@ const customUsersPoolParams = require('./cognito');
 /**********************
  * Route methods  *
  **********************/
-app.put('/normalizeUser', async function(req, res){
+
+app.put('/erp/normalizeUser', async function(req, res){
   try
   {
 
     var paramsGet = {
       UserPoolId: process.env.POOL_ID, /* required */
-      Username: req.params.Username /* required */
+      Username: req.query.Username /* required */
     }
 
     const currentUser = await cognito.adminGetUser(paramsGet).promise();
+
+    console.log(currentUser);
 
     const currentUserNormalized = normalizeUser(currentUser);
 
@@ -109,7 +112,7 @@ app.put('/normalizeUser', async function(req, res){
 
     }
 
-    res.json(user);
+    res.json(currentUser);
   }
   catch(err)
   {

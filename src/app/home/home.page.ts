@@ -46,9 +46,16 @@ export class HomePage implements OnInit{
     {
       const user = await Auth.currentAuthenticatedUser();
 
-      const normalizeUser = await API.put('ERP', 'normalizeUser', {
-        Username: user.Username
-      });
+      let params = {
+        'queryStringParameters' :
+        {
+          'Username' : user.username
+        }
+      };
+
+      const ress = await API.put('ERP', '/erp/normalizeUser', params);
+
+      console.log(ress);
 
       this.loadingCtrl.dismiss();
     }
