@@ -55,16 +55,17 @@ const customUsersPoolParams = require('./cognito');
 
  function normalizeUser(user)
  {
-   const { attributes } = user;
-
+   
+   const attributes  = user.UserAttributes;
+  
    let normalizeAttr = {};
-   for(const attr of attributes)
+   for( attr of attributes)
    {
      normalizeAttr[attr.Name] = attr.Value;
    }
 
    user.normalizeAttr = normalizeAttr;
-
+  
    return user;
  }
 
@@ -76,16 +77,16 @@ app.put('/erp/normalizeUser', async function(req, res){
   try
   {
 
-    var paramsGet = {
+    var paramsPut = {
       UserPoolId: process.env.POOL_ID, /* required */
       Username: req.query.Username /* required */
     }
 
-    const currentUser = await cognito.adminGetUser(paramsGet).promise();
-
-    console.log(currentUser);
+    const currentUser = await cognito.adminGetUser(paramsPut).promise();
 
     const currentUserNormalized = normalizeUser(currentUser);
+
+ 
 
     if(currentUserNormalized.normalizeAttr['custom:FIRST_NAME'] === undefined)
     {
@@ -101,15 +102,15 @@ app.put('/erp/normalizeUser', async function(req, res){
           },
           {
             Name: 'custom:ROLE',
-            Value: 'DEFAULT'
+            Value: 'ADMIN'
           }
         ],
         UserPoolId: process.env.POOL_ID,
-        Username: req.params.Username
+        Username: req.query.Username
       };
 
       await cognito.adminUpdateUserAttributes(paramsPut).promise();
-
+      
     }
 
     res.json(currentUser);
@@ -118,6 +119,46 @@ app.put('/erp/normalizeUser', async function(req, res){
   {
     console.error(err);
   }
+});
+
+
+app.post('/erp/rrhh/newEmployee', async function(req, res) {
+  //
+  try
+  {
+    let email = req.body.email;
+
+    var params = {
+      UserPoolId: process.env.POOL_ID, /* required */
+      Username: email.replace('@', '_'), /* required */
+      TemporaryPassword: req.body.tempPassword,
+      UserAttributes: [
+        {
+          Name: 'email', /* required */
+          Value: email
+        },
+        {
+          Name: 'custom:FIRST_NAME', /* required */
+          Value: req.body.firstname
+        },
+        {
+          Name: 'custom:LAST_NAME',
+          Value: req.body.lastname
+        },
+        {
+          Name: 'custom:ROLE',
+          Value: req.body.role
+        }
+      ]
+    };
+
+    await cognito.adminCreateUser(params).promise();
+  }
+  catch(err)
+  {
+    console.error(err);
+  }
+
 });
 
 

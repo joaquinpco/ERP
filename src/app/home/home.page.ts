@@ -55,8 +55,6 @@ export class HomePage implements OnInit{
 
       const ress = await API.put('ERP', '/erp/normalizeUser', params);
 
-      console.log(ress);
-
       this.loadingCtrl.dismiss();
     }
     catch(err)
