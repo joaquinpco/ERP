@@ -29,7 +29,7 @@ const AWS = require('aws-sdk');
 
 const sequelize = require("./sequelize");
 
-//const Audit = require('./models/Audit');
+const Audit = require('./models/Audit');
 
 AWS.config.update({ 
   region: process.env.REGION, 
