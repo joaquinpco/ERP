@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { Storage } from '@ionic/storage';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
-
 import { Auth } from 'aws-amplify';
+
 export class LoginProps
 {
   username: String;
   password: String;
 };
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit
 {
     public loginProps : LoginProps;
@@ -22,10 +24,24 @@ export class LoginPage implements OnInit
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
         public router: Router,
-        public menuCtrl: MenuController
+        public menuCtrl: MenuController,
+        private renderer: Renderer2,
+        private storage: Storage
     )
     {
         this.loginProps = new LoginProps();
+        
+        //Change current Theme Settings
+        this.storage.get('toggleCheck').then((result) => {
+          if(result)
+          {
+            this.renderer.setAttribute(document.body, 'color-theme', 'dark');
+          }
+          else
+          {
+            this.renderer.setAttribute(document.body, 'color-theme', 'light');
+          }
+        });
     }
 
     async ngOnInit() {

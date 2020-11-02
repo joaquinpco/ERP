@@ -15,15 +15,6 @@ export class SettingsPage implements OnInit {
   {
     this.storage.get('toggleCheck').then((result) => {
       this.tgglCheckValue = result;
-      
-      if(this.tgglCheckValue)
-      {
-        this.renderer.setAttribute(document.body, 'color-theme', 'dark');
-      }
-      else
-      {
-        this.renderer.setAttribute(document.body, 'color-theme', 'light');
-      }
     });
   }
 
@@ -31,11 +22,13 @@ export class SettingsPage implements OnInit {
   {
     if(event.detail.checked)
     {
+      this.tgglCheckValue = true;
       this.storage.set('toggleCheck', true);
       this.renderer.setAttribute(document.body, 'color-theme', 'dark');
     }
     else
     {
+      this.tgglCheckValue = false;
       this.storage.set('toggleCheck', false);
       this.renderer.setAttribute(document.body, 'color-theme', 'light');
     }
