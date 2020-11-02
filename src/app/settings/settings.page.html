@@ -14,7 +14,7 @@
         <ion-item>
           <ion-label *ngIf="theme == true">Dark Mode</ion-label>
           <ion-label *ngIf="theme != true">Light Mode</ion-label>
-          <ion-toggle [(ngModel)]="theme" (ionChange)="onToggleColorTheme($event)" checked="false"></ion-toggle>
+          <ion-toggle [(ngModel)]="theme" (ionChange)="onToggleColorTheme($event)" checked="{{ tgglCheckValue }}"></ion-toggle>
         </ion-item>
       </ion-col>
     </ion-row>
