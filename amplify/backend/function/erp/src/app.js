@@ -7,7 +7,8 @@ See the License for the specific language governing permissions and limitations 
 */
 
 
-
+//For local development
+require('dotenv').config();
 
 var express = require('express')
 var bodyParser = require('body-parser')
