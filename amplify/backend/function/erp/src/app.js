@@ -131,7 +131,7 @@ app.post('/erp/rrhh/newEmployee', async function(req, res) {
 
     var params = {
       UserPoolId: process.env.POOL_ID, /* required */
-      Username: email.replace('@', '_'), /* required */
+      Username: email, /* required */
       TemporaryPassword: req.body.tempPassword,
       UserAttributes: [
         {

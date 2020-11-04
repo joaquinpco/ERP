@@ -11,27 +11,27 @@
   <form (submit)="signup()">
     <ion-item>
       <ion-label position="floating">Email:</ion-label>
-      <ion-input [(ngModel)]="signupuser.username" type="email" name="email"></ion-input>
+      <ion-input [(ngModel)]="signupuser.username" type="email" required name="email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">First Name:</ion-label>
-      <ion-input [(ngModel)]="signupuser.firstname" type="text" name="firstname"></ion-input>
+      <ion-input [(ngModel)]="signupuser.firstname" type="text" required name="firstname"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Last Name:</ion-label>
-      <ion-input [(ngModel)]="signupuser.lastname" type="text" name="lastname"></ion-input>
+      <ion-input [(ngModel)]="signupuser.lastname" type="text" required name="lastname"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Role:</ion-label>
-      <ion-input [(ngModel)]="signupuser.role" type="text" name="password"></ion-input>
+      <ion-input [(ngModel)]="signupuser.role" type="text" required name="role"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Password:</ion-label>
-      <ion-input [(ngModel)]="signupuser.password" type="password" name="password"></ion-input>
+      <ion-input [(ngModel)]="signupuser.password" type="password" required name="password"></ion-input>
     </ion-item>
 
     <ion-button type="submit" expand="full" color="primary">Register</ion-button>

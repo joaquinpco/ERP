@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { Router } from '@angular/router';
 
 export class Signupuser
 {
@@ -10,14 +11,6 @@ export class Signupuser
   password: String;
   role: String;
 };
-
-function checkProperties(obj) {
-  for (var key in obj) {
-      if (obj[key] !== null && obj[key] != "")
-          return false;
-  }
-  return true;
-}
 
 @Component({
   selector: 'app-add-rrhh',
@@ -29,20 +22,44 @@ export class AddRrhhPage implements OnInit {
 
   public signupuser: Signupuser;
 
-  constructor(public alertController: AlertController) 
+  constructor(
+              public alertController: AlertController, 
+              public route:Router,
+              public loadingCtrl: LoadingController
+             ) 
   {
     this.signupuser = new Signupuser();
   }
 
   ngOnInit() {}
 
+  checkProperties() {
+    
+    let empty = true;
+    
+    if(this.signupuser.username == undefined || this.signupuser.firstname == undefined 
+      || this.signupuser.lastname == undefined || this.signupuser.role == undefined || 
+      this.signupuser.password == undefined)
+    {
+      empty = false;
+    }
+
+    return empty;
+  }
+
   async signup()
   {
-    if(checkProperties(this.signupuser))
+    if(this.checkProperties())
     {
+      const loading = await this.loadingCtrl.create({
+        message: 'Please wait....'
+      });
+
       try
       {
-        var postParams = {
+        await loading.present();
+
+        const postParams = {
           body: {
             email: this.signupuser.username,
             firstname: this.signupuser.firstname,
@@ -52,19 +69,42 @@ export class AddRrhhPage implements OnInit {
           }
         }
 
-        API.post('ERP', 'newEmployee', postParams);
+        await API.post('ERP', '/erp/rrhh/newEmployee', postParams);
+
+        loading.dismiss();
+
       }
       catch(err)
       {
-        console.error(err);
+        console.log(err);
+        this.route.navigate(['/list-rrhh']);
+        if(err.name == "UsernameExistsException")
+        {
+          const alert = await this.alertController.create({
+            cssClass: 'my-custom-class',
+            header: 'Alert',
+            subHeader: 'Employee already exist',
+            message: 'Submitted employee was registered previously.',
+            buttons: ['OK']
+          });
+      
+          await alert.present();
+        }
+      }
+      finally
+      {
+        loading.dismiss();
       }
     }
     else
     {
+      
       const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
         header: 'Alert',
-        message: 'Please fill all inputs.',
-        buttons: ['OK'] 
+        subHeader: 'Some inputs are empty',
+        message: 'Fill all inputs before submitting data.',
+        buttons: ['OK']
       });
   
       await alert.present();
