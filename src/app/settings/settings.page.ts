@@ -13,16 +13,16 @@ export class SettingsPage implements OnInit {
 
   constructor(private renderer: Renderer2, private storage: Storage) 
   {
-    if(this.tgglCheckValue == undefined)
-    {
+    
+    this.storage.get('toggleCheck').then((result) => {
+      
+      this.tgglCheckValue = result;
+      if(this.tgglCheckValue == undefined)
+      {
       this.tgglCheckValue = false;
-    }
-    else
-    {
-      this.storage.get('toggleCheck').then((result) => {
-        this.tgglCheckValue = result;
-      });
-    }
+      }
+
+    });
   }
 
   onToggleColorTheme(event)
