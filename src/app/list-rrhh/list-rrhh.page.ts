@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { API } from 'aws-amplify';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-rrhh',
@@ -14,12 +15,23 @@ export class ListRRHHPage implements OnInit {
 
   constructor(
     public loadingCtrl: LoadingController,
+    public router: Router
   ) 
   {
     this.users = [];
   }
 
   ngOnInit() {}
+
+  edit()
+  {
+    this.router.navigate(['/edit-rrhh'], { queryParams : { 'email' : 'prueba' } });
+  }
+
+  remove()
+  {
+    this.router.navigate(['/delte-rrhh']);
+  }
 
   async ionViewWillEnter()
   {

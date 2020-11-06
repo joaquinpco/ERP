@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path: 'add-rrhh',
     loadChildren: () => import('./add-rrhh/add-rrhh.module').then( m => m.AddRrhhPageModule)
+  },
+  {
+    path: 'edit-rrhh',
+    loadChildren: () => import('./edit-rrhh/edit-rrhh.module').then( m => m.EditRrhhPageModule)
+  },
+  {
+    path: 'delte-rrhh',
+    loadChildren: () => import('./delte-rrhh/delte-rrhh.module').then( m => m.DelteRrhhPageModule)
   }
 ];
 
