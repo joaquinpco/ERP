@@ -176,7 +176,8 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
         'email',
         'custom:FIRST_NAME',
         'custom:LAST_NAME',
-        'custom:ROLE'
+        'custom:ROLE',
+        'sub'
         /* more items */
       ]
     };

@@ -23,14 +23,14 @@ export class ListRRHHPage implements OnInit {
 
   ngOnInit() {}
 
-  edit()
+  edit(sub : string)
   {
-    this.router.navigate(['/edit-rrhh'], { queryParams : { 'email' : 'prueba' } });
+    this.router.navigate(['/edit-rrhh'], { queryParams : { 'sub' : sub } });
   }
 
-  remove()
+  remove(sub : string)
   {
-    this.router.navigate(['/delte-rrhh']);
+    this.router.navigate(['/delte-rrhh'], { queryParams : { 'sub' : sub } });
   }
 
   async ionViewWillEnter()
@@ -45,7 +45,10 @@ export class ListRRHHPage implements OnInit {
       const ress = await API.get('ERP', '/erp/rrhh/listUsers', {
         queryStringParameters: {}
       });
+
       this.users = ress.Users;
+      
+      console.log(this.users);
 
       loading.dismiss();
     }
