@@ -18,7 +18,8 @@ export class EditRrhhPage implements OnInit {
   { 
 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
-    
+    console.log(this.activatedRoute.snapshot);
+    console.log(this.router.getCurrentNavigation().extras);
     if(this.sub)
     {
       console.log(this.sub);

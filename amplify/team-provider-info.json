@@ -1,20 +1,15 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-erp-dev-230350-authRole",
-      "UnauthRoleArn": "arn:aws:iam::346171509377:role/amplify-erp-dev-230350-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::346171509377:role/amplify-erp-dev-230350-authRole",
-      "Region": "eu-west-1",
-      "DeploymentBucketName": "amplify-erp-dev-230350-deployment",
-      "UnauthRoleName": "amplify-erp-dev-230350-unauthRole",
-      "StackName": "amplify-erp-dev-230350",
-      "StackId": "arn:aws:cloudformation:eu-west-1:346171509377:stack/amplify-erp-dev-230350/1b812e80-0685-11eb-9e6c-0aa806e28382",
-      "AmplifyAppId": "d366u2lfj91ly4"
-    },
-    "categories": {
-      "auth": {
-        "erpae2b4175": {}
-      }
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-erp-dev-230350-authRole",
+            "UnauthRoleArn": "arn:aws:iam::346171509377:role/amplify-erp-dev-230350-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::346171509377:role/amplify-erp-dev-230350-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-erp-dev-230350-deployment",
+            "UnauthRoleName": "amplify-erp-dev-230350-unauthRole",
+            "StackName": "amplify-erp-dev-230350",
+            "StackId": "arn:aws:cloudformation:eu-west-1:346171509377:stack/amplify-erp-dev-230350/1b812e80-0685-11eb-9e6c-0aa806e28382",
+            "AmplifyAppId": "d366u2lfj91ly4"
+        }
     }
-  }
 }

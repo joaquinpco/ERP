@@ -25,7 +25,8 @@ export class ListRRHHPage implements OnInit {
 
   edit(sub : string)
   {
-    this.router.navigate(['/edit-rrhh'], { queryParams : { 'sub' : sub } });
+    // this.router.navigate(['/edit-rrhh'], { queryParams : { 'sub' : sub } });
+    this.router.navigate(['/edit-rrhh'], { state : { sub : sub } });
   }
 
   remove(sub : string)
