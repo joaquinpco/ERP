@@ -18,19 +18,7 @@ export class HomePage implements OnInit{
     public loadingCtrl: LoadingController,
   ) {}
 
-  async ngOnInit()
-  {
-    try
-    {
-      this.action = "update";
-      await Auth.currentAuthenticatedUser();
-    }
-    catch(err)
-    {
-      this.router.navigate(['/login']);
-      console.log(err);
-    }
-  }
+  ngOnInit() {}
 
   async ionViewWillEnter()
   {
