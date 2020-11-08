@@ -8,5 +8,29 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list lines="none">
+    <br>
+    <ion-item class="profile-item">
+      <div class="profile-picture big-profile-picture">
+        <img src="assets/img/profile.png">
+      </div>
+    </ion-item>
+    <br>
+    <ion-item text-center>
+      <ion-label>
+        First and last name:
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Email:
+      </ion-label>
+    </ion-item>
+    <ion-item>
+        Role:
+    </ion-item>
+    <ion-item>
+      <ion-button color="danger" (click)="disableUser(sub)">Disable User</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

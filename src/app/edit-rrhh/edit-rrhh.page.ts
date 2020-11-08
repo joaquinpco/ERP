@@ -10,19 +10,14 @@ import { Router, ActivatedRoute } from '@angular/router'
 export class EditRrhhPage implements OnInit {
 
   public sub : string;
+  public user : any;
 
   constructor(
                 private activatedRoute : ActivatedRoute,
                 private router : Router
              ) 
   { 
-
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
-    
-    if(this.sub)
-    {
-      console.log(this.sub);
-    }
   }
 
   ngOnInit() 

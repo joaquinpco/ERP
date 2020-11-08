@@ -191,14 +191,14 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
   }
 });
 
-app.get('/erp/rrhh/disableUser', async function(req, res) {
+app.put('/erp/rrhh/disableUser', async function(req, res) {
   try
   {
     var params = {
       UserPoolId: process.env.POOL_ID, /* required */
       Username: req.query.sub /* required */
     };
-    cognitoidentityserviceprovider.adminDisableUser(params).promise();
+    cognito.adminDisableUser(params).promise();
   }
   catch(err)
   {

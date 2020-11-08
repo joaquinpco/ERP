@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-delte-rrhh',
@@ -19,6 +20,25 @@ export class DelteRrhhPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  async disableUser(sub)
+  {
+    try
+    {
+      let params = {
+        'queryStringParameters' :
+        {
+          'sub' : this.sub
+        }
+      };
+
+      await API.put('ERP', '/erp/rrhh/disableUser', params);
+    }
+    catch(err)
+    {
+      this.router.navigate(['list-rrhh']);
+    }
   }
 
 }
