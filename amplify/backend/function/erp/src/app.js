@@ -13,10 +13,13 @@ require('dotenv').config();
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+var cors = require('cors')
 
 // declare a new express app
 var app = express()
+app.use(cors())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(awsServerlessExpressMiddleware.eventContext())
 
 // Enable CORS for all methods
@@ -87,8 +90,6 @@ app.put('/erp/normalizeUser', async function(req, res){
 
     const currentUserNormalized = normalizeUser(currentUser);
 
- 
-
     if(currentUserNormalized.normalizeAttr['custom:FIRST_NAME'] === undefined)
     {
       var paramsPut = {
@@ -119,6 +120,7 @@ app.put('/erp/normalizeUser', async function(req, res){
   catch(err)
   {
     console.error(err);
+    res.json(err);
   }
 });
 
@@ -153,13 +155,14 @@ app.post('/erp/rrhh/newEmployee', async function(req, res) {
       ]
     };
 
-    await cognito.adminCreateUser(params).promise();
+    const user = await cognito.adminCreateUser(params).promise();
+    res.json(user);
   }
   catch(err)
   {
     console.error(err);
+    res.json(err);
   }
-
 });
 
 
@@ -182,27 +185,50 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
       ]
     };
     const dataUsers = await cognito.listUsers(params).promise();
-
+    // console.log(dataUsers)
     res.json(dataUsers);
   }
   catch(err)
   {
     console.error(err);
+    res.json(err);
   }
 });
 
 app.put('/erp/rrhh/disableUser', async function(req, res) {
   try
   {
-    var params = {
-      UserPoolId: process.env.POOL_ID, /* required */
-      Username: req.query.sub /* required */
-    };
-    cognito.adminDisableUser(params).promise();
+    const filter = "sub = \"" + req.query.sub + "\"";
+    const listUsers = await cognito.listUsers({
+      Filter: filter,
+      UserPoolId: process.env.POOL_ID,
+    }).promise();
+    
+    if(listUsers.Users.length > 0)
+    {
+      const user = listUsers.Users[0];
+      const params = {
+        UserPoolId: process.env.POOL_ID,
+        Username: user.Username // req.query.sub // sub is not a username, change this @joaquinpco
+      };
+  
+      let result = {};
+      try
+      {
+        result = await cognito.adminDisableUser(params).promise();
+        result = await cognito.adminDeleteUser(params).promise();
+      } catch(err)
+      {
+        console.log(err)
+      }
+      
+      res.json(result);
+    }
   }
   catch(err)
   {
     console.error(err);
+    res.json(err);
   }
 });
 
