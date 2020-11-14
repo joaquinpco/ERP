@@ -18,17 +18,15 @@
 
   <div class="card-body">
     <div class="user-meta ion-text-center">
-      <h3 class="name">José Joaquín Pérez-Calderón Ortiz</h3>
-      <h5 class="country">Spain</h5>
-      <h6 class="ranking">Email: <ion-chip>
-        <ion-label>joaquin1208@me.com</ion-label>
-        </ion-chip>
-      </h6>
-      <h6 class="ranking">Role: <ion-chip>
-        <ion-label>ADMIN</ion-label>
+      <ion-button color="light" shape="round" size="small" (click)="openActionSheet()"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+      <h3>{{ user.normalizeAttr['custom:FIRST_NAME'] }} {{ user.normalizeAttr['custom:LAST_NAME'] }}</h3>
+          
+      <h5 class="country">{{ user.normalizeAttr['email'] }}</h5>
+      <br>
+      <h6 class="ranking"><ion-chip>
+        <ion-label>{{ user.normalizeAttr['custom:ROLE'] }}</ion-label>
         </ion-chip>
       </h6>
     </div>
-    <ion-button expand="full" color="primary">@joaquinpco on Twitter</ion-button>
   </div>
 </ion-content>
