@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
 @Component({
@@ -13,7 +14,8 @@ export class DelteRrhhPage implements OnInit {
 
   constructor(
                 private activatedRoute : ActivatedRoute,
-                private router : Router
+                private router : Router,
+                private loadingCtrl: LoadingController
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
@@ -24,20 +26,31 @@ export class DelteRrhhPage implements OnInit {
 
   async disableUser(sub)
   {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait....'
+    });
+
     try
     {
-      let params = {
-        'queryStringParameters' :
-        {
-          'sub' : this.sub
-        }
+
+      const apiName = 'ERP'; // replace this with your api name.
+      const path = '/erp/rrhh/disableUser'; // replace this with the path you have configured on your API
+      const myInit = {
+          body: {sub : this.sub }, // replace this with attributes you need
+          headers: {}, // OPTIONAL
       };
 
-      await API.put('ERP', '/erp/rrhh/disableUser', params);
+      await loading.present();
+
+      await API.put(apiName, path, myInit);
+
+      loading.dismiss();
+
+      this.router.navigate(['/list-rrhh']);
     }
     catch(err)
     {
-      this.router.navigate(['list-rrhh']);
+      loading.dismiss();
     }
   }
 

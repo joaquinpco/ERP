@@ -46,6 +46,10 @@ const routes: Routes = [
     path: 'delte-rrhh',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./delte-rrhh/delte-rrhh.module').then( m => m.DelteRrhhPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 

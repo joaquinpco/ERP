@@ -8,5 +8,45 @@
 </ion-header>
 
 <ion-content>
-
+  <div *ngIf="user.normalizeAttr != undefined">
+    <ion-list lines="none">
+      <br>
+      <ion-item class="profile-item">
+        <div class="profile-picture big-profile-picture">
+          <img src="assets/img/profile.png">
+        </div>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-label>
+          First Name:
+        </ion-label>
+        <ion-input placeholder="{{ user.normalizeAttr['custom:FIRST_NAME'] }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Last Name:
+        </ion-label>
+        <ion-input placeholder="{{ user.normalizeAttr['custom:LAST_NAME'] }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Email:
+        </ion-label>
+        <ion-input placeholder="{{ user.normalizeAttr['email'] }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Role:
+        </ion-label>
+        <ion-input placeholder="{{ user.normalizeAttr['custom:ROLE'] }}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-button color="warning" (click)="updateUser(sub)">Update user</ion-button>
+      </ion-item>
+      <ion-item *ngIf="user.Enabled == false">
+        <ion-button color="success" (click)="enableUser(sub)">Enable User</ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

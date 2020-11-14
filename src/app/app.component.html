@@ -12,7 +12,7 @@
           <ion-label>HOME</ion-label>
         </ion-item>
         <ion-item lines="none" (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
-          <ion-icon name="people-circle-outline"></ion-icon>
+          <ion-icon name="people-circle-outline" slot="start"></ion-icon>
           Employee
           <ion-icon slot="end" [name]="isRemainder? 'caret-down-outline' : 'caret-forward-outline'"></ion-icon>
         </ion-item>
@@ -28,6 +28,10 @@
             </ion-item>
           </ion-list>
         </ion-menu-toggle>
+        <ion-item routerLink="/profile">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-label>Profile</ion-label>
+        </ion-item>
         <ion-item routerLink="/settings">
           <ion-icon name="settings-outline" slot="start" ></ion-icon>
           <ion-label>Settings</ion-label>

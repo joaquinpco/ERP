@@ -76,7 +76,6 @@ export class AddRrhhPage implements OnInit {
       }
       catch(err)
       {
-        console.log(err);
         this.route.navigate(['/list-rrhh']);
         if(err.name == "UsernameExistsException")
         {
