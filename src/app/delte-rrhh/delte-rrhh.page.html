@@ -18,16 +18,16 @@
     <br>
     <ion-item text-center>
       <ion-label>
-        First and last name:
+        <b>First and last name:</b> {{ user.normalizeAttr['custom:FIRST_NAME'] }} {{ user.normalizeAttr['custom:LAST_NAME'] }}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        Email:
+        <b>Email:</b> {{ user.normalizeAttr['email'] }}
       </ion-label>
     </ion-item>
     <ion-item>
-        Role:
+        <b>Role:</b> {{ user.normalizeAttr['custom:ROLE'] }}
     </ion-item>
     <ion-item>
       <ion-button color="danger" (click)="disableUser(sub)">Disable User</ion-button>

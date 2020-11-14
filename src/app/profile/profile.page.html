@@ -1,9 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="card">
+    <div class="header">
+      <div class="avatar">
+        <img src="assets/img/profile.png" alt="">
+      </div>
+    </div>
+  </div>
 
+  <div class="card-body">
+    <div class="user-meta ion-text-center">
+      <h3 class="name">José Joaquín Pérez-Calderón Ortiz</h3>
+      <h5 class="country">Spain</h5>
+      <h6 class="ranking">Email: <ion-chip>
+        <ion-label>joaquin1208@me.com</ion-label>
+        </ion-chip>
+      </h6>
+      <h6 class="ranking">Role: <ion-chip>
+        <ion-label>ADMIN</ion-label>
+        </ion-chip>
+      </h6>
+    </div>
+    <ion-button expand="full" color="primary">@joaquinpco on Twitter</ion-button>
+  </div>
 </ion-content>

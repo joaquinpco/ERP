@@ -69,26 +69,29 @@ export class AddRrhhPage implements OnInit {
           }
         }
 
-        await API.post('ERP', '/erp/rrhh/newEmployee', postParams);
+        const res = await API.post('ERP', '/erp/rrhh/newEmployee', postParams);
 
         loading.dismiss();
-
-      }
-      catch(err)
-      {
-        this.route.navigate(['/list-rrhh']);
-        if(err.name == "UsernameExistsException")
+        if(res.code == "UsernameExistsException")
         {
           const alert = await this.alertController.create({
             cssClass: 'my-custom-class',
             header: 'Alert',
-            subHeader: 'Employee already exist',
-            message: 'Submitted employee was registered previously.',
+            subHeader: 'Employee email already exist',
+            message: 'Submitted employee email was registered previously.',
             buttons: ['OK']
           });
       
           await alert.present();
         }
+        else
+        {
+          this.route.navigate(['/list-rrhh'])
+        }
+      }
+      catch(err)
+      {
+        loading.dismiss();
       }
       finally
       {

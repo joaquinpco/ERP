@@ -11,6 +11,7 @@ import { API } from 'aws-amplify';
 export class DelteRrhhPage implements OnInit {
 
   public sub : string;
+  public user : any;
 
   constructor(
                 private activatedRoute : ActivatedRoute,
@@ -19,9 +20,43 @@ export class DelteRrhhPage implements OnInit {
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
+    this.user = { normalizeAttr : [] };
   }
 
   ngOnInit() {
+  }
+
+  async ionViewWillEnter()
+  {
+    
+    const loading = await this.loadingCtrl.create({
+      message: 'Retrieving info. Please, wait...'
+    });
+
+    await loading.present();
+
+    try
+    {
+
+      let params = {
+        'queryStringParameters' :
+        {
+          'Username' : this.sub
+        }
+      };
+
+      const res = await API.get('ERP', '/erp/getNormalizeUser', params);
+      this.user = res;
+      this.loadingCtrl.dismiss();
+    }
+    catch(err)
+    {
+      console.error(err);
+    }
+    finally
+    {
+      this.loadingCtrl.dismiss();
+    }
   }
 
   async disableUser(sub)
