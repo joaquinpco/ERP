@@ -61,6 +61,12 @@ export class LoginPage implements OnInit
       this.menuCtrl.enable(false, 'main-menu');
     }
 
+    clearInputs(loginProps: LoginProps)
+    {
+      loginProps.username = "";
+      loginProps.password = "";
+    }
+
     async login()
     {
         const loading = await this.loadingCtrl.create({
@@ -73,7 +79,8 @@ export class LoginPage implements OnInit
         try
         {
             const user = await Auth.signIn(details.username, details.password);
-            console.log(user);
+
+            this.clearInputs(this.loginProps);
 
             if(user.challengeName === undefined)
             {
@@ -83,14 +90,12 @@ export class LoginPage implements OnInit
             {
               if(user.challengeName === "NEW_PASSWORD_REQUIRED")
               {
-                console.log("Setear contraseña");
                 const u = await Auth.completeNewPassword(user, details.password, user.challengeParam.requiredAttributes);
                 this.router.navigate(["/home"]);
               }
             }     
         } catch(err)
         {
-            console.log(err);
             const alert = await this.alertCtrl.create({
                 header: 'Error',
                 subHeader: err.code,
@@ -98,6 +103,9 @@ export class LoginPage implements OnInit
                 buttons: ['Ok']
             });
             await alert.present();
+
+            this.clearInputs(this.loginProps);
+            
         } finally
         {
             await this.loadingCtrl.dismiss();
