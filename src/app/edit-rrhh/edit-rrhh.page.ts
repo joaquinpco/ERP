@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { CameraService } from '../services/camera.service';
 
 @Component({
   selector: 'app-edit-rrhh',
@@ -12,11 +13,13 @@ export class EditRrhhPage implements OnInit {
 
   public sub : string;
   public user : any;
+  public imgScr: string;
 
   constructor(
                 private activatedRoute : ActivatedRoute,
                 private router : Router,
                 public loadingCtrl: LoadingController,
+                private myCameraService: CameraService
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
@@ -28,6 +31,10 @@ export class EditRrhhPage implements OnInit {
     
   }
 
+  async updateProfilePicture()
+  {
+    await this.myCameraService.takePicture(this.imgScr);
+  }
   async ionViewWillEnter()
   {
     

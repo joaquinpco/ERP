@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { API, Auth } from 'aws-amplify';
 import { ActionSheetController } from '@ionic/angular';
+import { CameraService } from '../services/camera.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,12 +11,15 @@ import { ActionSheetController } from '@ionic/angular';
 export class ProfilePage implements OnInit {
 
   public user: any;
+  public imageSrc: string;
 
   constructor(
-    private actionSheetController: ActionSheetController  
+    private actionSheetController: ActionSheetController,
+    private myCameraService: CameraService 
   ) {
     this.user = new Object();
     this.user.normalizeAttr = [];
+    this.imageSrc = "assets/img/profile.png";
   }
 
   ngOnInit() {
@@ -37,16 +41,10 @@ export class ProfilePage implements OnInit {
           console.log('Share clicked');
         }
       }, {
-        text: 'Change profile image from Camera',
+        text: 'Change profile image',
         icon: 'camera-outline',
-        handler: () => {
-          console.log('Play clicked');
-        }
-      }, {
-        text: 'Change profile image from Album',
-        icon: 'image-outline',
-        handler: () => {
-          console.log('Favorite clicked');
+        handler: async () => {
+          await this.myCameraService.takePicture(this.imageSrc)
         }
       }, {
         text: 'Cancel',
