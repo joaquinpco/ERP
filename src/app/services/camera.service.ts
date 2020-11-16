@@ -12,7 +12,9 @@ export class CameraService {
   
   public guestPicture: string
 
-  constructor() {}
+  constructor() {
+    this.guestPicture = "assets/img/profile.png";
+  }
 
   async takePicture()
   {

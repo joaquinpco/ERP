@@ -49,7 +49,17 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'add-payroll',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./add-payroll/add-payroll.module').then( m => m.AddPayrollPageModule)
+  },
+  {
+    path: 'list-payroll',
+    loadChildren: () => import('./list-payroll/list-payroll.module').then( m => m.ListPayrollPageModule)
   }
 ];
 
