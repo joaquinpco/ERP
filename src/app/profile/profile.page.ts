@@ -27,7 +27,7 @@ export class ProfilePage implements OnInit {
   }
 
   addPhotoToProfile() {
-    this.myCameraService.takePicture(this.guestPicture);
+    this.myCameraService.takePicture();
   }
 
   async openActionSheet()
