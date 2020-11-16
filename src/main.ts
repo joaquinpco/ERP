@@ -7,13 +7,15 @@ import { environment } from './environments/environment';
 import Amplify from 'aws-amplify';
 import awsmobile from './aws-exports';
 
+import { defineCustomElements } from '@ionic/pwa-elements/loader'
+
 if (environment.production) {
-
   enableProdMode();
-
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
 
 Amplify.configure(awsmobile);
+
+defineCustomElements(window);

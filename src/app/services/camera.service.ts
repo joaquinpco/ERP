@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Plugins, CameraResultType } from '@capacitor/core';
-const { Camera } = Plugins;
+import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
+  CameraPhoto, CameraSource } from '@capacitor/core';
+
+const { Camera, Filesystem, Storage } = Plugins;
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CameraService {
+  
+  public guestPicture: string
 
-  constructor() { }
+  constructor() {}
 
-  async takePicture(imageSrc: any)
+  async takePicture()
   {
-    try
-    {
-      const image = await Camera.getPhoto({
+    try {
+      const profilePicture = await Camera.getPhoto({
         quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Base64
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
       });
-      
-      let imageUrl = image.webPath;
-      imageSrc = imageUrl; 
-    }
-    catch(err)
-    {
-      console.log(err);
+      this.guestPicture = profilePicture.dataUrl;
+    } catch (error) {
+      //console.error(error);
     }
   }
+
 }

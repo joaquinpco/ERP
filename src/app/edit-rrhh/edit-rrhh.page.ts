@@ -7,13 +7,12 @@ import { CameraService } from '../services/camera.service';
 @Component({
   selector: 'app-edit-rrhh',
   templateUrl: './edit-rrhh.page.html',
-  styleUrls: ['./edit-rrhh.page.scss'],
+  styleUrls: ['./edit-rrhh.page.scss']
 })
 export class EditRrhhPage implements OnInit {
 
   public sub : string;
   public user : any;
-  public imgScr: string;
 
   constructor(
                 private activatedRoute : ActivatedRoute,
@@ -33,7 +32,6 @@ export class EditRrhhPage implements OnInit {
 
   async updateProfilePicture()
   {
-    await this.myCameraService.takePicture(this.imgScr);
   }
   async ionViewWillEnter()
   {

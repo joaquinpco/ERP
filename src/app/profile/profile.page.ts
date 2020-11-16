@@ -6,23 +6,28 @@ import { CameraService } from '../services/camera.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
+  styleUrls: ['./profile.page.scss']
 })
 export class ProfilePage implements OnInit {
 
   public user: any;
   public imageSrc: string;
+  public guestPicture: string;
 
   constructor(
     private actionSheetController: ActionSheetController,
-    private myCameraService: CameraService 
+    public myCameraService: CameraService,
   ) {
     this.user = new Object();
     this.user.normalizeAttr = [];
-    this.imageSrc = "assets/img/profile.png";
+    this.guestPicture="assets/img/profile.png";
   }
 
   ngOnInit() {
+  }
+
+  addPhotoToProfile() {
+    this.myCameraService.takePicture(this.guestPicture);
   }
 
   async openActionSheet()
@@ -44,7 +49,7 @@ export class ProfilePage implements OnInit {
         text: 'Change profile image',
         icon: 'camera-outline',
         handler: async () => {
-          await this.myCameraService.takePicture(this.imageSrc)
+          await this.addPhotoToProfile();
         }
       }, {
         text: 'Cancel',
