@@ -19,16 +19,7 @@ Categoria.init(
     }
 )
 
-CategoriaNomina = sequelize.define('categoria_nomina', {
-    id: {
-        type:          DataTypes.BIGINT,
-        autoIncrement: true,
-        primaryKey:    true
-    }
-  });
-
-Categoria.belongsToMany(Nomina, { through: CategoriaNomina });
-Nomina.belongsToMany(Categoria, { through: CategoriaNomina });
+Categoria.hasMany(Nomina, { foreignKey: 'id' });
 
 (async ()=>{
     await sequelize.sync();
