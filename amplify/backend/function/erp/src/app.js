@@ -36,8 +36,8 @@ const sequelize = require("./sequelize");
 //Load Models
 const Audit = require('./models/Audit');
 const Nomina = require('./models/Nomina');
-const Categoria = require('./models/Devengo');
-const Devengo = require('./models/Categoria');
+const Categoria = require('./models/Categoria');
+const Devengo = require('./models/Devengo');
 
 AWS.config.update({ 
   region: process.env.REGION, 

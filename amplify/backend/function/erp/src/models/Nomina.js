@@ -3,7 +3,8 @@ const sequelize = require('../sequelize');
 
 class Nomina extends Model {}
 
-Nomina.init({
+Nomina.init(
+    {
         id: {
             type:          DataTypes.BIGINT,
             autoIncrement: true,

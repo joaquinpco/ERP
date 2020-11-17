@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../sequelize');
 const Nomina = require('./Nomina');
+const sequelize = require('../sequelize');
 
 class Devengo extends Model {}
 
@@ -16,7 +16,7 @@ Devengo.init({
     },
     {
         sequelize,
-        tableName: 'devengo'
+        modelName: 'devengo'
     }
 );
 

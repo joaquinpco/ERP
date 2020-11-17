@@ -21,7 +21,7 @@ Audit.init(
     },
     {
         sequelize,
-        modelName: 'Audit',
+        modelName: 'audit',
         indexes: [
             {
                 unique: false,

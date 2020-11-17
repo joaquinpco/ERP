@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../sequelize');
 const Nomina = require('./Nomina');
+const sequelize = require('../sequelize');
 
 class Categoria extends Model {}
 
@@ -15,12 +15,20 @@ Categoria.init(
     },
     {
         sequelize,
-        tableName: 'categoria'
+        modelName: 'categoria'
     }
 )
 
-Categoria.belongsToMany(Nomina, {foreignKey: 'id'});
-Nomina.belongsToMany(Categoria, {foreignKey: 'id'});
+CategoriaNomina = sequelize.define('categoria_nomina', {
+    id: {
+        type:          DataTypes.BIGINT,
+        autoIncrement: true,
+        primaryKey:    true
+    }
+  });
+
+Categoria.belongsToMany(Nomina, { through: CategoriaNomina });
+Nomina.belongsToMany(Categoria, { through: CategoriaNomina });
 
 (async ()=>{
     await sequelize.sync();
