@@ -8,6 +8,45 @@
   
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <form (ngSubmit)="newPayroll()">
+    <ion-item>
+      <ion-label>Employee:</ion-label>
+      <ion-select value="" okText="Okay" cancelText="Dismiss" >
+        <div *ngFor="let user of users">
+            <ion-select-option value="{{ user.Username }}">{{ user.Attributes[0].Value }} {{ user.Attributes[4].Value }}</ion-select-option>
+        </div>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Period:</ion-label>
+      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
+      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total Days:</ion-label>
+      <ion-select value="30" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="30">30</ion-select-option>
+        <ion-select-option value="31">31</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total Remuneration:</ion-label>
+      <ion-input placeholder="Enter remuneration, only numbers"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>S.S. Base:</ion-label>
+      <ion-input placeholder="Enter Social Security Base, only numbers"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>A.T. & DES Base</ion-label>
+      <ion-input placeholder="Enter AT & DES Base, only numbers"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>IRPF Base</ion-label>
+      <ion-input placeholder="IRPF Base"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+  </form>
 
 </ion-content>

@@ -37,7 +37,7 @@ const sequelize = require("./sequelize");
 const Audit = require('./models/Audit');
 const Nomina = require('./models/Nomina');
 const Categoria = require('./models/Categoria');
-const Devengo = require('./models/Devengo');
+const Devengo = require('./models/Concepto');
 
 AWS.config.update({ 
   region: process.env.REGION, 
@@ -234,6 +234,17 @@ app.put('/erp/rrhh/disableUser', async function(req, res) {
   catch(err)
   {
     console.error(err);
+    res.json(err);
+  }
+});
+
+app.get('/erp/nominas', async function(req, res) {
+  try
+  {
+    res.json(Nomina.findAll());
+  }
+  catch(err)
+  {
     res.json(err);
   }
 });
