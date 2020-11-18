@@ -35,6 +35,50 @@ var params = {
           MaxLength: '30',
           MinLength: '3'
         }
+      },
+      {
+        AttributeDataType: 'String',
+        DeveloperOnlyAttribute: false,
+        Mutable:true,
+        Name: 'NIF',
+        Required: false,
+        StringAttributeConstraints: {
+          MaxLength: '9',
+          MinLength: '9'
+        }
+      },
+      {
+        AttributeDataType: 'Number',
+        DeveloperOnlyAttribute:false,
+        Mutable:true,
+        Name: 'PHONE',
+        Required: false,
+        NumberAttributeConstraints: {
+          MaxValue: '15',
+          MinValue: '4'
+        }
+      },
+      {
+        AttributeDataType: 'String',
+        DeveloperOnlyAttribute:false,
+        Mutable:true,
+        Name: 'ADDRESS',
+        Required: false,
+        StringAttributeConstraints: {
+          MaxLength: '255',
+          MinLength: '1'
+        }
+      },
+      {
+        AttributeDataType: 'Number',
+        DeveloperOnlyAttribute:false,
+        Mutable:true,
+        Name: 'NSS',
+        Required: false,
+        NumberAttributeConstraints: {
+          MaxValue: '8',
+          MinValue: '6'
+        }
       }
       /* more items */
     ],

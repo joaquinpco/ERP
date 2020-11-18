@@ -80,10 +80,9 @@ export class LoginPage implements OnInit
         {
             const user = await Auth.signIn(details.username, details.password);
 
-            this.clearInputs(this.loginProps);
-
             if(user.challengeName === undefined)
             {
+              this.clearInputs(this.loginProps);
               this.router.navigate(['/home']);
             }
             else
@@ -91,6 +90,7 @@ export class LoginPage implements OnInit
               if(user.challengeName === "NEW_PASSWORD_REQUIRED")
               {
                 const u = await Auth.completeNewPassword(user, details.password, user.challengeParam.requiredAttributes);
+                this.clearInputs(this.loginProps);
                 this.router.navigate(["/home"]);
               }
             }     

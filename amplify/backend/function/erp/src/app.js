@@ -94,8 +94,6 @@ app.put('/erp/normalizeUser', async function(req, res){
 
     const currentUserNormalized = normalizeUser(currentUser);
 
- 
-
     if(currentUserNormalized.normalizeAttr['custom:FIRST_NAME'] === undefined)
     {
       var paramsPut = {
@@ -126,6 +124,7 @@ app.put('/erp/normalizeUser', async function(req, res){
   catch(err)
   {
     console.error(err);
+    res.json(err);
   }
 });
 
