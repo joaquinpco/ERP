@@ -302,7 +302,7 @@ app.put('/erp/rrhh/disableUser', async function(req, res) {
 app.get('/erp/concepto', async function(req, res) {
   try
   {
-    let conceptos = await Concepto.findAll().promise();
+    let conceptos = await Concepto.findAll();
     res.json(conceptos);
   }
   catch(err)
