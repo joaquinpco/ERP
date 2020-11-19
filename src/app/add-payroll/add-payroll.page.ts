@@ -10,8 +10,9 @@ import { API } from 'aws-amplify';
 })
 export class AddPayrollPage implements OnInit {
 
-  public users:Array<any>;
-  public conceptos:Array<any>;
+  public users : Array<any>;
+  public conceptos : Array<any>;
+  public conceptosSelected : Array<any>;
 
   constructor(
                 public loadingCtrl: LoadingController
@@ -19,11 +20,24 @@ export class AddPayrollPage implements OnInit {
   {
     this.users = [];
     this.conceptos = [];
+    this.conceptosSelected = [];
   }
 
-  newPayroll()
+  async newPayroll()
   {
     console.log("Clicked");
+    this.conceptos.push({
+      codigo: 123,
+      nombre: 'perico perez',
+      porcentaje: 12.3
+    });
+    console.log(this.conceptos)
+  }
+
+  seeChange()
+  {
+    console.log(this.conceptos);
+    console.log(this.conceptosSelected);
   }
 
   ngOnInit() {}
@@ -43,9 +57,12 @@ export class AddPayrollPage implements OnInit {
       const ressConcepto = await API.get('ERP', '/erp/concepto', {
         queryStringParameters: {}
       });
-
+      
       this.users = ressUser.Users;
       this.conceptos = ressConcepto;
+
+      // TODO: remove the next line
+      this.newPayroll();
 
       loading.dismiss();
     }

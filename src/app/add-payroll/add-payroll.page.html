@@ -50,13 +50,15 @@
     </ion-item>
     <ion-item>
       <ion-label>Concept:</ion-label>
-      <ion-select value="" okText="Okay" cancelText="Dismiss">
-        <div *ngIf="(conceptos | json) != ({} | json)">
-          <div *ngFor="let concepto of conceptos">
-            <ion-select-option value="{{ concepto.codigo }}">{{ concepto.nombre }}</ion-select-option>
-          </div>
-        </div>
+      
+      <ion-select [(ngModel)]="conceptosSelected" [ngModelOptions]="{standalone: true}" (ngModelChange)="seeChange($event)"
+                  [multiple]="true" okText="Okay" cancelText="Dismiss">
+                  
+        <ion-select-option *ngFor="let concepto of conceptos" [value]="concepto">
+          {{ concepto.nombre }}
+        </ion-select-option>
       </ion-select>
+
     </ion-item>
     <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
   </form>
