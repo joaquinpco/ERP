@@ -79,6 +79,39 @@ var params = {
           MaxValue: '8',
           MinValue: '6'
         }
+      },
+      {
+        AttributeDataType: 'String',
+        DeveloperOnlyAttribute:false,
+        Mutable:true,
+        Name: 'STR_PHONE',
+        Required: false,
+        StringAttributeConstraints: {
+          MaxLength: '16',
+          MinLength: '4'
+        }
+      },
+      {
+        AttributeDataType: 'String',
+        DeveloperOnlyAttribute:false,
+        Mutable:true,
+        Name: 'STR_NSS',
+        Required: false,
+        StringAttributeConstraints: {
+          MaxLength: '9',
+          MinLength: '6'
+        }
+      },
+      {
+        AttributeDataType: 'String',
+        DeveloperOnlyAttribute: false,
+        Mutable: true,
+        Name: 'PROFILE_PICTURE',
+        Required: false,
+        StringAttributeConstraints: {
+          MaxLength: '500',
+          MinLength: '3'
+        }
       }
       /* more items */
     ],

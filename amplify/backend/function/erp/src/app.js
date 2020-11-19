@@ -56,7 +56,9 @@ const Concepto = require('./models/Concepto');
   {
     await cognito.addCustomAttributes(customUsersPoolParams).promise();
   }
-  catch(err){}
+  catch(err){
+    console.error(err);
+  }
 })();
 
 /********************
@@ -78,7 +80,21 @@ const Concepto = require('./models/Concepto');
   
    return user;
  }
+ 
+ function normalizeListUser(user)
+ {
+  const attributes  = user.Attributes;
+  
+  let normalizeAttr = {};
+  for( attr of attributes)
+  {
+    normalizeAttr[attr.Name] = attr.Value;
+  }
 
+  user.normalizeAttr = normalizeAttr;
+ 
+  return user;
+ }
 /**********************
  * Route methods  *
  **********************/
@@ -111,6 +127,26 @@ app.put('/erp/normalizeUser', async function(req, res){
           {
             Name: 'custom:ROLE',
             Value: 'ADMIN'
+          },
+          {
+            Name: 'custom:NIF',
+            Value: '32079350P'
+          },
+          {
+            Name: 'custom:STR_PHONE',
+            Value: '000000000'
+          },
+          {
+            Name: 'custom:ADDRESS',
+            Value: 'default address'
+          },
+          {
+            Name: 'custom:STR_NSS',
+            Value: '00000000'
+          },
+          {
+            Name: 'custom:PROFILE_PICTURE',
+            Value: 'default'
           }
         ],
         UserPoolId: process.env.POOL_ID,
@@ -178,6 +214,18 @@ app.post('/erp/rrhh/newEmployee', async function(req, res) {
         {
           Name: 'custom:ROLE',
           Value: req.body.role
+        },
+        {
+          Name: 'custom:NIF',
+          Value: req.body.nif
+        },
+        {
+          Name: 'custom:PHONE',
+          Value: req.body.phone
+        },
+        {
+          Name:'custom:ADDRESS',
+          Value: req.body.address
         }
       ]
     };
@@ -208,7 +256,11 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
         'custom:FIRST_NAME',
         'custom:LAST_NAME',
         'custom:ROLE',
-        'sub'
+        'sub',
+        'custom:NIF',
+        'custom:STR_PHONE',
+        'custom:ADDRESS',
+        'custom:STR_NSS'
         /* more items */
       ]
     };
