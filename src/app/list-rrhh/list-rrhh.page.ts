@@ -46,8 +46,8 @@ export class ListRRHHPage implements OnInit {
         queryStringParameters: {}
       });
 
-      this.users = ress.usersNormalizedAttr;
-      console.log(this.users);
+      this.users = ress;
+      console.log(ress);
       loading.dismiss();
     }
     catch(err)

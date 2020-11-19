@@ -37,8 +37,8 @@ const sequelize = require("./sequelize");
 const Audit = require('./models/Audit');
 const Nomina = require('./models/Nomina');
 const Categoria = require('./models/Categoria');
-const Devengo = require('./models/Concepto');
 const Valoracion = require('./models/Valoracion');
+const Concepto = require('./models/Concepto');
 
 AWS.config.update({ 
   region: process.env.REGION, 
@@ -49,8 +49,7 @@ AWS.config.update({
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
-const Concepto = require('./models/Concepto');
-const { of } = require('rxjs');
+
 
 (async ()=>{
   try
