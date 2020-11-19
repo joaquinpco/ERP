@@ -20,7 +20,7 @@ Concepto.init({
     }
 );
 
-const Nomina_Concepto = sequelize.define('nomina_conceptos', {}, { timestamps: false });
+const Nomina_Concepto = sequelize.define('nomina_concepto', {}, { timestamps: false });
 Concepto.belongsToMany(Nomina, { through: Nomina_Concepto });
 Nomina.belongsToMany(Concepto, { through: Nomina_Concepto });
 

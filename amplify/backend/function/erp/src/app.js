@@ -38,6 +38,7 @@ const Audit = require('./models/Audit');
 const Nomina = require('./models/Nomina');
 const Categoria = require('./models/Categoria');
 const Devengo = require('./models/Concepto');
+const Valoracion = require('./models/Valoracion');
 
 AWS.config.update({ 
   region: process.env.REGION, 
@@ -48,6 +49,7 @@ AWS.config.update({
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
+const Concepto = require('./models/Concepto');
 
 (async ()=>{
   try
@@ -238,10 +240,11 @@ app.put('/erp/rrhh/disableUser', async function(req, res) {
   }
 });
 
-app.get('/erp/nominas', async function(req, res) {
+app.get('/erp/concepto', async function(req, res) {
   try
   {
-    res.json(Nomina.findAll());
+    let conceptos = await Concepto.findAll().promise();
+    res.json(conceptos);
   }
   catch(err)
   {

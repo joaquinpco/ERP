@@ -1,3 +1,4 @@
+import { isEmptyExpression } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
@@ -10,14 +11,14 @@ import { API } from 'aws-amplify';
 export class AddPayrollPage implements OnInit {
 
   public users:Array<any>;
-  public nominas:Array<any>;
+  public conceptos:Array<any>;
 
   constructor(
                 public loadingCtrl: LoadingController
   ) 
   {
     this.users = [];
-    this.nominas = [];
+    this.conceptos = [];
   }
 
   newPayroll()
@@ -39,14 +40,13 @@ export class AddPayrollPage implements OnInit {
         queryStringParameters: {}
       });
 
-      const ressNomina = await API.get('ERP', '/erp/nominas', {
+      const ressConcepto = await API.get('ERP', '/erp/concepto', {
         queryStringParameters: {}
       });
 
       this.users = ressUser.Users;
-      this.nominas = ressNomina;
+      this.conceptos = ressConcepto;
 
-      console.log(this.nominas);
       loading.dismiss();
     }
     catch(err)
