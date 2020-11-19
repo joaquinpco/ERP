@@ -50,15 +50,14 @@ const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
 const Concepto = require('./models/Concepto');
+const { of } = require('rxjs');
 
 (async ()=>{
   try
   {
     await cognito.addCustomAttributes(customUsersPoolParams).promise();
   }
-  catch(err){
-    console.error(err);
-  }
+  catch(err){}
 })();
 
 /********************
@@ -69,7 +68,7 @@ const Concepto = require('./models/Concepto');
  {
    
    const attributes  = user.UserAttributes;
-  
+
    let normalizeAttr = {};
    for( attr of attributes)
    {
@@ -80,20 +79,29 @@ const Concepto = require('./models/Concepto');
   
    return user;
  }
- 
- function normalizeListUser(user)
- {
-  const attributes  = user.Attributes;
-  
-  let normalizeAttr = {};
-  for( attr of attributes)
-  {
-    normalizeAttr[attr.Name] = attr.Value;
-  }
 
-  user.normalizeAttr = normalizeAttr;
- 
-  return user;
+ function normalizeListUser(userList)
+ {
+   let usersNormalizedAttr = [];
+
+   for(user of userList.Users)
+   {
+    const attributes = user.Attributes;
+    let normalizeAttr = {};
+    
+    for(attr of attributes)
+    {
+      normalizeAttr[attr.Name] = attr.Value;
+    }
+    
+    //Incluimos la propiedad enable
+    normalizeAttr['Enabled'] = user.Enabled;
+
+    user.normalizeAttr = normalizeAttr;
+    usersNormalizedAttr.push(user.normalizeAttr);
+   }
+
+   return usersNormalizedAttr;
  }
 /**********************
  * Route methods  *
@@ -161,7 +169,6 @@ app.put('/erp/normalizeUser', async function(req, res){
   }
   catch(err)
   {
-    console.error(err);
     res.json(err);
   }
 });
@@ -182,7 +189,6 @@ app.get('/erp/getNormalizeUser', async function(req, res) {
   }
   catch(err)
   {
-    console.error(err);
     res.json(err);
   }
 
@@ -264,9 +270,11 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
         /* more items */
       ]
     };
-    const dataUsers = await cognito.listUsers(params).promise();
 
-    res.json(dataUsers);
+    const dataUsers = await cognito.listUsers(params).promise();
+    const usersNormalized = normalizeListUser(dataUsers);
+
+    res.json(usersNormalized);
   }
   catch(err)
   {
