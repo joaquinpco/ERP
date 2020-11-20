@@ -44,7 +44,7 @@ export class AddPayrollPage implements OnInit {
         queryStringParameters: {}
       });
 
-      this.users = ressUser.Users;
+      this.users = ressUser;
       this.conceptos = ressConcepto;
 
       loading.dismiss();

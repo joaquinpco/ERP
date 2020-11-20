@@ -4,6 +4,16 @@ import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 import { CameraService } from '../services/camera.service';
 
+export class EditUser
+{
+  public firstname: string;
+  public lastname: string;
+  public role: string;
+  public nif: string;
+  public phone: string;
+  public nss: string;
+}
+
 @Component({
   selector: 'app-edit-rrhh',
   templateUrl: './edit-rrhh.page.html',
@@ -13,6 +23,7 @@ export class EditRrhhPage implements OnInit {
 
   public sub : string;
   public user : any;
+  public edituser : EditUser;
 
   constructor(
                 private activatedRoute : ActivatedRoute,
@@ -23,6 +34,7 @@ export class EditRrhhPage implements OnInit {
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
     this.user = { normalizeAttr : [] };
+    this.edituser = new EditUser();
   }
 
   ngOnInit() 

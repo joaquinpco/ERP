@@ -60,6 +60,14 @@ const routes: Routes = [
   {
     path: 'list-payroll',
     loadChildren: () => import('./list-payroll/list-payroll.module').then( m => m.ListPayrollPageModule)
+  },
+  {
+    path: 'add-report',
+    loadChildren: () => import('./add-report/add-report.module').then( m => m.AddReportPageModule)
+  },
+  {
+    path: 'list-report',
+    loadChildren: () => import('./list-report/list-report.module').then( m => m.ListReportPageModule)
   }
 ];
 

@@ -14,7 +14,7 @@
       <ion-label>Employee:</ion-label>
       <ion-select value="" okText="Okay" cancelText="Dismiss" >
         <div *ngFor="let user of users">
-            <ion-select-option value="{{ user.Username }}">{{ user.Attributes[0].Value }} {{ user.Attributes[4].Value }}</ion-select-option>
+            <ion-select-option value="{{ user['sub'] }}">{{ user['custom:FIRST_NAME'] }} {{ user['custom:LAST_NAME'] }}</ion-select-option>
         </div>
       </ion-select>
     </ion-item>
@@ -50,7 +50,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Concept:</ion-label>
-      <ion-select value="" okText="Okay" cancelText="Dismiss">
+      <ion-select multiple="true" value="" okText="Okay" cancelText="Dismiss">
         <div *ngIf="(conceptos | json) != ({} | json)">
           <div *ngFor="let concepto of conceptos">
             <ion-select-option value="{{ concepto.codigo }}">{{ concepto.nombre }}</ion-select-option>

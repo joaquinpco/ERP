@@ -137,7 +137,7 @@ app.put('/erp/normalizeUser', async function(req, res){
           },
           {
             Name: 'custom:NIF',
-            Value: '32079350P'
+            Value: '000000000'
           },
           {
             Name: 'custom:STR_PHONE',
@@ -225,12 +225,20 @@ app.post('/erp/rrhh/newEmployee', async function(req, res) {
           Value: req.body.nif
         },
         {
-          Name: 'custom:PHONE',
+          Name: 'custom:STR_PHONE',
           Value: req.body.phone
         },
         {
           Name:'custom:ADDRESS',
           Value: req.body.address
+        },
+        {
+          Name:'custom:STR_NSS',
+          Value: req.body.nss
+        },
+        {
+          Name:'custom:PROFILE_PICTURE',
+          Value: 'profile.png'
         }
       ]
     };

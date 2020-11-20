@@ -10,49 +10,60 @@
 <ion-content>
   <div *ngIf="user.normalizeAttr != undefined">
     <ion-list lines="none">
-      <br>
-      <ion-item class="profile-item">
-        <div class="profile-picture big-profile-picture">
-          <img src="#">
-        </div>
-        
-      </ion-item>
-      <ion-item>
-        <ion-label style="text-align: center;">
-          <ion-button color="light" (click)="updateProfilePicture()"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-        </ion-label>
-      </ion-item>
-      <br>
-      <ion-item>
-        <ion-label>
-          First Name:
-        </ion-label>
-        <ion-input placeholder="{{ user.normalizeAttr['custom:FIRST_NAME'] }}"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          Last Name:
-        </ion-label>
-        <ion-input placeholder="{{ user.normalizeAttr['custom:LAST_NAME'] }}"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          Email:
-        </ion-label>
-        <ion-input placeholder="{{ user.normalizeAttr['email'] }}"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          Role:
-        </ion-label>
-        <ion-input placeholder="{{ user.normalizeAttr['custom:ROLE'] }}"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-button color="warning" (click)="updateUser(sub)">Update user</ion-button>
-      </ion-item>
-      <ion-item *ngIf="user.Enabled == false">
-        <ion-button color="success" (click)="enableUser(sub)">Enable User</ion-button>
-      </ion-item>
+      <form (submit)="signup()">
+        <br>
+        <ion-item class="profile-item">
+          <div class="profile-picture big-profile-picture">
+            <img src="#">
+          </div>
+          
+        </ion-item>
+        <ion-item>
+          <ion-label style="text-align: center;">
+            <ion-button color="light" (click)="updateProfilePicture()"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          </ion-label>
+        </ion-item>
+        <br>
+        <ion-item>
+          <ion-label>
+            First Name:
+          </ion-label>
+          <ion-input placeholder="{{ user.normalizeAttr['custom:FIRST_NAME'] }}" [(ngModel)]="edituser.firstname" name="firstname"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Last Name:
+          </ion-label>
+          <ion-input placeholder="{{ user.normalizeAttr['custom:LAST_NAME'] }}" [(ngModel)]="edituser.lastname" name="lastname"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Role:
+          </ion-label>
+          <ion-input placeholder="{{ user.normalizeAttr['custom:ROLE'] }}" [(ngModel)]="edituser.role" name="role"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium">Email: {{ user.normalizeAttr['email'] }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>NIF:</ion-label>
+          <ion-input placeholder="{{ user.normalizeAttr['custom:NIF'] }}" [(ngModel)]="edituser.nif" name="nif"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Phone:</ion-label>
+          <ion-input placeholder="{{ user.normalizeAttr['custom:STR_PHONE'] }}" [(ngModel)]="edituser.phone" name="phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>NSS:</ion-label>
+          <ion-input placeholder="{{ user.normalizeAttr['custom:STR_NSS'] }}" [(ngModel)]="edituser.nss" name="nss"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button color="warning" (click)="updateUser(sub)">Update user</ion-button>
+        </ion-item>
+        <ion-item *ngIf="user.Enabled == false">
+          <ion-button color="success" (click)="enableUser(sub)">Enable User</ion-button>
+        </ion-item>
+      </form>
     </ion-list>
   </div>
 </ion-content>

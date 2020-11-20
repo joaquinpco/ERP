@@ -5,11 +5,15 @@ import { Router } from '@angular/router';
 
 export class Signupuser
 {
-  username: String;
-  firstname: String;
-  lastname: String;
-  password: String;
-  role: String;
+  username: string;
+  firstname: string;
+  lastname: string;
+  password: string;
+  role: string;
+  phone: string;
+  nss: string;
+  address: string;
+  nif: string;
 };
 
 @Component({
@@ -33,84 +37,81 @@ export class AddRrhhPage implements OnInit {
 
   ngOnInit() {}
 
-  checkProperties() {
-    
-    let empty = true;
-    
-    if(this.signupuser.username == undefined || this.signupuser.firstname == undefined 
-      || this.signupuser.lastname == undefined || this.signupuser.role == undefined || 
-      this.signupuser.password == undefined)
-    {
-      empty = false;
-    }
-
-    return empty;
-  }
-
   async signup()
   {
-    if(this.checkProperties())
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait....'
+    });
+
+    try
     {
-      const loading = await this.loadingCtrl.create({
-        message: 'Please wait....'
-      });
+      await loading.present();
 
-      try
+      let empty = true;
+    
+      if(this.signupuser.username == undefined || this.signupuser.firstname == undefined 
+        || this.signupuser.lastname == undefined || this.signupuser.role == undefined || 
+        this.signupuser.password == undefined || this.signupuser.phone == undefined || 
+        this.signupuser.nss == undefined || this.signupuser.address == undefined ||
+        this.signupuser.nif == undefined)
       {
-        await loading.present();
-
-        const postParams = {
-          body: {
-            email: this.signupuser.username,
-            firstname: this.signupuser.firstname,
-            lastname: this.signupuser.lastname,
-            role: this.signupuser.role,
-            tempPassword: this.signupuser.password
-          }
-        }
-
-        const res = await API.post('ERP', '/erp/rrhh/newEmployee', postParams);
-
-        loading.dismiss();
-        if(res.code == "UsernameExistsException")
-        {
-          const alert = await this.alertController.create({
-            cssClass: 'my-custom-class',
-            header: 'Alert',
-            subHeader: 'Employee email already exist',
-            message: 'Submitted employee email was registered previously.',
-            buttons: ['OK']
-          });
+        throw("Blank Inputs");
+      }
       
-          await alert.present();
-        }
-        else
-        {
-          this.route.navigate(['/list-rrhh'])
+      const postParams = {
+        body: {
+          email: this.signupuser.username,
+          firstname: this.signupuser.firstname,
+          lastname: this.signupuser.lastname,
+          role: this.signupuser.role,
+          tempPassword: this.signupuser.password,
+          phone: this.signupuser.phone,
+          nss: this.signupuser.nss,
+          address: this.signupuser.address,
+          nif: this.signupuser.nif
         }
       }
-      catch(err)
+
+      const res = await API.post('ERP', '/erp/rrhh/newEmployee', postParams);
+
+      loading.dismiss();
+      if(res.code == "UsernameExistsException")
       {
-        loading.dismiss();
+        const alert = await this.alertController.create({
+          cssClass: 'my-custom-class',
+          header: 'Alert',
+          subHeader: 'Employee email already exist',
+          message: 'Submitted employee email was registered previously.',
+          buttons: ['OK']
+        });
+    
+        await alert.present();
       }
-      finally
+      else
       {
-        loading.dismiss();
+        this.route.navigate(['/list-rrhh'])
       }
     }
-    else
+    catch(err)
     {
-      
+      loading.dismiss();
+
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
         header: 'Alert',
-        subHeader: 'Some inputs are empty',
-        message: 'Fill all inputs before submitting data.',
+        subHeader: '',
+        message: err,
         buttons: ['OK']
       });
   
       await alert.present();
     }
+    finally
+    {
+      loading.dismiss();
+    }
+    
+    
   }
 
 }
