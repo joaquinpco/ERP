@@ -1,4 +1,3 @@
-import { isEmptyExpression } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { API, Auth } from 'aws-amplify';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { CameraService } from '../services/camera.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class ProfilePage implements OnInit {
   constructor(
     private actionSheetController: ActionSheetController,
     public myCameraService: CameraService,
+    public alertController: AlertController
   ) {
     this.user = new Object();
     this.user.normalizeAttr = [];
@@ -42,8 +43,44 @@ export class ProfilePage implements OnInit {
       buttons: [{
         text: 'Edit First and Last Name',
         icon: 'document-text-outline',
-        handler: () => {
-          console.log('Share clicked');
+        handler: async () => {
+
+          const alert = await this.alertController.create({
+              cssClass: 'my-custom-class',
+              header: 'Update first and last Name',
+              inputs: [
+                {
+                  name: 'first_name',
+                  type: 'text',
+                  label: 'First Name',
+                  value: '',
+                  checked: true
+                },
+                {
+                  name: 'last_name',
+                  type: 'text',
+                  label: 'Last Name',
+                  value: ''
+                },
+              ],
+              buttons: [
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: () => {
+                    console.log('Confirm Cancel');
+                  }
+                }, {
+                  text: 'Update',
+                  handler: () => {
+                    console.log('Confirm Ok');
+                  }
+                }
+              ]
+            });
+          
+          alert.present();
         }
       }, {
         text: 'Change profile image',

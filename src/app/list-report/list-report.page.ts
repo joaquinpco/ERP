@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListReportPage implements OnInit {
 
-  constructor() { }
+  public valoraciones: Array<any>;
+
+  constructor() 
+  {
+    this.valoraciones = [];
+  }
 
   ngOnInit() {
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 import { CameraService } from '../services/camera.service';
 
@@ -12,6 +12,7 @@ export class EditUser
   public nif: string;
   public phone: string;
   public nss: string;
+  public address: string;
 }
 
 @Component({
@@ -29,7 +30,8 @@ export class EditRrhhPage implements OnInit {
                 private activatedRoute : ActivatedRoute,
                 private router : Router,
                 public loadingCtrl: LoadingController,
-                private myCameraService: CameraService
+                private myCameraService: CameraService,
+                public alertController: AlertController
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
@@ -42,9 +44,66 @@ export class EditRrhhPage implements OnInit {
     
   }
 
-  async updateProfilePicture()
+  async updateUser(sub)
   {
+    const loading = await this.loadingCtrl.create({
+      message: 'Updating profile. Please, wait...'
+    });
+    try
+    {
+      if(this.edituser.firstname == "" || this.edituser.lastname == "" || 
+        this.edituser.role == "" || this.edituser.phone == "" || 
+        this.edituser.nss == "" || this.edituser.address == "" ||
+        this.edituser.nif == "")
+      {
+        throw("Fields cannot be empty");
+      }
+      else
+      {
+        const putParams = {
+          body: {
+            firstname: this.edituser.firstname,
+            lastname: this.edituser.lastname,
+            role: this.edituser.role,
+            phone: this.edituser.phone,
+            nss: this.edituser.nss,
+            address: this.edituser.address,
+            nif: this.edituser.nif,
+            sub: sub,
+            updateType: 2
+          }
+        }
+        await loading.present();
+        
+        await API.put('ERP', '/erp/updateEmployee', putParams);
+
+        this.router.navigate(['/list-rrhh']);
+
+        loading.dismiss();
+      }
+    }
+    catch(err)
+    {
+
+      loading.dismiss();
+      
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Error',
+        subHeader: '',
+        message: err,
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+
+    }
+    finally
+    {
+      loading.dismiss();
+    }
   }
+  
   async ionViewWillEnter()
   {
     
@@ -85,7 +144,7 @@ export class EditRrhhPage implements OnInit {
       const apiName = 'ERP'; // replace this with your api name.
       const path = '/erp/rrhh/enableUser'; // replace this with the path you have configured on your API
       const myInit = {
-          body: {sub : this.sub }, // replace this with attributes you need
+          body: {sub : sub }, // replace this with attributes you need
           headers: {}, // OPTIONAL
       };
 

@@ -12,7 +12,8 @@ Valoracion.init(
         },
         feedback: DataTypes.BOOLEAN,
         informe: DataTypes.STRING,
-        periodo: DataTypes.ENUM('ANUAL', 'MENSUAL', 'SEMANAL')
+        periodo: DataTypes.ENUM('ANUAL', 'MENSUAL', 'SEMANAL'),
+        sub: DataTypes.STRING
     },
     {
         sequelize,

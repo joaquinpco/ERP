@@ -307,11 +307,99 @@ app.put('/erp/rrhh/disableUser', async function(req, res) {
   }
 });
 
+app.put('/erp/updateEmployee', async function(req, res){
+  try
+  {
+    let params = {}
+    
+    //update from emp profile
+    if(req.body.updateType == 1)
+    {
+      params = {
+        UserAttributes: [ /* required */
+          {
+            Name: 'custom:FIRST_NAME', /* required */
+            Value: req.body.firstname
+          },
+          {
+            Name: 'custom:LAST_NAME',
+            Value: req.body.lastname
+          }
+          /* more items */
+        ],
+        UserPoolId: process.env.POOL_ID, /* required */
+        Username: req.body.sub /* required */
+      };
+    }
+    else
+    {
+      //update from edit emp RRHH
+      params = {
+        UserAttributes: [ /* required */
+          {
+            Name: 'custom:FIRST_NAME', /* required */
+            Value: req.body.firstname
+          },
+          {
+            Name: 'custom:LAST_NAME',
+            Value: req.body.lastname
+          },
+          {
+            Name: 'custom:NIF',
+            Value: req.body.nif
+          },
+          {
+            Name: 'custom:ROLE',
+            Value: req.body.role
+          },
+          {
+            Name: 'custom:STR_NSS',
+            Value: req.body.nss
+          },
+          {
+            Name: 'custom:STR_PHONE',
+            Value: req.body.phone
+          },
+          {
+            Name: 'custom:ADDRESS',
+            Value: req.body.address
+          }
+
+          /* more items */
+        ],
+        UserPoolId: process.env.POOL_ID, /* required */
+        Username: req.body.sub /* required */
+      };
+    }
+
+    const reqResult = await cognito.adminUpdateUserAttributes(params).promise();
+      
+    res.json(reqResult);
+    
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
 app.get('/erp/concepto', async function(req, res) {
   try
   {
     let conceptos = await Concepto.findAll();
     res.json(conceptos);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.get('/erp/valoracion', async function(req, res) {
+  try
+  {
+    let valoraciones = await Valoracion.findAll();
+    res.json(valoraciones);
   }
   catch(err)
   {
