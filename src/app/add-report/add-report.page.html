@@ -24,13 +24,16 @@
         type="file"
         name="file"
         id="file"
-        class="fileInput"/>
+        class="fileInput"
+        accept="application/pdf"
+        (change)="handleFileInput($event.target.files)"
+        />
        <label for="file"><ion-icon name="reader-outline"></ion-icon> PDF</label>
     </ion-item>
 
     <ion-item>
       <ion-label>Period:</ion-label>
-      <ion-select placeholder="Select One">
+      <ion-select placeholder="Select One" name="period" [(ngModel)]="period">
         <ion-select-option value="w">Weekly</ion-select-option>
         <ion-select-option value="m">Monthly</ion-select-option>
         <ion-select-option value="y">Year</ion-select-option>
@@ -39,7 +42,7 @@
 
     <ion-item>
       <ion-label>User:</ion-label>
-      <ion-select placeholder="Select One">
+      <ion-select placeholder="Select One" name="sub" [(ngModel)]="sub">
         <ion-select-option *ngFor="let user of users" value="{{ user['sub'] }}">{{ user['custom:FIRST_NAME'] }} {{ user['custom:LAST_NAME'] }}</ion-select-option>
       </ion-select>
     </ion-item>

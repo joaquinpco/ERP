@@ -46,10 +46,16 @@ AWS.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY 
 });
 
+const BUCKET_NAME = process.env.BUCKET_NAME
+
+const s3 = new AWS.S3({
+  ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+  SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY
+});
+
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
-
 
 (async ()=>{
   try
@@ -422,6 +428,57 @@ app.put('/erp/rrhh/enableUser', async function(req, res) {
     console.error(err);
     res.json(err);
   }
+});
+
+app.post('/erp/createUserReport', async function(req, res) {
+  try
+  {
+    const report = req.body.informe;
+
+    if(report)
+    {
+      //Subida de fichero a S3
+
+      const params = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: report.name,
+        Body: report
+      };
+
+      await s3.upload(params).promise();
+
+      await Valoracion.create({
+        feedback: req.body.feedback,
+        informe: req.body.informe,
+        periodo: req.body.periodo,
+        sub: req.body.sub
+      });
+
+      await sequelize.sync();
+
+    }
+    else
+    {
+
+      await Valoracion.create({
+        feedback: req.body.feedback,
+        informe: "",
+        periodo: req.body.periodo,
+        sub: req.body.sub
+      });
+
+      await sequelize.sync();
+
+    }
+
+    res.json('success');
+  }
+  catch(err)
+  {
+    console.error(err);
+    res.json(err);
+  }
+
 });
 
 app.get('/erp/*', function(req, res) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { API, Auth } from 'aws-amplify';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { API, Auth, loadingOverlay } from 'aws-amplify';
+import { ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { CameraService } from '../services/camera.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class ProfilePage implements OnInit {
   constructor(
     private actionSheetController: ActionSheetController,
     public myCameraService: CameraService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public loadingController: LoadingController
   ) {
     this.user = new Object();
     this.user.normalizeAttr = [];
@@ -52,15 +53,13 @@ export class ProfilePage implements OnInit {
                 {
                   name: 'first_name',
                   type: 'text',
-                  label: 'First Name',
-                  value: '',
-                  checked: true
+                  value: this.user.normalizeAttr['custom:FIRST_NAME']
                 },
                 {
                   name: 'last_name',
                   type: 'text',
                   label: 'Last Name',
-                  value: ''
+                  value: this.user.normalizeAttr['custom:LAST_NAME']
                 },
               ],
               buttons: [
@@ -102,8 +101,11 @@ export class ProfilePage implements OnInit {
 
   async ionViewWillEnter()
   {
+    const loader = await this.loadingController.create({message: 'Please, wait ...'});
     try
-    {
+    {  
+      loader.present();
+
       const currentUser = await Auth.currentAuthenticatedUser();
       let params = {
         'queryStringParameters' :
@@ -112,10 +114,17 @@ export class ProfilePage implements OnInit {
         }
       };
       this.user = await API.get('ERP', '/erp/getNormalizeUser', params)
+
+      loader.dismiss();
     }
     catch(err)
     {
       this.user = undefined;
+      loader.dismiss();
+    }
+    finally
+    {
+      loader.dismiss();
     }
   }
 
