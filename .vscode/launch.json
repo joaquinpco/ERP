@@ -10,15 +10,16 @@
         "name": "Launch Current js",
         "program": "${file}",
         "runtimeExecutable" : "node",
-        "args": ["-f"]
+        "args": ["-f"],
+        "cwd": "${fileDirname}"
       },
       {
         "type": "node",
         "request": "launch",
         "name": "Launch RRHH js",
         "runtimeExecutable" : "node",
-        "program": "${workspaceFolder}/amplify/backend/function/rrhh/src/app.js",
-        "cwd": "${workspaceFolder}/amplify/backend/function/rrhh/src",
+        "program": "${workspaceFolder}/amplify/backend/function/erp/src/app.js",
+        "cwd": "${workspaceFolder}/amplify/backend/function/erp/src"
       }
     ]
 }
