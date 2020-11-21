@@ -46,12 +46,7 @@ AWS.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY 
 });
 
-const BUCKET_NAME = process.env.BUCKET_NAME
-
-const s3 = new AWS.S3({
-  ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
-  SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY
-});
+const s3 = new AWS.S3();
 
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
