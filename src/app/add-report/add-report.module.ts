@@ -15,6 +15,7 @@ import { AddReportPage } from './add-report.page';
     IonicModule,
     AddReportPageRoutingModule
   ],
-  declarations: [AddReportPage]
+  declarations: [AddReportPage],
+  providers: []
 })
 export class AddReportPageModule {}

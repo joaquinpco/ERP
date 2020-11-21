@@ -14,6 +14,7 @@ export class AddReportPage implements OnInit {
   public users: Array<any>;
   public sub: string;
   public file: File;
+  public fileBase64 : any;
   public period: string;
 
   constructor(
@@ -39,11 +40,14 @@ export class AddReportPage implements OnInit {
     
       loader.present();
 
+      console.log(this.fileBase64)
+
       const postParams = {
         body: {
           feedback: this.feedback,
           sub: this.sub,
-          informe: this.file,
+          informe: this.fileBase64,
+          name: this.file.name,
           periodo: this.period
         }
       }
@@ -55,6 +59,7 @@ export class AddReportPage implements OnInit {
     catch(err)
     {
       loader.dismiss();
+      console.log(err)
     }
     finally
     {
@@ -65,6 +70,12 @@ export class AddReportPage implements OnInit {
   handleFileInput(files: FileList) {
     this.file = files.item(0);
     console.log(this.file);
+
+    let reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = () => {
+      this.fileBase64 = reader.result;
+    }
   }
 
   async ionViewWillEnter()

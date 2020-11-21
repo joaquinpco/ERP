@@ -17,9 +17,11 @@ var cors = require('cors')
 
 // declare a new express app
 var app = express()
+
 app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(awsServerlessExpressMiddleware.eventContext())
 
 // Enable CORS for all methods
@@ -428,16 +430,19 @@ app.put('/erp/rrhh/enableUser', async function(req, res) {
 app.post('/erp/createUserReport', async function(req, res) {
   try
   {
-    const report = req.body.informe;
+    const report = Buffer.from(req.body.informe.split(',')[1], 'base64')
+    const reportName = req.body.name;
 
     if(report)
     {
       //Subida de fichero a S3
-
       const params = {
         Bucket: process.env.BUCKET_NAME,
-        Key: report.name,
-        Body: report
+        Key: reportName,
+        Body: report,
+        ACL: 'public-read',
+        ContentEncoding: 'base64',
+        ContentType: 'application/pdf'
       };
 
       await s3.upload(params).promise();
@@ -450,7 +455,6 @@ app.post('/erp/createUserReport', async function(req, res) {
       });
 
       await sequelize.sync();
-
     }
     else
     {
@@ -470,7 +474,6 @@ app.post('/erp/createUserReport', async function(req, res) {
   }
   catch(err)
   {
-    console.error(err);
     res.json(err);
   }
 

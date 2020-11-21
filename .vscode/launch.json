@@ -9,15 +9,16 @@
         "request": "launch",
         "name": "Launch Current js",
         "program": "${file}",
-        "runtimeExecutable" : "~/.nvm/versions/node/v14.12.0/bin/node",
+        "runtimeExecutable" : "node",
         "args": ["-f"]
       },
       {
         "type": "node",
         "request": "launch",
         "name": "Launch RRHH js",
-        "runtimeExecutable" : "~/.nvm/versions/node/v14.12.0/bin/node",
-        "program": "${workspaceFolder}/amplify/backend/function/rrhh/src/app.js"
+        "runtimeExecutable" : "node",
+        "program": "${workspaceFolder}/amplify/backend/function/rrhh/src/app.js",
+        "cwd": "${workspaceFolder}/amplify/backend/function/rrhh/src",
       }
     ]
 }
