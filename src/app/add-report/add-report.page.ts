@@ -16,6 +16,7 @@ export class AddReportPage implements OnInit {
   public file: File;
   public period: string;
   public fileBase64 : any;
+  public fileName: string;
 
   constructor(
     public alertController: AlertController,
@@ -36,16 +37,19 @@ export class AddReportPage implements OnInit {
 
     try
     {
-      console.log("Feedback:" + this.feedback + " Sub: " + this.sub + "File: " + this.file.name  + " Period: " + this.period);
-    
       loader.present();
 
+      let name = this.fileName.split('.')[0];
+      let type = this.file.type;
+      let fullFileString = name + Math.floor((Math.random() * 1000) + 1) + '.' + type.split('/')[1];
+      console.log(fullFileString);
+      
       const postParams = {
         body: {
           feedback: this.feedback,
           sub: this.sub,
           informe: this.fileBase64,
-          name: this.file.name,
+          name: fullFileString,
           periodo: this.period
         }
       }
@@ -66,8 +70,7 @@ export class AddReportPage implements OnInit {
 
   handleFileInput(files: FileList) {
     this.file = files.item(0);
-    console.log(this.file);
-    
+    this.fileName = this.file.name;
     let reader = new FileReader();
     reader.readAsDataURL(this.file);
     reader.onload = () => {

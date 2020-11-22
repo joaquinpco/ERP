@@ -19,7 +19,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Report(Pdf format):</ion-label>
+      <ion-label>Report(Pdf format): {{ fileName }}</ion-label>
       <input
         type="file"
         name="file"
@@ -36,7 +36,7 @@
       <ion-select placeholder="Select One" name="period" [(ngModel)]="period">
         <ion-select-option value="w">Weekly</ion-select-option>
         <ion-select-option value="m">Monthly</ion-select-option>
-        <ion-select-option value="y">Year</ion-select-option>
+        <ion-select-option value="y">Yearly</ion-select-option>
       </ion-select>
     </ion-item>
 
