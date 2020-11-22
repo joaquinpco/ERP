@@ -448,7 +448,7 @@ app.post('/erp/createUserReport', async function(req, res) {
 
       await Valoracion.create({
         feedback: req.body.feedback,
-        informe: req.body.informe,
+        informe: req.body.name,
         periodo: req.body.periodo,
         sub: req.body.sub
       });

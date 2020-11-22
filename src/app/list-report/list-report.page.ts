@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-list-report',
@@ -15,6 +16,13 @@ export class ListReportPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  async ionViewWillEnter()
+  {
+    const vlrcns = await API.get('ERP', '/erp/valoracion', {});
+    this.valoraciones = vlrcns;
+    console.log(this.valoraciones);
   }
 
 }
