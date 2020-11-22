@@ -51,12 +51,12 @@ export class ProfilePage implements OnInit {
               header: 'Update first and last Name',
               inputs: [
                 {
-                  name: 'first_name',
+                  name: 'firstname',
                   type: 'text',
                   value: this.user.normalizeAttr['custom:FIRST_NAME']
                 },
                 {
-                  name: 'last_name',
+                  name: 'lastname',
                   type: 'text',
                   label: 'Last Name',
                   value: this.user.normalizeAttr['custom:LAST_NAME']
@@ -68,12 +68,40 @@ export class ProfilePage implements OnInit {
                   role: 'cancel',
                   cssClass: 'secondary',
                   handler: () => {
-                    console.log('Confirm Cancel');
                   }
                 }, {
                   text: 'Update',
-                  handler: () => {
-                    console.log('Confirm Ok');
+                  handler: async (alertData) => {
+                    const alert = await this.alertController.create({ message: 'Updating profile' });
+
+                    try
+                    {
+
+                      alert.present();
+
+                      let firstname = alertData.firstname;
+                      let lastname = alertData.lastname;
+
+                      let params = {
+                        body: {
+                          firstname: firstname,
+                          lastname: lastname,
+                          updateType: 1,
+                          sub: this.user.Username
+                        }
+                      }
+
+                      await API.put('ERP', '/erp/updateEmployee', params);
+
+                      alert.dismiss();
+
+                      this.ionViewWillEnter();
+
+                    }
+                    catch(err)
+                    {
+                      alert.dismiss();
+                    }
                   }
                 }
               ]
@@ -101,6 +129,7 @@ export class ProfilePage implements OnInit {
 
   async ionViewWillEnter()
   {
+    console.log(this.user);
     const loader = await this.loadingController.create({message: 'Please, wait ...'});
     try
     {  

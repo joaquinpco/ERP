@@ -5,11 +5,22 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './list-payroll.page.html',
   styleUrls: ['./list-payroll.page.scss'],
 })
+
 export class ListPayrollPage implements OnInit {
 
-  constructor() { }
+  public payrolls: Array<any>;
+
+  constructor() 
+  {
+    this.payrolls = [];
+  }
 
   ngOnInit() {
+  }
+
+  async ionViewWillEnter()
+  {
+
   }
 
 }

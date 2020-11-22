@@ -314,7 +314,10 @@ app.put('/erp/updateEmployee', async function(req, res){
     let params = {}
     
     //update from emp profile
-    if(req.body.updateType == 1)
+
+    let updateType = req.body.updateType;
+
+    if(updateType == 1)
     {
       params = {
         UserAttributes: [ /* required */
@@ -408,6 +411,18 @@ app.get('/erp/valoracion', async function(req, res) {
   }
 });
 
+erp.get('/erp/nominas', async function(req, res) {
+  try
+  {
+    let nominas = await Nomina.findAll();
+    res.json(nominas);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
 app.put('/erp/rrhh/enableUser', async function(req, res) {
   try
   {
@@ -421,6 +436,27 @@ app.put('/erp/rrhh/enableUser', async function(req, res) {
   catch(err)
   {
     console.error(err);
+    res.json(err);
+  }
+});
+
+app.post('/erp/newConcepto', async function(req, res) {
+  try
+  {
+    const codigo = req.body.codigo;
+    const nombre = req.body.nombre;
+    const porcentaje = req.body.porcentaje;
+
+    await Concepto.create({
+      codigo: codigo,
+      nombre: nombre,
+      porcentaje: porcentaje
+    });
+
+    await sequelize.sync();
+  }
+  catch(err)
+  {
     res.json(err);
   }
 });

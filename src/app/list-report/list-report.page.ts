@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { API } from 'aws-amplify';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list-report',
@@ -9,8 +10,11 @@ import { API } from 'aws-amplify';
 export class ListReportPage implements OnInit {
 
   public valoraciones: Array<any>;
+  public user: any;
 
-  constructor() 
+  constructor(
+    public loadingController: LoadingController
+  ) 
   {
     this.valoraciones = [];
   }
@@ -20,9 +24,24 @@ export class ListReportPage implements OnInit {
 
   async ionViewWillEnter()
   {
-    const vlrcns = await API.get('ERP', '/erp/valoracion', {});
-    this.valoraciones = vlrcns;
-    console.log(this.valoraciones);
+    const loader = await this.loadingController.create({ message: 'Fetching info, please wait ...'});
+    try
+    {
+      loader.present();
+
+      const vlrcns = await API.get('ERP', '/erp/valoracion', {});
+      this.valoraciones = vlrcns;
+      console.log(this.valoraciones);
+      loader.dismiss();
+    }
+    catch(err)
+    {
+      loader.dismiss()
+    }
+    finally
+    {
+      loader.dismiss();
+    }
   }
 
 }
