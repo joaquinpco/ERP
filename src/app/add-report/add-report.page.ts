@@ -15,6 +15,7 @@ export class AddReportPage implements OnInit {
   public sub: string;
   public file: File;
   public period: string;
+  public fileBase64 : any;
 
   constructor(
     public alertController: AlertController,
@@ -43,7 +44,8 @@ export class AddReportPage implements OnInit {
         body: {
           feedback: this.feedback,
           sub: this.sub,
-          informe: this.file,
+          informe: this.fileBase64,
+          name: this.file.name,
           periodo: this.period
         }
       }
@@ -65,6 +67,12 @@ export class AddReportPage implements OnInit {
   handleFileInput(files: FileList) {
     this.file = files.item(0);
     console.log(this.file);
+    
+    let reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = () => {
+      this.fileBase64 = reader.result;
+    }
   }
 
   async ionViewWillEnter()
