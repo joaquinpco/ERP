@@ -13,6 +13,7 @@ export class AdminAddConceptsPage implements OnInit {
 
   public codigo: string;
   public nombre: string;
+  public conceptType: string;
 
   constructor(
     public loadingController: LoadingController,
@@ -41,11 +42,13 @@ export class AdminAddConceptsPage implements OnInit {
       let params = {
         body: {
           codigo: this.codigo,
-          nombre: this.nombre
+          nombre: this.nombre,
+          tipo: this.conceptType
         }
       }
 
-      if(this.codigo == undefined|| this.nombre == undefined)
+      if(this.codigo == undefined|| this.nombre == undefined 
+        || this.conceptType == undefined)
       {
         throw('Fields could not be empty');
       }

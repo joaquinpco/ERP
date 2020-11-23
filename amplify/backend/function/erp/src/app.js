@@ -444,10 +444,12 @@ app.post('/erp/newConcepto', async function(req, res) {
   {
     const codigo = req.body.codigo;
     const nombre = req.body.nombre;
+    const tipo = req.body.tipo;
 
     await Concepto.create({
       codigo: codigo,
-      nombre: nombre
+      nombre: nombre,
+      tipo: tipo
     });
 
     await sequelize.sync();
