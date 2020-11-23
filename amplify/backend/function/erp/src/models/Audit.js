@@ -16,8 +16,7 @@ Audit.init(
         data:        DataTypes.STRING,
         result:      DataTypes.STRING,
         infoFront:   DataTypes.STRING,
-        description: DataTypes.STRING,
-        time:        DataTypes.DATE
+        description: DataTypes.STRING
     },
     {
         sequelize,
@@ -25,7 +24,7 @@ Audit.init(
         indexes: [
             {
                 unique: false,
-                fields: [ 'time' ] 
+                fields: [ 'infoFront' ] 
             }
         ]
     }

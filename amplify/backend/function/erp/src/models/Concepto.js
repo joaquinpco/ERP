@@ -15,7 +15,8 @@ Concepto.init(
             type: DataTypes.INTEGER,
             unique: true
         },
-        nombre: DataTypes.STRING
+        nombre: DataTypes.STRING,
+        tipo: DataTypes.ENUM('DEVENGO', 'DEDUCCION')
     },
     {
         sequelize,
@@ -25,9 +26,9 @@ Concepto.init(
 
 const Nomina_Concepto = sequelize.define('nomina_concepto', {
     porcentaje: DataTypes.DOUBLE,
-    precio: DataTypes.DOUBLE,
-    tipo: DataTypes.INTEGER
+    precio: DataTypes.DOUBLE
 }, { timestamps: false });
+
 Concepto.belongsToMany(Nomina, { through: Nomina_Concepto });
 Nomina.belongsToMany(Concepto, { through: Nomina_Concepto });
 

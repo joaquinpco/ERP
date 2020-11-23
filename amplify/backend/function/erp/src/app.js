@@ -33,7 +33,6 @@ const AWS = require('aws-sdk');
 
 const sequelize = require("./sequelize");
 
-//Load Models
 const Audit = require('./models/Audit');
 const Nomina = require('./models/Nomina');
 const Categoria = require('./models/Categoria');
