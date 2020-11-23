@@ -411,7 +411,7 @@ app.get('/erp/valoracion', async function(req, res) {
   }
 });
 
-erp.get('/erp/nominas', async function(req, res) {
+app.get('/erp/nominas', async function(req, res) {
   try
   {
     let nominas = await Nomina.findAll();
@@ -445,15 +445,15 @@ app.post('/erp/newConcepto', async function(req, res) {
   {
     const codigo = req.body.codigo;
     const nombre = req.body.nombre;
-    const porcentaje = req.body.porcentaje;
 
     await Concepto.create({
       codigo: codigo,
-      nombre: nombre,
-      porcentaje: porcentaje
+      nombre: nombre
     });
 
     await sequelize.sync();
+
+    res.json({success: 'Creation call succeed!', url: req.url});
   }
   catch(err)
   {

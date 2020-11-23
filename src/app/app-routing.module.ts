@@ -68,6 +68,14 @@ const routes: Routes = [
   {
     path: 'list-report',
     loadChildren: () => import('./list-report/list-report.module').then( m => m.ListReportPageModule)
+  },
+  {
+    path: 'admin-add-concepts',
+    loadChildren: () => import('./admin-add-concepts/admin-add-concepts.module').then( m => m.AdminAddConceptsPageModule)
+  },
+  {
+    path: 'admin-list-concepts',
+    loadChildren: () => import('./admin-list-concepts/admin-list-concepts.module').then( m => m.AdminListConceptsPageModule)
   }
 ];
 
