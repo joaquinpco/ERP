@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>List Payroll Concepts</ion-title>
+    <ion-title>Admin - List Categories</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -8,13 +8,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let concept of concepts">
+  <ion-card *ngFor="let category of categories">
     <ion-card-header>
-    Concept: {{ concept.codigo }}
+    Name: {{ category.nombre }}
     </ion-card-header>
     <ion-card-content>
-    <p>Name: {{ concept.nombre }}</p>
-    <p>Type: {{ concept.tipo }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

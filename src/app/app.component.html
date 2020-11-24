@@ -80,6 +80,14 @@
               <ion-icon name="list-outline" slot="start"></ion-icon>
               Payroll Concepts              
             </ion-item>
+            <ion-item menuclose [hidden]="!isAdmin" [routerLink]="['/admin-add-category']" menuClose class="sub-menu">
+              <ion-icon name="add-outline" slot="start"></ion-icon>
+              Payroll Categories           
+            </ion-item>
+            <ion-item menuclose [hidden]="!isAdmin" [routerLink]="['/admin-list-category']" menuClose class="sub-menu">
+              <ion-icon name="list-outline" slot="start"></ion-icon>
+              List Categories           
+            </ion-item>
           </ion-list>
         </ion-menu-toggle>
 

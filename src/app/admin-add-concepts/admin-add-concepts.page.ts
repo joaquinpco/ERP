@@ -28,6 +28,7 @@ export class AdminAddConceptsPage implements OnInit {
   {
     this.codigo = "";
     this.nombre = "";
+    this.conceptType = "";
   }
 
   async newConcept()

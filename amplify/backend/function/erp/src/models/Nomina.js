@@ -17,7 +17,9 @@ Nomina.init(
         base_at_des: DataTypes.DOUBLE,
         base_irpf: DataTypes.DOUBLE,
         total_devengado: DataTypes.DOUBLE,
-        total_deducir: DataTypes.DOUBLE
+        total_deducir: DataTypes.DOUBLE,
+        start_periodo: DataTypes.DATE,
+        end_periodo: DataTypes.DATE
     },
     {
         sequelize,

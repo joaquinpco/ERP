@@ -422,6 +422,18 @@ app.get('/erp/nominas', async function(req, res) {
   }
 });
 
+app.get('/erp/categorias', async function(req, res) {
+  try
+  {
+    let categorias = await Categoria.findAll();
+    res.json(categorias);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
 app.put('/erp/rrhh/enableUser', async function(req, res) {
   try
   {
@@ -453,6 +465,25 @@ app.post('/erp/newConcepto', async function(req, res) {
     });
 
     await sequelize.sync();
+
+    res.json({success: 'Creation call succeed!', url: req.url});
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.post('/erp/newCategory', async function(req, res) {
+  try
+  {
+    const nombre = req.body.nombre;
+
+    await Categoria.create({
+      nombre: nombre
+    });
+
+    await sequelize.sync()
 
     res.json({success: 'Creation call succeed!', url: req.url});
   }
@@ -514,6 +545,32 @@ app.post('/erp/createUserReport', async function(req, res) {
     console.error(err);
     res.json(err);
   }
+
+});
+
+app.post('/erp/newPayroll', async function(req, res){
+  
+  const sub = req.body.sub;
+  const periodstart = req.body.periodstart;
+  const periodend = req.body.periodend;
+  const totaldays = req.body.totaldays;
+  const ssbase = req.body.ssbase;
+  const atdesbase = req.body.atdesbase;
+  const irpf = req.body.irpf;
+  const category = req.body.category;
+
+  const nomina = await Nomina.create({
+    sub: sub,
+    periodstart:periodstart,
+    periodend: periodend,
+    totaldays: totaldays,
+    ssbase: ssbase,
+    atdesbase: atdesbase,
+    irpf: irpf,
+    category: category
+  });
+
+  
 
 });
 

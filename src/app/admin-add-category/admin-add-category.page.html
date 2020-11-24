@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Admin - New Category</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <form (submit)="newCategory()">
+
+    <ion-item>
+      <ion-label position="floating">Name:</ion-label>
+      <ion-input type="text" [(ngModel)]="nombre" name="nombre"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+
+  </form>
+
+</ion-content>

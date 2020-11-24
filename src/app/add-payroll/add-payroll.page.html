@@ -12,7 +12,7 @@
   <form (ngSubmit)="newPayroll()">
     <ion-item>
       <ion-label>Employee:</ion-label>
-      <ion-select placeholder="Select one" okText="Okay" cancelText="Dismiss" >
+      <ion-select placeholder="Select one" okText="Okay" cancelText="Dismiss" [(ngModel)]="sub" name="sub">
         <div *ngFor="let user of users">
             <ion-select-option value="{{ user['sub'] }}">{{ user['custom:FIRST_NAME'] }} {{ user['custom:LAST_NAME'] }}</ion-select-option>
         </div>
@@ -20,12 +20,12 @@
     </ion-item>
     <ion-item>
       <ion-label>Period:</ion-label>
-      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
-      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
+      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc" [(ngModel)]="periodstart" name="periodstart"></ion-datetime>
+      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc" [(ngModel)]="periodend" name="periodend"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Total Days:</ion-label>
-      <ion-select value="30" okText="Okay" cancelText="Dismiss">
+      <ion-select value="30" okText="Okay" cancelText="Dismiss" [(ngModel)]="totaldays" name="totaldays">
         <ion-select-option value="28">28</ion-select-option>
         <ion-select-option value="29">29</ion-select-option>
         <ion-select-option value="30">30</ion-select-option>
@@ -33,25 +33,27 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Total Remuneration:</ion-label>
-      <ion-input placeholder="Enter remuneration, only numbers"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-label>S.S. Base:</ion-label>
-      <ion-input placeholder="Enter Social Security Base, only numbers"></ion-input>
+      <ion-input placeholder="Enter Social Security Base, only numbers" [(ngModel)]="ssbase" name="ssbase"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>A.T. & DES Base:</ion-label>
-      <ion-input placeholder="Enter AT & DES Base, only numbers"></ion-input>
+      <ion-input placeholder="Enter AT & DES Base, only numbers" [(ngModel)]="atdesbase" name="atdesbase"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>IRPF Base:</ion-label>
-      <ion-input placeholder="IRPF Base"></ion-input>
+      <ion-input placeholder="IRPF Base" [(ngModel)]="irpf" name="irpf"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select placeholder="Select one" okText="Okay" cancelText="Dismiss" [(ngModel)]="category" name="category">
+        <ion-select-option *ngFor="let categoria of categorias" value="{{ categoria.id }}">{{ categoria.nombre }}</ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Concept:</ion-label>
-      <ion-select multiple="true" placeholder="Select one or more" okText="Okay" cancelText="Dismiss">
-        <ion-select-option *ngFor="let concepto of conceptos" value="{{ concepto.codigo }}">{{ concepto.nombre }}</ion-select-option>
+      <ion-select multiple="true" placeholder="Select one or more" okText="Okay" cancelText="Dismiss" (ionChange)="selectedConcepts($event)">
+        <ion-select-option *ngFor="let concepto of conceptos" value="{{ concepto.codigo }}+{{ concepto.tipo }}+{{ concepto.nombre }}+{{ concepto.id }}">{{ concepto.nombre }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-button type="submit" expand="full" color="primary">Submit</ion-button>

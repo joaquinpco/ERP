@@ -76,6 +76,14 @@ const routes: Routes = [
   {
     path: 'admin-list-concepts',
     loadChildren: () => import('./admin-list-concepts/admin-list-concepts.module').then( m => m.AdminListConceptsPageModule)
+  },
+  {
+    path: 'admin-add-category',
+    loadChildren: () => import('./admin-add-category/admin-add-category.module').then( m => m.AdminAddCategoryPageModule)
+  },
+  {
+    path: 'admin-list-category',
+    loadChildren: () => import('./admin-list-category/admin-list-category.module').then( m => m.AdminListCategoryPageModule)
   }
 ];
 
