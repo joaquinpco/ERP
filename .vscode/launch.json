@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Current js",
+        "program": "${file}",
+        "args": ["-f"],
+        "cwd": "${fileDirname}",
+        "runtimeExecutable": "/Users/joaquinpco/.nvm/versions/node/v14.12.0/bin/node"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch ERP js",
+        "program": "${workspaceFolder}/amplify/backend/function/erp/src/app.js",
+        "cwd": "${workspaceFolder}/amplify/backend/function/erp/src",
+        "runtimeExecutable": "/Users/joaquinpco/.nvm/versions/node/v14.12.0/bin/node"
+      }
+    ]
+} 
