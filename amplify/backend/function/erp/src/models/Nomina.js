@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../sequelize');
+const Concepto = require('./Concepto');
 
 class Nomina extends Model {}
 
@@ -22,16 +23,14 @@ Nomina.init(
         end_periodo: DataTypes.DATE
     },
     {
-        sequelize,
-        modelName: 'nomina',
-        indexes: [
-            {
-                unique: false,
-                fields: ['sub']
-            }
-        ]
+        sequelize
     }
 );
+
+const NominaConcepto = require('./NominaConcepto');
+
+Concepto.belongsToMany(Nomina, { through: NominaConcepto});
+Nomina.belongsToMany(Concepto, { through: NominaConcepto});
 
 (async () =>{
     await sequelize.sync();

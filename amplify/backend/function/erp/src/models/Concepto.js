@@ -1,5 +1,4 @@
 const { DataTypes, Model } = require('sequelize');
-const Nomina = require('./Nomina');
 const sequelize = require('../sequelize');
 
 class Concepto extends Model {}
@@ -19,18 +18,9 @@ Concepto.init(
         tipo: DataTypes.ENUM('DEVENGO', 'DEDUCCION')
     },
     {
-        sequelize,
-        modelName: 'concepto'
+        sequelize
     }
 );
-
-const Nomina_Concepto = sequelize.define('nomina_concepto', {
-    porcentaje: DataTypes.DOUBLE,
-    precio: DataTypes.DOUBLE
-}, { timestamps: false });
-
-Concepto.belongsToMany(Nomina, { through: Nomina_Concepto });
-Nomina.belongsToMany(Concepto, { through: Nomina_Concepto });
 
 (async ()=> {
   await sequelize.sync();

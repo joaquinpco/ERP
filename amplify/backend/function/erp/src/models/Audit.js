@@ -19,14 +19,7 @@ Audit.init(
         description: DataTypes.STRING
     },
     {
-        sequelize,
-        modelName: 'audit',
-        indexes: [
-            {
-                unique: false,
-                fields: [ 'infoFront' ] 
-            }
-        ]
+        sequelize
     }
 );
 

@@ -14,8 +14,7 @@ Categoria.init(
         nombre: DataTypes.STRING
     },
     {
-        sequelize,
-        modelName: 'categoria'
+        sequelize
     }
 )
 

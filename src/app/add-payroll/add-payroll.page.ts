@@ -1,19 +1,9 @@
+import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StatResult } from '@capacitor/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
-
-export class Payroll
-{
-  sub: string;
-  startPeriod: Date;
-  endDate: Date;
-  totalDays: number;
-  baseSs: number;
-  atDesBase: number;
-  irpfBase: number;
-  
-}
 
 @Component({
   selector: 'app-add-payroll',
@@ -41,7 +31,8 @@ export class AddPayrollPage implements OnInit {
 
   constructor(
     public loadingCtrl: LoadingController,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public router: Router
   ) 
   {
     this.users = [];
@@ -49,17 +40,42 @@ export class AddPayrollPage implements OnInit {
     this.categorias = [];
   }
 
-  newPayroll()
+  async newPayroll()
   {
-    console.log(
-      "sub:" + this.sub +
-      "\nperiodstart:" + this.periodstart+
-      "\nperiodend:" + this.periodend +
-      "\ntotaldays:" + this.totaldays +
-      "\nssbase:" + this.ssbase +
-      "\natdesbase:" + this.atdesbase +
-      "\nirpf:" + this.irpf +
-      "\ncategory:" + this.category);
+    const loader = await this.alertController.create({ message: 'Creating payroll' });
+
+    try
+    {
+      
+      await loader.present();
+
+      console.log(this.concepts);
+
+      let json = JSON.stringify(this.concepts);
+      
+    
+      let params = {
+        body: {
+          sub: this.sub,
+          periodstart: this.periodstart,
+          periodend: this.periodend,
+          totaldays: this.totaldays,
+          ssbase:this.ssbase,
+          atdesbase: this.atdesbase,
+          irpf: this.irpf,
+          category: this.category,
+          concept: json
+        }
+      }
+      await API.post('ERP', '/erp/newPayroll', params);
+      loader.dismiss();
+      
+      this.router.navigate(['/list-payroll']);
+    }
+    catch(err)
+    {
+      loader.dismiss();
+    }
   }
 
 

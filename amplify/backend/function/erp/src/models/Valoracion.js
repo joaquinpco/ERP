@@ -16,8 +16,7 @@ Valoracion.init(
         sub: DataTypes.STRING
     },
     {
-        sequelize,
-        modelName: 'valoracion'
+        sequelize
     }
 );
 

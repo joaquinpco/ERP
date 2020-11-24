@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-list-payroll',
@@ -20,7 +21,9 @@ export class ListPayrollPage implements OnInit {
 
   async ionViewWillEnter()
   {
-
+    const ressPayroll = await API.get('ERP', '/erp/nominas', {});
+    
+    console.log(ressPayroll);
   }
 
 }

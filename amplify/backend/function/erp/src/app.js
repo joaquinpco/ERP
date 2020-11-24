@@ -413,7 +413,15 @@ app.get('/erp/valoracion', async function(req, res) {
 app.get('/erp/nominas', async function(req, res) {
   try
   {
-    let nominas = await Nomina.findAll();
+    let nominas = await Nomina.findAll(
+      {
+        include: [{
+          model: Concepto
+        }]
+      }
+    );
+
+    console.log(nominas);
     res.json(nominas);
   }
   catch(err)
@@ -559,18 +567,39 @@ app.post('/erp/newPayroll', async function(req, res){
   const irpf = req.body.irpf;
   const category = req.body.category;
 
-  const nomina = await Nomina.create({
-    sub: sub,
-    periodstart:periodstart,
-    periodend: periodend,
-    totaldays: totaldays,
-    ssbase: ssbase,
-    atdesbase: atdesbase,
-    irpf: irpf,
-    category: category
-  });
+  const conceptos = JSON.parse(req.body.concept);
 
   
+  const nomina = await Nomina.create({
+    sub: sub,
+    start_periodo:periodstart,
+    end_periodo: periodend,
+    total_dias: totaldays,
+    base_ss: ssbase,
+    base_at_des: atdesbase,
+    base_irpf: irpf
+  });
+
+  for(let concepto of conceptos)
+  {
+    try{
+      
+      let cncpto = await Concepto.findOne({ where: { id: concepto.id } })
+
+      if(cncpto.tipo=="DEDUCCION")
+      {
+        cncpto.addNomina(nomina, { precio: 0, porcentaje: concepto.porcentaje })
+      }
+      else
+      {
+        cncpto.addNomina(nomina, { precio: concepto.precio, porcentaje: 0 })
+      }
+    }
+    catch(err)
+    {
+      console.error(err)
+    }
+  }
 
 });
 
