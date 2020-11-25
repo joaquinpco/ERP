@@ -61,8 +61,9 @@ export class ListPayrollPage implements OnInit {
         this.payrolls[i].user = this.user;
         this.payrolls[i].category = this.category;
 
-        loader.dismiss();
+        
       }
+      loader.dismiss();
       console.log(this.payrolls);
     }
     catch(err)

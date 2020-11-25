@@ -50,6 +50,7 @@ const s3 = new AWS.S3();
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
+const NominaConcepto = require('./models/NominaConcepto');
 
 (async ()=>{
   try
@@ -578,6 +579,7 @@ app.post('/erp/newPayroll', async function(req, res){
   const conceptos = JSON.parse(req.body.concept);
 
   let totalDevengado = 0;
+  let totalDeduccion = 0;
 
   for(let concepto of conceptos)
   {
@@ -603,12 +605,44 @@ app.post('/erp/newPayroll', async function(req, res){
   {
     try{
       let cncpto = await Concepto.findOne({ where: { id: concepto.id } })
-      cncpto.addNomina(nomina)
+      await cncpto.addNomina(nomina)
+      
+      let nominaConcepto = await NominaConcepto.findOne({
+        where: {
+          NominaId: Number(nomina.id),
+          ConceptoId: Number(cncpto.id)
+        }
+      })
+
+      if(cncpto.tipo == "DEVENGO")
+      {
+        nominaConcepto.precio = concepto.precio;
+        await nominaConcepto.save();
+      }
+      else
+      {
+        nominaConcepto.porcentaje = Number(concepto.porcentaje);
+        await nominaConcepto.save();
+        totalDeduccion += (totalDevengado * (Number(concepto.porcentaje) / 100));
+      }
     }
     catch(err)
     {
       console.error(err)
     }
+  }
+
+  try
+  {
+    
+    nomina.total_deducir = totalDeduccion;
+    await nomina.save();
+
+    await sequelize.sync();
+  }
+  catch(err)
+  {
+    console.error(err);
   }
 
 });

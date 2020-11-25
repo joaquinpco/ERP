@@ -1,7 +1,6 @@
-import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StatResult } from '@capacitor/core';
+import { DatePipe } from '@angular/common';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
@@ -32,12 +31,16 @@ export class AddPayrollPage implements OnInit {
   constructor(
     public loadingCtrl: LoadingController,
     public alertController: AlertController,
-    public router: Router
+    public router: Router,
+    private datePipe: DatePipe
   ) 
   {
+    var date = Date();
     this.users = [];
     this.conceptos = [];
     this.categorias = [];
+    this.periodstart = this.datePipe.transform(date,"yyyy-MM-dd");
+    this.periodend = this.datePipe.transform(date,"yyyy-MM-dd");
   }
 
   async newPayroll()
