@@ -421,7 +421,6 @@ app.get('/erp/nominas', async function(req, res) {
       }
     );
 
-    console.log(nominas);
     res.json(nominas);
   }
   catch(err)
@@ -432,9 +431,18 @@ app.get('/erp/nominas', async function(req, res) {
 
 app.get('/erp/categorias', async function(req, res) {
   try
-  {
-    let categorias = await Categoria.findAll();
-    res.json(categorias);
+  { 
+    if(req.query.queryType==1)
+    {
+      let categorias = await Categoria.findAll();
+      res.json(categorias);
+    }
+    else
+    {
+      const pkCategorias = req.query.pkCategorias
+      let categorias = await Categoria.findByPk(pkCategorias);
+      res.json(categorias);
+    }
   }
   catch(err)
   {
@@ -569,7 +577,16 @@ app.post('/erp/newPayroll', async function(req, res){
 
   const conceptos = JSON.parse(req.body.concept);
 
-  
+  let totalDevengado = 0;
+
+  for(let concepto of conceptos)
+  {
+    if(concepto.tipo==="DEVENGO")
+    {
+      totalDevengado += Number(concepto.precio);
+    }
+  }
+
   const nomina = await Nomina.create({
     sub: sub,
     start_periodo:periodstart,
@@ -577,23 +594,16 @@ app.post('/erp/newPayroll', async function(req, res){
     total_dias: totaldays,
     base_ss: ssbase,
     base_at_des: atdesbase,
-    base_irpf: irpf
+    base_irpf: irpf,
+    categoria_id: category,
+    total_devengado: totalDevengado
   });
 
   for(let concepto of conceptos)
   {
     try{
-      
       let cncpto = await Concepto.findOne({ where: { id: concepto.id } })
-
-      if(cncpto.tipo=="DEDUCCION")
-      {
-        cncpto.addNomina(nomina, { precio: 0, porcentaje: concepto.porcentaje })
-      }
-      else
-      {
-        cncpto.addNomina(nomina, { precio: concepto.precio, porcentaje: 0 })
-      }
+      cncpto.addNomina(nomina)
     }
     catch(err)
     {

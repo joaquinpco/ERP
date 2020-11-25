@@ -28,11 +28,15 @@ export class AdminListCategoryPage implements OnInit {
     {
       await loader.present()
 
-      const ctgrs =  await API.get('ERP', '/erp/categorias', {});
+      const params = {
+        'queryStringParameters': {
+          queryType: 1
+        }
+      }
+
+      const ctgrs =  await API.get('ERP', '/erp/categorias', params);
 
       this.categories = ctgrs;
-
-
 
       loader.dismiss();
     }

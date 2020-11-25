@@ -59,30 +59,37 @@ const routes: Routes = [
   },
   {
     path: 'list-payroll',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./list-payroll/list-payroll.module').then( m => m.ListPayrollPageModule)
   },
   {
     path: 'add-report',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./add-report/add-report.module').then( m => m.AddReportPageModule)
   },
   {
     path: 'list-report',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./list-report/list-report.module').then( m => m.ListReportPageModule)
   },
   {
     path: 'admin-add-concepts',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./admin-add-concepts/admin-add-concepts.module').then( m => m.AdminAddConceptsPageModule)
   },
   {
     path: 'admin-list-concepts',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./admin-list-concepts/admin-list-concepts.module').then( m => m.AdminListConceptsPageModule)
   },
   {
     path: 'admin-add-category',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./admin-add-category/admin-add-category.module').then( m => m.AdminAddCategoryPageModule)
   },
   {
     path: 'admin-list-category',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./admin-list-category/admin-list-category.module').then( m => m.AdminListCategoryPageModule)
   }
 ];

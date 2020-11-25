@@ -47,7 +47,7 @@ export class AddPayrollPage implements OnInit {
     try
     {
       
-      await loader.present();
+      loader.present();
 
       console.log(this.concepts);
 
@@ -157,9 +157,13 @@ export class AddPayrollPage implements OnInit {
         queryStringParameters: {}
       });
 
-      const ressCategoria = await API.get('ERP', '/erp/categorias', {
-        queryStringParameters: {}
-      });
+      const params = {
+        'queryStringParameters': {
+          queryType: 1
+        }
+      }
+
+      const ressCategoria = await API.get('ERP', '/erp/categorias', params);
 
       this.users = ressUser;
       this.conceptos = ressConcepto;

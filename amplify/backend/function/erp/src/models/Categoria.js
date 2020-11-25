@@ -18,7 +18,7 @@ Categoria.init(
     }
 )
 
-Categoria.hasMany(Nomina, { foreignKey: 'id' });
+Categoria.hasMany(Nomina, { foreignKey: 'categoria_id' });
 
 (async ()=>{
     await sequelize.sync();

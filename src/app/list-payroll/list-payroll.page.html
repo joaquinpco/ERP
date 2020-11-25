@@ -10,13 +10,22 @@
 <ion-content [fullscreen]="true">
   <ion-card *ngFor="let payroll of payrolls">
     <ion-card-header>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-title>{{ payroll.user?.normalizeAttr['custom:FIRST_NAME'] }} {{ payroll.user?.normalizeAttr['custom:LAST_NAME'] }}</ion-card-title>
+      <ion-card-subtitle>{{ payroll.category?.nombre }}</ion-card-subtitle>
+      <ion-text color="medium">
+        <h5>Total accrued: {{ payroll.total_devengado }}</h5>
+      </ion-text>
+      <ion-text color="medium">
+        <h5>Total deducted: {{ payroll.total_deducir }}</h5>
+      </ion-text>
     </ion-card-header>
-  
     <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      <p>Total days: {{ payroll.total_dias }}</p>
+      <p>Period: {{ payroll.start_periodo | date:'MM/dd/yyyy'}} - {{ payroll.end_periodo | date:'MM/dd/yyyy' }}</p>
+      <p>S.S. Base: {{ payroll.base_ss }}</p>
+      <p>A.T Des Base: {{ payroll.base_at_des }}</p>
+      <p>IRPF Base: {{ payroll.base_irpf }}</p>
+      
     </ion-card-content>
   </ion-card>
 </ion-content>
