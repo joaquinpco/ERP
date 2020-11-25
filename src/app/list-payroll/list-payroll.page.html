@@ -25,7 +25,26 @@
       <p>S.S. Base: {{ payroll.base_ss }}</p>
       <p>A.T Des Base: {{ payroll.base_at_des }}</p>
       <p>IRPF Base: {{ payroll.base_irpf }}</p>
-      
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>  Accrued </ion-card-subtitle>
+          <span *ngFor="let concepto of payroll.Conceptos">
+            <span *ngIf="concepto.tipo=='DEVENGO'">
+              <p>{{ concepto.nombre }}: {{ concepto.NominaConcepto?.precio }} €</p>
+            </span>
+          </span>
+        </ion-card-header>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>  Deducted </ion-card-subtitle>
+          <span *ngFor="let concepto of payroll.Conceptos">
+            <span *ngIf="concepto.tipo=='DEDUCCION'">
+              <p>{{ concepto.nombre }}: {{ concepto.NominaConcepto?.porcentaje }} %</p>
+            </span>
+          </span>
+        </ion-card-header>
+      </ion-card>
     </ion-card-content>
   </ion-card>
 </ion-content>
