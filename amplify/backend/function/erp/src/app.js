@@ -639,12 +639,13 @@ app.post('/erp/newPayroll', async function(req, res){
     await nomina.save();
 
     await sequelize.sync();
+
+    res.json({success: 'get call succeed!', url: req.url});
   }
   catch(err)
   {
-    console.error(err);
+    res.json(err);
   }
-
 });
 
 app.get('/erp/*', function(req, res) {
