@@ -35,15 +35,25 @@ export class ListReportPage implements OnInit {
       for(let i = 0; i < this.valoraciones.length; i++)
       {
 
-        let params = {
+        const params = {
           queryStringParameters: {
             key: this.valoraciones[i].informe
           }
         }
 
+        const userParams = {
+          queryStringParameters: {
+            Username: this.valoraciones[i].sub
+          }
+        }
+
+        const user = await API.get('ERP', '/erp/getNormalizeUser', userParams);
+
         const publicLink = await API.get('ERP', '/erp/report', params);
 
         this.valoraciones[i].publicLink = publicLink;
+
+        this.valoraciones[i].user = user;
       }
 
       loader.dismiss();

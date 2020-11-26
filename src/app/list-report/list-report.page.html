@@ -11,7 +11,7 @@
   <ion-card *ngFor="let valoracion of valoraciones">
     <ion-item>
       <ion-icon name="pin" slot="start"></ion-icon>
-      <ion-label>Reporte usuario: {{ valoracion.sub }}</ion-label>
+      <ion-label>Reporte usuario: {{ valoracion.user?.normalizeAttr['custom:FIRST_NAME'] }}</ion-label>
       <ion-button fill="outline" slot="end" *ngIf="valoracion.informe!=''" data-href="{{ valoracion.publicLink }}" target="_blank">View</ion-button>
     </ion-item>
   
