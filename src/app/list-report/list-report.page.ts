@@ -31,7 +31,21 @@ export class ListReportPage implements OnInit {
 
       const vlrcns = await API.get('ERP', '/erp/valoracion', {});
       this.valoraciones = vlrcns;
-      console.log(this.valoraciones);
+
+      for(let i = 0; i < this.valoraciones.length; i++)
+      {
+
+        let params = {
+          queryStringParameters: {
+            key: this.valoraciones[i].informe
+          }
+        }
+
+        const publicLink = await API.get('ERP', '/erp/report', params);
+
+        this.valoraciones[i].publicLink = publicLink;
+      }
+
       loader.dismiss();
     }
     catch(err)

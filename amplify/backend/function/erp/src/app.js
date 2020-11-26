@@ -565,6 +565,24 @@ app.post('/erp/createUserReport', async function(req, res) {
 
 });
 
+
+app.get('/erp/report', async function(req, res){
+  try
+  {
+    let params = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: req.query.key
+    }
+    const response = await s3.getSignedUrlPromise('getObject', params);
+
+    res.json(response);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
 app.post('/erp/newPayroll', async function(req, res){
   
   const sub = req.body.sub;

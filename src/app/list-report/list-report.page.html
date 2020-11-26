@@ -12,7 +12,7 @@
     <ion-item>
       <ion-icon name="pin" slot="start"></ion-icon>
       <ion-label>Reporte usuario: {{ valoracion.sub }}</ion-label>
-      <ion-button fill="outline" slot="end" *ngIf="valoracion.informe!=''">View</ion-button>
+      <ion-button fill="outline" slot="end" *ngIf="valoracion.informe!=''" data-href="{{ valoracion.publicLink }}" target="_blank">View</ion-button>
     </ion-item>
   
     <ion-card-content>
@@ -20,7 +20,7 @@
       <br/>
       Period: {{ valoracion.periodo | lowercase }}
       <br/>
-      Created At: {{ valoracion.createdAt }}
+      Created At: {{ valoracion.createdAt | date:'MM/dd/yyyy' }}
     </ion-card-content>
   </ion-card>
 </ion-content>
