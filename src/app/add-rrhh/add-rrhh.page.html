@@ -26,7 +26,12 @@
 
     <ion-item>
       <ion-label position="floating">Role:</ion-label>
-      <ion-input [(ngModel)]="signupuser.role" type="text" required name="role"></ion-input>
+      <ion-select value="brown" okText="Okay" cancelText="Dismiss" [(ngModel)]="signupuser.role" name="role">
+        <ion-select-option value="ADMIN">ADMIN</ion-select-option>
+        <ion-select-option value="HR">HUMAN RESOURCES</ion-select-option>
+        <ion-select-option value="SALES">SALES</ion-select-option>
+        <ion-select-option value="PURCHASING">PURCHASING</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
