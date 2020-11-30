@@ -16,10 +16,18 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "Launch ERP js",
+        "name": "Launch ERP js mac osx",
         "program": "${workspaceFolder}/amplify/backend/function/erp/src/app.js",
         "cwd": "${workspaceFolder}/amplify/backend/function/erp/src",
         "runtimeExecutable": "/Users/joaquinpco/.nvm/versions/node/v14.12.0/bin/node"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch ERP js linux",
+        "program": "${workspaceFolder}/amplify/backend/function/erp/src/app.js",
+        "cwd": "${workspaceFolder}/amplify/backend/function/erp/src",
+        "runtimeExecutable": "node"
       }
     ]
 } 

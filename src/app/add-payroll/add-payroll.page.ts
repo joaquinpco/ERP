@@ -4,6 +4,8 @@ import { DatePipe } from '@angular/common';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
+import { MenuService } from '../menu.service';
+
 @Component({
   selector: 'app-add-payroll',
   templateUrl: './add-payroll.page.html',
@@ -32,7 +34,8 @@ export class AddPayrollPage implements OnInit {
     public loadingCtrl: LoadingController,
     public alertController: AlertController,
     public router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    public menuService : MenuService
   ) 
   {
     var date = Date();
@@ -142,7 +145,10 @@ export class AddPayrollPage implements OnInit {
 
   }
 
-  ngOnInit() {}
+  async ngOnInit()
+  {
+    this.menuService.enableMenu("NO_ADMIN");
+  }
 
   async ionViewWillEnter()
   {

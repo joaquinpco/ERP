@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Auth, API } from 'aws-amplify';
 import { MenuController, LoadingController } from '@ionic/angular';
 
+import { MenuService } from '../menu.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,16 +16,20 @@ export class HomePage implements OnInit{
 
   constructor(
     public router: Router,
-    public menuCtrl: MenuController,
     public loadingCtrl: LoadingController,
-  ) {}
+    public menuService : MenuService
+  )
+  {
+  }
 
-  ngOnInit() {}
+  async ngOnInit()
+  {
+      const user = await Auth.currentUserInfo(); // get user from backend with normalized attributes
+      this.menuService.enableMenu("NO_ADMIN");
+  }
 
   async ionViewWillEnter()
-  {
-    this.menuCtrl.enable(true, 'main-menu');
-    
+  { 
     const loading = await this.loadingCtrl.create({
       message: 'Retrieving info. Please, wait...'
     });
