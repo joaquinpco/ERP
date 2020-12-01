@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API, loadingOverlay } from 'aws-amplify';
 import { type } from 'os';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-admin-add-concepts',
@@ -18,10 +19,13 @@ export class AdminAddConceptsPage implements OnInit {
   constructor(
     public loadingController: LoadingController,
     public router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public menuService: MenuService
     ) { }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   clearFields()

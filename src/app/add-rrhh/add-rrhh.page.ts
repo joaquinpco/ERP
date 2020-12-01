@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 import { Router } from '@angular/router';
+import { MenuService } from '../services/menu.service';
 
 export class Signupuser
 {
@@ -29,13 +30,17 @@ export class AddRrhhPage implements OnInit {
   constructor(
               public alertController: AlertController, 
               public route:Router,
-              public loadingCtrl: LoadingController
+              public loadingCtrl: LoadingController,
+              public menuService: MenuService
              ) 
   {
     this.signupuser = new Signupuser();
   }
 
-  ngOnInit() {}
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
+  }
 
   async signup()
   {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-admin-list-concepts',
@@ -12,12 +13,15 @@ export class AdminListConceptsPage implements OnInit {
   public concepts: Array<any>;
   
   constructor(
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public menuService: MenuService
   ) {
     this.concepts = [];
   }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   async ionViewWillEnter()

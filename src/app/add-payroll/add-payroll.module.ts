@@ -6,15 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AddPayrollPageRoutingModule } from './add-payroll-routing.module';
 import { AddPayrollPage } from './add-payroll.page';
-import { MenuPageModule } from '../menu/menu.module'
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddPayrollPageRoutingModule,
-    MenuPageModule
+    AddPayrollPageRoutingModule
   ],
   declarations: [AddPayrollPage],
   providers: [DatePipe]

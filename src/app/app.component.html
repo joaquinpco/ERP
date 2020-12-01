@@ -1,5 +1,27 @@
 <ion-app>
-  <!-- <ion-menu menuId="main-menu" content-id="main">
+  <!-- RRHH -->
+  <ion-menu menuId="menu-rrhh" content-id="menu-rrhh">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>MENU</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item routerLink="/home">
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          <ion-label>HOME</ion-label>
+        </ion-item>
+        <ion-item routerLink="/logout">
+          <ion-icon name="power-outline" slot="start" ></ion-icon>
+          <ion-label>LOG OUT</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="menu-rrhh"></ion-router-outlet>
+  <!-- ADMIN -->
+  <ion-menu menuId="menu-admin" content-id="menu-admin">
     <ion-header>
       <ion-toolbar>
         <ion-title>MENU</ion-title>
@@ -103,6 +125,6 @@
         </ion-item>
       </ion-list>
     </ion-content>
-  </ion-menu> -->
-  <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-menu>
+  <ion-router-outlet id="menu-admin"></ion-router-outlet>
 </ion-app>

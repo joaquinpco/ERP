@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 import { CameraService } from '../services/camera.service';
+import { MenuService } from '../services/menu.service';
 
 export class EditUser
 {
@@ -31,7 +32,8 @@ export class EditRrhhPage implements OnInit {
                 private router : Router,
                 public loadingCtrl: LoadingController,
                 private myCameraService: CameraService,
-                public alertController: AlertController
+                public alertController: AlertController,
+                public menuService: MenuService
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
@@ -39,9 +41,9 @@ export class EditRrhhPage implements OnInit {
     this.edituser = new EditUser();
   }
 
-  ngOnInit() 
+  async ngOnInit() 
   {
-    
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   async updateUser(sub)

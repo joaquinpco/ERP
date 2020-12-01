@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,7 +12,11 @@ export class SettingsPage implements OnInit {
 
   public tgglCheckValue: boolean;
 
-  constructor(private renderer: Renderer2, private storage: Storage) 
+  constructor(
+    private renderer: Renderer2, 
+    private storage: Storage,
+    public menuService: MenuService
+    ) 
   {
     
     this.storage.get('toggleCheck').then((result) => {
@@ -41,6 +46,9 @@ export class SettingsPage implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
+  }
 
 }

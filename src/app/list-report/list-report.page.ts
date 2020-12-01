@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { API } from 'aws-amplify';
 import { LoadingController } from '@ionic/angular';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-list-report',
@@ -13,13 +14,16 @@ export class ListReportPage implements OnInit {
   public user: any;
 
   constructor(
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public menuService: MenuService
   ) 
   {
     this.valoraciones = [];
   }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   async ionViewWillEnter()

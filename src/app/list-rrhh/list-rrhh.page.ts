@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { API } from 'aws-amplify';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-list-rrhh',
@@ -15,13 +16,17 @@ export class ListRRHHPage implements OnInit {
 
   constructor(
     public loadingCtrl: LoadingController,
-    public router: Router
+    public router: Router,
+    public menuService: MenuService
   ) 
   {
     this.users = [];
   }
 
-  ngOnInit() {}
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
+  }
 
   edit(sub : string)
   {

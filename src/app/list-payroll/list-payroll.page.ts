@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-list-payroll',
@@ -15,7 +16,8 @@ export class ListPayrollPage implements OnInit {
   public category: any;
 
   constructor(
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public menuService: MenuService
   ) 
   {
     this.payrolls = [];
@@ -24,7 +26,9 @@ export class ListPayrollPage implements OnInit {
     this.user.normalizeAttr = [];
   }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   async ionViewWillEnter()

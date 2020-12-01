@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { API } from 'aws-amplify';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-add-report',
@@ -21,13 +22,16 @@ export class AddReportPage implements OnInit {
   constructor(
     public alertController: AlertController,
     public loadingController: LoadingController,
-    public router: Router
+    public router: Router,
+    public menuService: MenuService
   ) { 
     this.feedback = false;
     this.users = [];
   }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   async newReport()

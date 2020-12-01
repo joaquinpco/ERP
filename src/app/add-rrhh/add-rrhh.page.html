@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>New Employee</ion-title>
     <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -28,7 +28,7 @@
       <ion-label position="floating">Role:</ion-label>
       <ion-select value="brown" okText="Okay" cancelText="Dismiss" [(ngModel)]="signupuser.role" name="role">
         <ion-select-option value="ADMIN">ADMIN</ion-select-option>
-        <ion-select-option value="HR">HUMAN RESOURCES</ion-select-option>
+        <ion-select-option value="RRHH">HUMAN RESOURCES</ion-select-option>
         <ion-select-option value="SALES">SALES</ion-select-option>
         <ion-select-option value="PURCHASING">PURCHASING</ion-select-option>
       </ion-select>

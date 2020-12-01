@@ -1,7 +1,10 @@
-import { Attribute, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth, API } from 'aws-amplify';
-import { MenuController, LoadingController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+import { MenuService } from '../services/menu.service';
+import { Storage } from '@ionic/storage';
+import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-home',
@@ -14,15 +17,15 @@ export class HomePage implements OnInit{
 
   constructor(
     public router: Router,
-    public menuCtrl: MenuController,
+    public menuService: MenuService,
     public loadingCtrl: LoadingController,
+    public storage: Storage 
   ) {}
 
   ngOnInit() {}
 
   async ionViewWillEnter()
   {
-    this.menuCtrl.enable(true, 'main-menu');
     
     const loading = await this.loadingCtrl.create({
       message: 'Retrieving info. Please, wait...'
@@ -32,7 +35,8 @@ export class HomePage implements OnInit{
 
     try
     {
-      const user = await Auth.currentAuthenticatedUser();
+      //Check if admin use for updating main cognito attrs.
+      let user = await Auth.currentAuthenticatedUser();
 
       let params = {
         'queryStringParameters' :
@@ -42,6 +46,20 @@ export class HomePage implements OnInit{
       };
 
       const ress = await API.put('ERP', '/erp/normalizeUser', params);
+
+      //Query for Menu 
+      params = {
+        'queryStringParameters' :
+        {
+          'Username' : user.username
+        }
+      };
+
+      user = await API.get('ERP', '/erp/getNormalizeUser', params);
+
+      await this.storage.set('role', user.normalizeAttr['custom:ROLE']);
+      await this.menuService.enableMenu(user.normalizeAttr['custom:ROLE']);
+      await this.menuService.close();
 
       this.loadingCtrl.dismiss();
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { API, Auth, loadingOverlay } from 'aws-amplify';
 import { ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { CameraService } from '../services/camera.service';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,14 +19,17 @@ export class ProfilePage implements OnInit {
     private actionSheetController: ActionSheetController,
     public myCameraService: CameraService,
     public alertController: AlertController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public menuService: MenuService
   ) {
     this.user = new Object();
     this.user.normalizeAttr = [];
     this.guestPicture="assets/img/profile.png";
   }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   addPhotoToProfile() {
@@ -129,7 +133,6 @@ export class ProfilePage implements OnInit {
 
   async ionViewWillEnter()
   {
-    console.log(this.user);
     const loader = await this.loadingController.create({message: 'Please, wait ...'});
     try
     {  

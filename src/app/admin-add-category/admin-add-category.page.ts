@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-admin-add-category',
@@ -15,10 +16,13 @@ export class AdminAddCategoryPage implements OnInit {
   constructor(
     public loadingController: LoadingController,
     public router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public menuService: MenuService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   async newCategory()

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-delte-rrhh',
@@ -16,14 +17,17 @@ export class DelteRrhhPage implements OnInit {
   constructor(
                 private activatedRoute : ActivatedRoute,
                 private router : Router,
-                private loadingCtrl: LoadingController
+                private loadingCtrl: LoadingController,
+                public menuService: MenuService
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
     this.user = { normalizeAttr : [] };
   }
 
-  ngOnInit() {
+  async ngOnInit() 
+  {
+    await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
   async ionViewWillEnter()
