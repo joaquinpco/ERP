@@ -91,6 +91,10 @@ const routes: Routes = [
     path: 'admin-list-category',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./admin-list-category/admin-list-category.module').then( m => m.AdminListCategoryPageModule)
+  },
+  {
+    path: 'audits',
+    loadChildren: () => import('./audits/audits.module').then( m => m.AuditsPageModule)
   }
 ];
 

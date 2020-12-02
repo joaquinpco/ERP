@@ -24,7 +24,7 @@ export class LoginPage implements OnInit
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
         public router: Router,
-        public menuCtrl: MenuController,
+        public menuController: MenuController,
         private renderer: Renderer2,
         private storage: Storage
     )
@@ -52,13 +52,13 @@ export class LoginPage implements OnInit
       }
       catch(err)
       {
-        console.log(err);
+        
       }
     }
 
-    ionViewWillEnter()
-    {
-      this.menuCtrl.enable(false, 'main-menu');
+    async ionViewWillEnter()
+    { 
+      await this.menuController.enable(false);
     }
 
     clearInputs(loginProps: LoginProps)

@@ -11,6 +11,7 @@ import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage implements OnInit{
 
   public action : string;

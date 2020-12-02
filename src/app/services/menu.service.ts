@@ -9,7 +9,6 @@ export class MenuService {
 
   public menuRoles: Array<string>;
 
-
   constructor(
     public menuController: MenuController,
     private storage: Storage
@@ -45,10 +44,6 @@ export class MenuService {
   async enableMenu(userRole: string)
   {
     //Por defecto todos los menus desactivados
-    for(const menu in this.menuRoles)
-    {
-      await this.menuController.enable(false, menu);
-    }
 
     if(userRole === "ADMIN")
     {

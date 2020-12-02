@@ -1,4 +1,5 @@
 <ion-app>
+  
   <!-- RRHH -->
   <ion-menu menuId="menu-rrhh" content-id="menu-rrhh">
     <ion-header>
@@ -12,6 +13,65 @@
           <ion-icon name="home-outline" slot="start"></ion-icon>
           <ion-label>HOME</ion-label>
         </ion-item>
+        <ion-item lines="none" (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
+          <ion-icon name="people-circle-outline" slot="start"></ion-icon>
+          Employee
+          <ion-icon slot="end" [name]="isRemainder? 'caret-down-outline' : 'caret-forward-outline'"></ion-icon>
+        </ion-item>
+        <ion-menu-toggle auto-hide="false">
+          <ion-list lines="none">
+            <ion-item menuclose [hidden]="!isRemainder" [routerLink]="['/add-rrhh']" menuClose class="sub-menu">
+              <ion-icon name="add-outline" slot="start"></ion-icon>
+              Add
+            </ion-item>
+            <ion-item menuclose [hidden]="!isRemainder" [routerLink]="['/list-rrhh']" menuClose class="sub-menu">
+              <ion-icon name="list-outline" slot="start"></ion-icon>
+              List
+            </ion-item>
+          </ion-list>
+        </ion-menu-toggle>
+        <ion-item lines="none" (click)="isPayroll === 1 ? isPayroll = 0 : isPayroll = 1">
+          <ion-icon name="cash-outline" slot="start"></ion-icon>
+          Payroll
+          <ion-icon slot="end" [name]="isPayroll? 'caret-down-outline' : 'caret-forward-outline'"></ion-icon>
+        </ion-item>
+        <ion-menu-toggle auto-hide="false">
+          <ion-list lines="none">
+            <ion-item menuclose [hidden]="!isPayroll" [routerLink]="['/add-payroll']" menuClose class="sub-menu">
+              <ion-icon name="add-outline" slot="start"></ion-icon>
+              Add
+            </ion-item>
+            <ion-item menuclose [hidden]="!isPayroll" [routerLink]="['/list-payroll']" menuClose class="sub-menu">
+              <ion-icon name="list-outline" slot="start"></ion-icon>
+              List
+            </ion-item>
+          </ion-list>
+        </ion-menu-toggle>
+        <ion-item lines="none" (click)="isReport === 1 ? isReport = 0 : isReport = 1">
+          <ion-icon name="newspaper-outline" slot="start"></ion-icon>
+          Report
+          <ion-icon slot="end" [name]="isReport? 'caret-down-outline' : 'caret-forward-outline'"></ion-icon>
+        </ion-item>
+        <ion-menu-toggle auto-hide="false">
+          <ion-list lines="none">
+            <ion-item menuclose [hidden]="!isReport" [routerLink]="['/add-report']" menuClose class="sub-menu">
+              <ion-icon name="add-outline" slot="start"></ion-icon>
+              Add
+            </ion-item>
+            <ion-item menuclose [hidden]="!isReport" [routerLink]="['/list-report']" menuClose class="sub-menu">
+              <ion-icon name="list-outline" slot="start"></ion-icon>
+              List
+            </ion-item>
+          </ion-list>
+        </ion-menu-toggle>
+        <ion-item routerLink="/profile">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-label>Profile</ion-label>
+        </ion-item>
+        <ion-item routerLink="/settings">
+          <ion-icon name="settings-outline" slot="start" ></ion-icon>
+          <ion-label>Settings</ion-label>
+        </ion-item>
         <ion-item routerLink="/logout">
           <ion-icon name="power-outline" slot="start" ></ion-icon>
           <ion-label>LOG OUT</ion-label>
@@ -20,6 +80,8 @@
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="menu-rrhh"></ion-router-outlet>
+  <!-- END RRHH MENU -->
+
   <!-- ADMIN -->
   <ion-menu menuId="menu-admin" content-id="menu-admin">
     <ion-header>
@@ -108,9 +170,12 @@
               <ion-icon name="list-outline" slot="start"></ion-icon>
               Payroll Categories           
             </ion-item>
+            <ion-item menuclose [hidden]="!isAdmin" [routerLink]="['/audits']" menuClose class="sub-menu">
+              <ion-icon name="pulse-outline" slot="start"></ion-icon>
+              Audits          
+            </ion-item>
           </ion-list>
         </ion-menu-toggle>
-
         <ion-item routerLink="/profile">
           <ion-icon name="person-outline" slot="start"></ion-icon>
           <ion-label>Profile</ion-label>
