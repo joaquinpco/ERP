@@ -7,6 +7,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuditsPage implements OnInit {
 
+  /* TODO: FINALIZE AUDIT TABLE frontend and backend */
+
+  tablestyle = 'bootstrap';
+
+  public rows = [
+    {
+      "name": "Ethel Price",
+      "gender": "female",
+      "age": 22
+    },
+    {
+      "name": "Claudine Neal",
+      "gender": "female",
+      "age": 55
+    },
+    {
+      "name": "Beryl Rice",
+      "gender": "female",
+      "age": 67
+    },
+    {
+      "name": "Simon Grimm",
+      "gender": "male",
+      "age": 28
+    }
+  ];
+
   constructor() { }
 
   ngOnInit() {
@@ -15,7 +42,7 @@ export class AuditsPage implements OnInit {
 
   async ionViewWillEnter()
   {
-    
+
   }
 
 }
