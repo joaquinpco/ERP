@@ -7,6 +7,7 @@
     "aws-sdk": "^2.784.0",
     "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.17.1",
+    "chai": "^4.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.15.2",
@@ -19,7 +20,7 @@
     "supertest": "^6.0.1"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 15000"
   },
   "author": "",
   "license": "ISC"

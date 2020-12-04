@@ -9,7 +9,8 @@ const sequelize = new Sequelize(
                 require: true,
                 rejectUnauthorized: false
             }
-        }
+        },
+        logging: process.env.LOGGING_SEQUELIZE === 'true'
     }
 );
 
