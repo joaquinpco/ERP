@@ -94,7 +94,23 @@ const routes: Routes = [
   },
   {
     path: 'audits',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./audits/audits.module').then( m => m.AuditsPageModule)
+  },
+  {
+    path: 'add-customers',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./add-customers/add-customers.module').then( m => m.AddCustomersPageModule)
+  },
+  {
+    path: 'edit-customers',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./edit-customers/edit-customers.module').then( m => m.EditCustomersPageModule)
+  },
+  {
+    path: 'list-customers',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./list-customers/list-customers.module').then( m => m.ListCustomersPageModule)
   }
 ];
 
