@@ -1,24 +1,28 @@
 const assert = require('assert');
-const request = require('supertest');
-let app = require('../app');
 
-beforeAll(function (done) {
-    return new Promise((resolve,reject) => {
-        app.on("appStarted", function(){
-            return resolve();
-        }); 
+describe("Describe ERP Endpoints", () => {
+
+    const request = require('supertest');
+    let app = require('../app');
+
+    before( (done) => {
+        process.env.LOGGING_SEQUELIZE = "false";
+        process.env.DATABASE_URL = "";
+        done();
     });
-});
 
-describe("Describe ERP Endpoints", app => {
-
-    it("Handles GET Request from /erp/concepto", app =>{
+    it("Handles GET Request from /erp/concepto", () =>{
         request(app)
-        .expect('Content-Type', /json/)
+        .get('/erp/concepto')
+        .expect()
         .expect(200)
         .end(function(err, res) {
             if(err) throw err;
         });
     });
+
+    after( (done) => {
+        done();
+    })
 
 });

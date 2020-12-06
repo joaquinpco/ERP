@@ -15,6 +15,15 @@ var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 var cors = require('cors')
 
+//Paypal Config
+var paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': process.env.CLIENT_ID,
+  'client_secret': process.env.CLIENT_SECRET
+});
+
 // declare a new express app
 var app = express()
 app.use(cors())
@@ -666,6 +675,45 @@ app.post('/erp/newPayroll', async function(req, res){
   }
 });
 
+app.post('/erp/payWithPaypall', async function(req, res) {
+  
+  var create_payment_json = {
+    "intent": "sale",
+    "payer": {
+        "payment_method": "paypal"
+    },
+    "redirect_urls": {
+        "return_url": req.body.returnurl,
+        "cancel_url": req.body.cancelurl
+    },
+    "transactions": [{
+        "item_list": {
+            "items": [{
+                "name": req.body.name,
+                "sku": "item",
+                "price": req.body.price,
+                "currency": "USD",
+                "quantity": req.body.quantity
+            }]
+        },
+        "amount": {
+            "currency": "USD",
+            "total": "1.00"
+        },
+        "description": "This is the payment description."
+    }]
+  };
+
+  try
+  {
+    await paypal.payment.create(create_payment_json).promise();
+  }
+  catch(err)
+  {
+    console.log(err);  
+  }
+});
+
 app.get('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
@@ -713,11 +761,9 @@ app.delete('/erp/*', function(req, res) {
   res.json({success: 'delete call succeed!', url: req.url});
 });
 
-app.listen(3000, function() {
-    console.log("App started")
-});
-
 // Export the app object. When executing the application local this does nothing. However,
 // to port it to AWS Lambda we will create a wrapper around that will load the app from
 // this file
-module.exports = app
+module.exports = app.listen(3000, function() {
+  console.log("App started");
+});

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-audits',
@@ -11,33 +13,43 @@ export class AuditsPage implements OnInit {
 
   tablestyle = 'bootstrap';
 
+  //Data Tests
   public rows = [
     {
-      "name": "Ethel Price",
-      "gender": "female",
-      "age": 22
+      "title": "Employee Added",
+      "data": "New Employee",
+      "endpoint": "/erp/rrhh/newEmployee",
+      "infoFront": "add-rrhh",
+      "result": "CREATED",
+      "description": "user x storage a new employee"
     },
     {
-      "name": "Claudine Neal",
-      "gender": "female",
-      "age": 55
-    },
-    {
-      "name": "Beryl Rice",
-      "gender": "female",
-      "age": 67
-    },
-    {
-      "name": "Simon Grimm",
-      "gender": "male",
-      "age": 28
+      "title": "Employee Updated",
+      "data": "Edit Employee",
+      "endpoint": "/erp/rrhh/newEmployee",
+      "infoFront": "edit-rrhh",
+      "result": "UPDATED",
+      "description": "user x updated y employee"
     }
   ];
 
-  constructor() { }
+  constructor(
+    public navController: NavController
+  ) { }
 
   ngOnInit() {
     
+  }
+
+  open(row)
+  {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          audit: JSON.stringify(row)
+      }
+    };
+
+    this.navController.navigateForward(['/audit-detail'], navigationExtras);
   }
 
   async ionViewWillEnter()

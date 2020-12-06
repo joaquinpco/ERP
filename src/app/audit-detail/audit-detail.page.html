@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detail Audit</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ audit.title }}</ion-card-title>
+      <ion-card-subtitle>Endpoint: {{ audit.endpoint }}</ion-card-subtitle>
+      <ion-card-subtitle>Frontend: {{ audit.infoFront }}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>Data: {{ audit.data }}</p>
+      <p>Description: {{ audit.description }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

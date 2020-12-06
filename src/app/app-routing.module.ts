@@ -111,6 +111,11 @@ const routes: Routes = [
     path: 'list-customers',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./list-customers/list-customers.module').then( m => m.ListCustomersPageModule)
+  },
+  {
+    path: 'audit-detail',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./audit-detail/audit-detail.module').then( m => m.AuditDetailPageModule)
   }
 ];
 
