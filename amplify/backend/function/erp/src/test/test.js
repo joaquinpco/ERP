@@ -2,12 +2,14 @@ const assert = require('assert');
 
 describe("Describe ERP Endpoints", () => {
 
+    //Testing set-up
+    process.env.LOGGING_SEQUELIZE = "false";
+    process.env.DATABASE_URL = "postgresql://tester:testing@localhost:5432/db_test";
+
     const request = require('supertest');
     let app = require('../app');
 
     before( (done) => {
-        process.env.LOGGING_SEQUELIZE = "false";
-        process.env.DATABASE_URL = "";
         done();
     });
 

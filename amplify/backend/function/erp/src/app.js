@@ -761,9 +761,18 @@ app.delete('/erp/*', function(req, res) {
   res.json({success: 'delete call succeed!', url: req.url});
 });
 
-// Export the app object. When executing the application local this does nothing. However,
-// to port it to AWS Lambda we will create a wrapper around that will load the app from
-// this file
-module.exports = app.listen(3000, function() {
-  console.log("App started");
-});
+
+//Check if server is on testing mode
+if(process.env.LOGGING_SEQUELIZE ==="false")
+{
+  module.exports = app.listen(3000, function() {
+    console.log("App started");
+  });
+}
+else
+{
+  app.listen(3000, function() {
+    console.log("App started");
+  });
+  module.exports = app;
+}
