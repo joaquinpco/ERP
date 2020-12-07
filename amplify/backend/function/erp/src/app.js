@@ -158,8 +158,8 @@ app.put('/erp/normalizeUser', async function(req, res){
             Value: 'default address'
           },
           {
-            Name: 'custom:STR_NSS',
-            Value: '00000000'
+            Name: 'custom:STRG_NSS',
+            Value: '000000000000'
           },
           {
             Name: 'custom:PROFILE_PICTURE',
@@ -243,7 +243,7 @@ app.post('/erp/rrhh/newEmployee', async function(req, res) {
           Value: req.body.address
         },
         {
-          Name:'custom:STR_NSS',
+          Name:'custom:STRG_NSS',
           Value: req.body.nss
         },
         {
@@ -283,7 +283,7 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
         'custom:NIF',
         'custom:STR_PHONE',
         'custom:ADDRESS',
-        'custom:STR_NSS'
+        'custom:STRG_NSS'
         /* more items */
       ]
     };

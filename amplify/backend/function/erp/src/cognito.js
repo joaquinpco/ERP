@@ -95,11 +95,11 @@ var params = {
         AttributeDataType: 'String',
         DeveloperOnlyAttribute:false,
         Mutable:true,
-        Name: 'STR_NSS',
+        Name: 'STRG_NSS',
         Required: false,
         StringAttributeConstraints: {
-          MaxLength: '9',
-          MinLength: '6'
+          MaxLength: '12',
+          MinLength: '1'
         }
       },
       {
