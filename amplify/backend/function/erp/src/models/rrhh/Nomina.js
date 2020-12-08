@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../sequelize');
+const sequelize = require('../../sequelize');
 const Concepto = require('./Concepto');
 
 class Nomina extends Model {}

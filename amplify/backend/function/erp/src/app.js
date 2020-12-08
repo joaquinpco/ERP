@@ -43,10 +43,10 @@ const AWS = require('aws-sdk');
 const sequelize = require("./sequelize");
 
 const Audit = require('./models/Audit');
-const Nomina = require('./models/Nomina');
-const Categoria = require('./models/Categoria');
-const Valoracion = require('./models/Valoracion');
-const Concepto = require('./models/Concepto');
+const Nomina = require('./models/rrhh/Nomina');
+const Categoria = require('./models/rrhh/Categoria');
+const Valoracion = require('./models/rrhh/Valoracion');
+const Concepto = require('./models/rrhh/Concepto');
 
 AWS.config.update({ 
   region: process.env.REGION, 
