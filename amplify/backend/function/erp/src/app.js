@@ -42,11 +42,25 @@ const AWS = require('aws-sdk');
 
 const sequelize = require("./sequelize");
 
+//Loading Models RRHH
 const Audit = require('./models/Audit');
 const Nomina = require('./models/rrhh/Nomina');
 const Categoria = require('./models/rrhh/Categoria');
 const Valoracion = require('./models/rrhh/Valoracion');
 const Concepto = require('./models/rrhh/Concepto');
+const NominaConcepto = require('./models/rrhh/NominaConcepto');
+
+//Loading Models
+
+const Cliente = require('./models/salesAndPurchasing/Cliente');
+const MateriaPrima = require('./models/salesAndPurchasing/MateriaPrima');
+const Oferta = require('./models/salesAndPurchasing/Oferta');
+const MateriaPrimaProducto = require('./models/salesAndPurchasing/MateriaprimaProducto');
+const Producto = require('./models/salesAndPurchasing/Producto');
+const Proveedor = require('./models/salesAndPurchasing/Proveedor');
+const Venta = require('./models/salesAndPurchasing/Venta');
+const VentaProducto = require('./models/salesAndPurchasing/VentaProducto');
+const CategoriaProducto = require('./models/salesAndPurchasing/CategoriaProducto');
 
 AWS.config.update({ 
   region: process.env.REGION, 
@@ -59,7 +73,6 @@ const s3 = new AWS.S3();
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
-const NominaConcepto = require('./models/NominaConcepto');
 
 (async ()=>{
   try
