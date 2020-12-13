@@ -116,6 +116,18 @@ const routes: Routes = [
     path: 'audit-detail',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./audit-detail/audit-detail.module').then( m => m.AuditDetailPageModule)
+  },
+  {
+    path: 'add-product',
+    loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
+  },
+  {
+    path: 'list-product',
+    loadChildren: () => import('./list-product/list-product.module').then( m => m.ListProductPageModule)
+  },
+  {
+    path: 'sell-product',
+    loadChildren: () => import('./sell-product/sell-product.module').then( m => m.SellProductPageModule)
   }
 ];
 

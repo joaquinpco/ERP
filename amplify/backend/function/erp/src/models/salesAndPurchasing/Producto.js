@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../sequelize');
+const Categoria = require('../rrhh/Categoria');
 const MateriaPrima = require('./MateriaPrima');
 const MateriaprimaProducto = require('./MateriaprimaProducto');
 

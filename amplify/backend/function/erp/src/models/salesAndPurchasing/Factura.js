@@ -2,9 +2,9 @@ const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../sequelize');
 const Cliente = require('./Cliente');
 
-class Oferta extends Model {}
+class Factura extends Model {}
 
-Oferta.init(
+Factura.init(
     {
         id: {
             type:          DataTypes.BIGINT,
@@ -20,10 +20,8 @@ Oferta.init(
     }
 );
 
-Oferta.hasOne(Cliente);
-
 (async ()=> {
     await sequelize.sync();
 })();
 
-module.exports = Oferta;
+module.exports = Factura;

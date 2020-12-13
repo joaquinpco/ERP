@@ -35,9 +35,15 @@
 
         <ion-item>
           <ion-label>
-            Role:
+            Role: {{ user.normalizeAttr['custom:ROLE'] }}
           </ion-label>
-          <ion-input placeholder="{{ user.normalizeAttr['custom:ROLE'] }}" value="{{ user.normalizeAttr['custom:ROLE'] }}" [(ngModel)]="edituser.role" name="role"></ion-input>
+          <ion-select value="{{ user.normalizeAttr['custom:ROLE'] }}" okText="Okay" cancelText="Dismiss" [(ngModel)]="edituser.role" name="role">
+            <ion-select-option value="ADMIN">ADMIN</ion-select-option>
+            <ion-select-option value="RRHH">HUMAN RESOURCES</ion-select-option>
+            <ion-select-option value="SALES">SALES</ion-select-option>
+            <ion-select-option value="PURCHASING">PURCHASING</ion-select-option>
+            <ion-select-option value="FINANCES">FINANCES</ion-select-option>
+          </ion-select>
         </ion-item>
 
         <ion-item>

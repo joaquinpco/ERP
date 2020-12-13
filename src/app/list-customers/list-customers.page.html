@@ -8,5 +8,13 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-card *ngFor="let customer of customers">
+    <ion-card-header>
+      <ion-card-title><ion-icon name="person-circle-outline" slot="start"></ion-icon>{{ customer.nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text><h2><ion-icon name="call-outline" slot="start"></ion-icon><a href="tel:{{ customer.telefono }}">{{ customer.telefono }}</a></h2></ion-text>
+      <ion-text><h2><ion-icon name="business-outline" slot="start"></ion-icon>{{ customer.direccion }}</h2></ion-text>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

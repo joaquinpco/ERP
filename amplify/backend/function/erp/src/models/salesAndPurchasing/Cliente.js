@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../sequelize');
+const Factura = require('./Factura');
 
 class Cliente extends Model {}
 
@@ -18,6 +19,8 @@ Cliente.init(
         sequelize
     }
 );
+
+Cliente.hasMany(Factura, { foreignKey: 'cliente_id' });
 
 (async ()=> {
     await sequelize.sync();

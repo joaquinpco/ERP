@@ -54,7 +54,7 @@ const NominaConcepto = require('./models/rrhh/NominaConcepto');
 
 const Cliente = require('./models/salesAndPurchasing/Cliente');
 const MateriaPrima = require('./models/salesAndPurchasing/MateriaPrima');
-const Oferta = require('./models/salesAndPurchasing/Oferta');
+const Oferta = require('./models/salesAndPurchasing/Factura');
 const MateriaPrimaProducto = require('./models/salesAndPurchasing/MateriaprimaProducto');
 const Producto = require('./models/salesAndPurchasing/Producto');
 const Proveedor = require('./models/salesAndPurchasing/Proveedor');
@@ -724,6 +724,39 @@ app.post('/erp/payWithPaypall', async function(req, res) {
   catch(err)
   {
     console.log(err);  
+  }
+});
+
+app.get('/erp/customers', async function(req, res) {
+  try
+  {
+    const clientes = await Cliente.findAll();
+    return res.json(clientes);
+  }
+  catch(err)
+  {
+    return res.json(err);
+  }
+});
+
+app.post('/erp/newCustomer', async function(req, res) {
+  try
+  {
+    const nombre = req.body.fullname;
+    const direccion = req.body.address;
+    const telefono = req.body.phone;
+
+    const cliente = await Cliente.create({
+      nombre: nombre,
+      direccion: direccion,
+      telefono: telefono
+    })
+
+    return res.json(cliente);
+  }
+  catch(err)
+  {
+    return res.json(err);
   }
 });
 

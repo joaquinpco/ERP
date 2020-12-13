@@ -7,6 +7,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <form (ngSubmit)="newCustomer()">
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input placeholder="Enter customer name" [(ngModel)]="fullname" name="fullname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Address:</ion-label>
+      <ion-input placeholder="Enter customer address" [(ngModel)]="address" name="address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Phone:</ion-label>
+      <ion-input placeholder="Enter customer phone number" [(ngModel)]="phone" name="phone"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+  </form>
 </ion-content>
