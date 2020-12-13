@@ -8,5 +8,45 @@
 </ion-header>
 
 <ion-content>
+  <form (ngSubmit)="newProduct()">
+    
+    <ion-item>
+      <ion-label>Type:</ion-label>
+      <ion-select placeholder="Select one" [(ngModel)]="type" name="type">
+        <ion-select-option value="TANGIBLE">TANGIBLE</ion-select-option>
+        <ion-select-option value="INTANGIBLE">INTANGIBLE</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input placeholder="Enter product name" [(ngModel)]="prodname" name="prodname"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Description:</ion-label>
+      <ion-textarea placeholder="Input product description here..." [(ngModel)]="description" name="description"></ion-textarea>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Category:</ion-label>
+      <ion-select placeholder="Select one" okText="Okay" cancelText="Dismiss" [(ngModel)]="category" name="category">
+        <ion-select-option *ngFor="let categoria of categorias" value="{{ categoria.id }}">{{ categoria.nombre }}</ion-select-option>
+      </ion-select>
+    </ion-item>
 
+    <ion-item>
+      <ion-label>Price:</ion-label>
+      <ion-input placeholder="Input product price" [(ngModel)]="price" name="price"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Quantity: {{currentNumber}}</ion-label>
+      <ion-icon name="remove-circle" (click)="decrement()"></ion-icon>
+      <ion-icon name="add-circle" (click)="increment()"></ion-icon>
+    </ion-item>
+
+    <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+
+  </form>
 </ion-content>

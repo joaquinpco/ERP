@@ -7,9 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddProductPage implements OnInit {
 
+  public currentNumber = 0;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  private decrement()
+  {
+   if(this.currentNumber > 0)
+    this.currentNumber--; 
+  }
+
+  private increment()
+  {
+    this.currentNumber++;
+  }
+
+  public newProduct()
+  {
+
   }
 
 }

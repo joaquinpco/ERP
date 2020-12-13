@@ -45,7 +45,7 @@
       <ion-input placeholder="IRPF Base" [(ngModel)]="irpf" name="irpf"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Category</ion-label>
+      <ion-label>Category:</ion-label>
       <ion-select placeholder="Select one" okText="Okay" cancelText="Dismiss" [(ngModel)]="category" name="category">
         <ion-select-option *ngFor="let categoria of categorias" value="{{ categoria.id }}">{{ categoria.nombre }}</ion-select-option>
       </ion-select>

@@ -14,7 +14,7 @@ Producto.init(
             primaryKey:    true
         },
         tipo: DataTypes.STRING,
-        marca: DataTypes.STRING,
+        nombre: DataTypes.STRING,
         descripcion: DataTypes.STRING,
         precio: DataTypes.DOUBLE,
         cantidad: DataTypes.INTEGER

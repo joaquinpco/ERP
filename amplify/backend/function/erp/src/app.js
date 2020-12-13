@@ -760,6 +760,18 @@ app.post('/erp/newCustomer', async function(req, res) {
   }
 });
 
+app.get('/erp/products', async function(req, res) {
+  try
+  {
+    const producto = await Producto.findAll();
+    res.json(producto);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
 app.get('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
