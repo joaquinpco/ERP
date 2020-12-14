@@ -216,6 +216,14 @@
               <ion-icon name="rocket-outline" slot="start"></ion-icon>
               Sell
             </ion-item>
+            <ion-item menuclose [hidden]="!isProduct" [routerLink]="['/add-productcategory']" menuClose class="sub-menu">
+              <ion-icon name="add-outline" slot="start"></ion-icon>
+              Category
+            </ion-item>
+            <ion-item menuclose [hidden]="!isProduct" [routerLink]="['/list-productcategory']" menuClose class="sub-menu">
+              <ion-icon name="list-outline" slot="start"></ion-icon>
+              Category
+            </ion-item>
           </ion-list>
         </ion-menu-toggle>
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-add-product',
@@ -8,8 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class AddProductPage implements OnInit {
 
   public currentNumber = 0;
+  public productcategories;
 
-  constructor() { }
+  constructor(
+    public loadingController: LoadingController
+  ) { }
 
   ngOnInit() {
   }
@@ -28,6 +33,21 @@ export class AddProductPage implements OnInit {
   public newProduct()
   {
 
+  }
+
+  async ionViewWillEnter()
+  {
+    const loader = await this.loadingController.create({ message: 'Fetching data, pls wait ...' });
+    try
+    {
+      loader.present();
+      const productCategories = await API.get('ERP', '/erp/productCategories', {});
+      this.productcategories = productCategories;
+      loader.dismiss();
+    }
+    catch(err){
+      loader.dismiss();
+    }
   }
 
 }

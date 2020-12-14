@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Product Categories</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let productCategory of productCategories">
+    <ion-card-header>
+      <ion-card-subtitle>{{ productCategory.nombre }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

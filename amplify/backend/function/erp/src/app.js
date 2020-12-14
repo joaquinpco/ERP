@@ -760,6 +760,35 @@ app.post('/erp/newCustomer', async function(req, res) {
   }
 });
 
+app.post('/erp/newProductCategory', async function(req, res) {
+  try
+  {
+    const nombreCategoria = req.body.category;
+
+    const categoriaProducto = CategoriaProducto.create({
+      nombre: nombreCategoria
+    });
+
+    res.json(categoriaProducto);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.get('/erp/productCategories', async function(req, res) {
+  try
+  {
+    const productCategories = await CategoriaProducto.findAll();
+    res.json(productCategories);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
 app.get('/erp/products', async function(req, res) {
   try
   {

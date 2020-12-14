@@ -128,6 +128,14 @@ const routes: Routes = [
   {
     path: 'sell-product',
     loadChildren: () => import('./sell-product/sell-product.module').then( m => m.SellProductPageModule)
+  },
+  {
+    path: 'add-productcategory',
+    loadChildren: () => import('./add-productcategory/add-productcategory.module').then( m => m.AddProductcategoryPageModule)
+  },
+  {
+    path: 'list-productcategory',
+    loadChildren: () => import('./list-productcategory/list-productcategory.module').then( m => m.ListProductcategoryPageModule)
   }
 ];
 
