@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
-import { MenuService } from '../services/menu.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-list-payroll',

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API, loadingOverlay } from 'aws-amplify';
 import { type } from 'os';
-import { MenuService } from '../services/menu.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-admin-add-concepts',

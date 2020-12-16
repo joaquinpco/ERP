@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { API } from 'aws-amplify';
-import { MenuService } from '../services/menu.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-add-payroll',

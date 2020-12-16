@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { API } from 'aws-amplify';
-import { CameraService } from '../services/camera.service';
-import { MenuService } from '../services/menu.service';
+import { CameraService } from '../../services/camera.service';
+import { MenuService } from '../../services/menu.service';
 
 export class EditUser
 {

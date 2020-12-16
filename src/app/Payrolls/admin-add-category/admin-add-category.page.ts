@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
-import { MenuService } from '../services/menu.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-admin-add-category',

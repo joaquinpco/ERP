@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 import { Router } from '@angular/router';
-import { MenuService } from '../services/menu.service';
+import { MenuService } from '../../services/menu.service';
 
 export class Signupuser
 {

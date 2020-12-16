@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { API } from 'aws-amplify';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { MenuService } from '../services/menu.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-list-rrhh',
