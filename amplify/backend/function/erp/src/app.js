@@ -765,7 +765,7 @@ app.post('/erp/newProductCategory', async function(req, res) {
   {
     const nombreCategoria = req.body.category;
 
-    const categoriaProducto = CategoriaProducto.create({
+    const categoriaProducto = await CategoriaProducto.create({
       nombre: nombreCategoria
     });
 

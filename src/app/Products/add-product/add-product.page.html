@@ -12,7 +12,7 @@
     
     <ion-item>
       <ion-label>Type:</ion-label>
-      <ion-select placeholder="Select one" [(ngModel)]="type" name="type">
+      <ion-select placeholder="Select one" [(ngModel)]="producto.type" name="producto.type" value="producto.type">
         <ion-select-option value="TANGIBLE">TANGIBLE</ion-select-option>
         <ion-select-option value="INTANGIBLE">INTANGIBLE</ion-select-option>
       </ion-select>
@@ -44,6 +44,13 @@
       <ion-label>Quantity: {{currentNumber}}</ion-label>
       <ion-icon name="remove-circle" (click)="decrement()"></ion-icon>
       <ion-icon name="add-circle" (click)="increment()"></ion-icon>
+    </ion-item>
+
+    <ion-item *ngIf='getProductType()'>
+      <ion-label>Raw Materials:</ion-label>
+      <ion-select multiple="true" cancelText="Cancel" okText="Okay">
+        <ion-select-option *ngFor="let rawMaterial of rawMaterials" value="{{ rawMaterial.id }}">{{ rawMaterial.nombre }}</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
