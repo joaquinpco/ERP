@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { from } from 'rxjs';
 import { AuthGuardService } from './services/auth-guard.service'
 
 const routes: Routes = [
@@ -75,22 +74,22 @@ const routes: Routes = [
   {
     path: 'admin-add-concepts',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./Payrolls/admin-add-concepts/admin-add-concepts.module').then( m => m.AdminAddConceptsPageModule)
+    loadChildren: () => import('./Payrolls/add-concepts/admin-add-concepts.module').then( m => m.AdminAddConceptsPageModule)
   },
   {
     path: 'admin-list-concepts',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./Payrolls/admin-list-concepts/admin-list-concepts.module').then( m => m.AdminListConceptsPageModule)
+    loadChildren: () => import('./Payrolls/list-concepts/admin-list-concepts.module').then( m => m.AdminListConceptsPageModule)
   },
   {
     path: 'admin-add-category',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./Payrolls/admin-add-category/admin-add-category.module').then( m => m.AdminAddCategoryPageModule)
+    loadChildren: () => import('./Payrolls/add-category/admin-add-category.module').then( m => m.AdminAddCategoryPageModule)
   },
   {
     path: 'admin-list-category',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./Payrolls/admin-list-category/admin-list-category.module').then( m => m.AdminListCategoryPageModule)
+    loadChildren: () => import('./Payrolls/list-category/admin-list-category.module').then( m => m.AdminListCategoryPageModule)
   },
   {
     path: 'audits',
@@ -141,6 +140,16 @@ const routes: Routes = [
     path: 'list-productcategory',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./Products/list-productcategory/list-productcategory.module').then( m => m.ListProductcategoryPageModule)
+  },
+  {
+    path: 'add-rawmaterials',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./Products/add-rawmaterials/add-rawmaterials.module').then( m => m.AddRawmaterialsPageModule)
+  },
+  {
+    path: 'list-rawmaterials',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./Products/list-rawmaterials/list-rawmaterials.module').then( m => m.ListRawmaterialsPageModule)
   }
 ];
 

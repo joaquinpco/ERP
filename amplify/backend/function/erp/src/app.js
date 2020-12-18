@@ -801,6 +801,33 @@ app.get('/erp/products', async function(req, res) {
   }
 });
 
+app.post('/erp/newRawMaterial', async function(req, res){
+  try
+  {
+    const rawMaterial = await MateriaPrima.create({
+      nombre: req.body.name,
+      peso: req.body.weight,
+      precio: req.body.price,
+      cantidad: req.body.quantity
+    });
+
+    res.json(rawMaterial);
+  }
+  catch(err){
+    res.json(err);
+  }
+});
+
+app.get('/erp/rawMaterials', async function(req, res) {
+  try{
+    const rawMaterials = await MateriaPrima.findAll();
+    res.json(rawMaterials);
+  }
+  catch(err){
+    res.json(rawMaterial);
+  }
+});
+
 app.get('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});
@@ -850,7 +877,7 @@ app.delete('/erp/*', function(req, res) {
 
 
 //Check if server is on testing mode
-if(process.env.LOGGING_SEQUELIZE ==="false")
+if(process.env.DEPLOYED_APP === "false")
 {
   module.exports = app.listen(3000, function() {
     console.log("App started");

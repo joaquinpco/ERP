@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Raw Materials</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="newRawMaterial()">
+    <ion-item>
+      <ion-input placeholder="Name" [(ngModel)]="rawMaterial.name" name="rawMaterial.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Weight(KG)" [(ngModel)]="rawMaterial.weight" name="rawMaterial.weight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Quantity" [(ngModel)]="rawMaterial.quantity" name="rawMaterial.quantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Price" [(ngModel)]="rawMaterial.price" name="rawMaterial.price"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+  </form>
+</ion-content>

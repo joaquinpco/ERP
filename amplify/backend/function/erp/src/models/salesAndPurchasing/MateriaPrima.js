@@ -13,7 +13,8 @@ MateriaPrima.init(
         },
         nombre: DataTypes.STRING,
         peso: DataTypes.DOUBLE,
-        precio: DataTypes.DOUBLE
+        precio: DataTypes.DOUBLE,
+        cantidad: DataTypes.INTEGER
     },
     {
         sequelize

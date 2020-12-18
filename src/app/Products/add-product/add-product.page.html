@@ -20,29 +20,30 @@
     
     <ion-item>
       <ion-label>Name:</ion-label>
-      <ion-input placeholder="Enter product name" [(ngModel)]="prodname" name="prodname"></ion-input>
+      <ion-input placeholder="Enter product name" [(ngModel)]="producto.name" name="producto.name"></ion-input>
     </ion-item>
     
     <ion-item>
       <ion-label>Description:</ion-label>
-      <ion-textarea placeholder="Input product description here..." [(ngModel)]="description" name="description"></ion-textarea>
+      <ion-textarea placeholder="Input product description here..." [(ngModel)]="producto.description" name="producto.description"></ion-textarea>
     </ion-item>
     
     <ion-item>
       <ion-label>Category:</ion-label>
-      <ion-select placeholder="Select one" okText="Okay" cancelText="Dismiss" [(ngModel)]="category" name="category">
+      <ion-select placeholder="Select one" okText="Okay" cancelText="Dismiss" [(ngModel)]="producto.category" name="producto.category">
         <ion-select-option *ngFor="let categoria of productcategories" value="{{ categoria.id }}">{{ categoria.nombre }}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Price:</ion-label>
-      <ion-input placeholder="Input product price" [(ngModel)]="price" name="price"></ion-input>
+      <ion-input placeholder="Input product price" [(ngModel)]="producto.price" name="producto.price"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Quantity: {{currentNumber}}</ion-label>
+      <ion-label>Quantity:</ion-label>
       <ion-icon name="remove-circle" (click)="decrement()"></ion-icon>
+      <label>{{ currentNumber }}</label>
       <ion-icon name="add-circle" (click)="increment()"></ion-icon>
     </ion-item>
 

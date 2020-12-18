@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Raw Materials</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let rawMaterial of rawMaterials">
+    <ion-card-header>
+      <ion-card-title>{{ rawMaterial.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h3>Price: {{ rawMaterial.precio }} €</h3>
+      <h3>Quantity: {{ rawMaterial.cantidad }} units</h3>
+      <h3>Weight: {{ rawMaterial.peso }} KG</h3>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

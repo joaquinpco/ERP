@@ -5,6 +5,11 @@ import { API } from 'aws-amplify';
 export class Producto
 {
   public type: string;
+  public name: string;
+  public category: string;
+  public description: string;
+  public price: string;
+  public rawMaterials: Array<number>;
 }
 
 @Component({
@@ -40,7 +45,7 @@ export class AddProductPage implements OnInit {
 
   private increment()
   {
-    this.currentNumber++;
+    this.currentNumber += 1;
   }
 
   public getProductType(): boolean
@@ -55,6 +60,8 @@ export class AddProductPage implements OnInit {
     try
     {
       loader.present();
+
+      const producto = this.producto;
 
       loader.dismiss();
     }
@@ -72,6 +79,8 @@ export class AddProductPage implements OnInit {
       loader.present();
       const productCategories = await API.get('ERP', '/erp/productCategories', {});
       this.productcategories = productCategories;
+      const rawMaterials = await API.get('ERP', '/erp/rawMaterials', {});
+      this.rawMaterials = rawMaterials;
       loader.dismiss();
     }
     catch(err){

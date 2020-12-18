@@ -4,7 +4,9 @@ const sequelize = require('../../sequelize');
 class MateriaprimaProducto extends Model {}
 
 MateriaprimaProducto.init(
-   {},
+   {
+     cantidad: DataTypes.INTEGER
+   },
    {
      sequelize
    }
