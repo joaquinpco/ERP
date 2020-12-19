@@ -73,6 +73,7 @@ const s3 = new AWS.S3();
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
+const { raw } = require('express');
 
 (async ()=>{
   try
@@ -792,7 +793,13 @@ app.get('/erp/productCategories', async function(req, res) {
 app.get('/erp/products', async function(req, res) {
   try
   {
-    const producto = await Producto.findAll();
+    const producto = await Producto.findAll(
+      {
+        include: [{
+          model: MateriaPrima
+        }]
+      }
+    );
     res.json(producto);
   }
   catch(err)
@@ -846,18 +853,30 @@ app.post('/erp/newProduct', async function(req, res) {
       descripcion: descripcion,
       precio: precio,
       cantidad: quantity,
-      categoria: categoria
+      categoriaproducto_id: categoria
     });
 
     if(tipo === "TANGIBLE")
     {
       //Rellenamos la tabla intermedia
       const rawMaterials = JSON.parse(req.body.rawMaterials);
-      
+
       for(let rawMaterial of rawMaterials)
       {
         let materiaPrima = await MateriaPrima.findOne({ where: { id: rawMaterial.id } });
+        materiaPrima.cantidad -= rawMaterial.cantidad;
+        await materiaPrima.save();
+
         await producto.addMateriaPrima(materiaPrima);
+        
+        let materiaPrimaProducto = await MateriaPrimaProducto.findOne({ 
+          where: { 
+            ProductoId: producto.id, MateriaPrimaId: materiaPrima.id 
+          }
+        });
+
+        materiaPrimaProducto.cantidad = rawMaterial.cantidad;
+        await materiaPrimaProducto.save();
       }
 
     }

@@ -50,7 +50,7 @@
     <ion-item *ngIf='getProductType()'>
       <ion-label>Raw Materials:</ion-label>
       <ion-select multiple="true" cancelText="Cancel" okText="Okay"  (ionChange)="selectedRawMaterials($event)">
-        <ion-select-option *ngFor="let rawMaterial of rawMaterials" value="{{ rawMaterial.id }},{{ rawMaterial.nombre }}">{{ rawMaterial.nombre }}</ion-select-option>
+        <ion-select-option *ngFor="let rawMaterial of rawMaterials" value="{{ rawMaterial.id }},{{ rawMaterial.nombre }},{{ rawMaterial.cantidad }}">{{ rawMaterial.nombre }} - {{ rawMaterial.cantidad }}</ion-select-option>
       </ion-select>
     </ion-item>
 

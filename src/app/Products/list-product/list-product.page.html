@@ -8,5 +8,14 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-card *ngFor="let product of products">
+    <ion-item>
+      <ion-card-title>{{ product.nombre }}</ion-card-title>
+    </ion-item>
+    <ion-card-content>
+      <h2>{{ product.precio }}€</h2>
+      <h2>{{ product.cantidad }} units</h2>
+      <p>{{ product.descripcion }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

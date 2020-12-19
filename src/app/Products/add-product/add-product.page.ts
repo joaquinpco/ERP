@@ -68,8 +68,10 @@ export class AddProductPage implements OnInit {
           for(let i = 0; i < raw.length; i++)
           {
             const arrRawMaterials = raw[i].split(',');
+
             const id =  arrRawMaterials[0];
             const nombre = arrRawMaterials[1];
+            const cantidadDisponible = arrRawMaterials[2];
     
             let alert = await this.alertController.create({
               header: nombre,
@@ -83,16 +85,33 @@ export class AddProductPage implements OnInit {
               buttons: [
                 {
                   text: 'Add',
-                  handler: (value) => {
-    
-                    this.quantityMaterials.push(
-                        {
-                          id: id,
-                          nombre: nombre
-                        });
+                  handler: async (value) => {
+
+                    const cantidad = Number(value.data);
+
+                    if((cantidadDisponible - cantidad) >= 0)
+                    {
+                      this.quantityMaterials.push(
+                          {
+                            id: id,
+                            nombre: nombre,
+                            cantidad: cantidad
+                          });
                     }
-                    
-                  }
+                    else
+                    {
+                      const alert = await this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: 'Alert',
+                        subHeader: 'Stock Quantity under 0',
+                        message: 'Stock quantity cannot stay below 0',
+                        buttons: ['Ok']
+                      });
+                  
+                      await alert.present();
+                    }
+                  }    
+                }
               ]
             });
             await alert.present();

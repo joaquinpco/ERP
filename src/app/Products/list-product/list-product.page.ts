@@ -27,6 +27,7 @@ export class ListProductPage implements OnInit {
     {
       loader.present();  
       const prods = await API.get('ERP', '/erp/products', {});
+      console.log(prods);
       this.products = prods;
       loader.dismiss();
     }
