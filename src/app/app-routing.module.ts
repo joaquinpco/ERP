@@ -49,7 +49,7 @@ const routes: Routes = [
   {
     path: 'profile',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./Profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
     path: 'add-payroll',
