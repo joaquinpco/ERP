@@ -232,7 +232,7 @@ app.post('/erp/rrhh/newEmployee', async function(req, res) {
           Value: email
         },
         {
-          Name: 'custom:FIRST_NAME', /* required */
+          Name: 'custom:FIRST_NAME',
           Value: req.body.firstname
         },
         {
@@ -826,6 +826,49 @@ app.get('/erp/rawMaterials', async function(req, res) {
   catch(err){
     res.json(rawMaterial);
   }
+});
+
+app.post('/erp/newProduct', async function(req, res) {
+  
+  const tipo = req.body.tipo;
+  const nombre = req.body.nombre;
+  const descripcion = req.body.descripcion;
+  const precio = req.body.precio;
+  const quantity = req.body.quantity;
+  const categoria = req.body.category;
+
+  try
+  {
+
+    const producto = await Producto.create({
+      tipo: tipo,
+      nombre: nombre,
+      descripcion: descripcion,
+      precio: precio,
+      cantidad: quantity,
+      categoria: categoria
+    });
+
+    if(tipo === "TANGIBLE")
+    {
+      //Rellenamos la tabla intermedia
+      const rawMaterials = JSON.parse(req.body.rawMaterials);
+      
+      for(let rawMaterial of rawMaterials)
+      {
+        let materiaPrima = await MateriaPrima.findOne({ where: { id: rawMaterial.id } });
+        await producto.addMateriaPrima(materiaPrima);
+      }
+
+    }
+
+    return res.json(producto);
+  }
+  catch(err)
+  {
+    return res.json(err);
+  }
+
 });
 
 app.get('/erp/*', function(req, res) {

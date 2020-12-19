@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
 export class Producto
@@ -9,7 +10,8 @@ export class Producto
   public category: string;
   public description: string;
   public price: string;
-  public rawMaterials: Array<number>;
+  public quantity: string;
+  public rawMaterials: Array<any>;
 }
 
 @Component({
@@ -25,9 +27,12 @@ export class AddProductPage implements OnInit {
   public productcategories;
   public producto: Producto;
   public rawMaterials: Array<any>;
+  public quantityMaterials = [];
 
   constructor(
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public alertController: AlertController,
+    public router: Router
   ) { 
     this.producto = new Producto();
     this.producto.type = 'INTANGIBLE';
@@ -53,6 +58,70 @@ export class AddProductPage implements OnInit {
     return this.producto.type === 'TANGIBLE';
   }
 
+
+  async selectedRawMaterials($events)
+  {
+          let raw = $events.detail.value;
+          this.quantityMaterials = [];
+
+          //ask for quantity raw materials
+          for(let i = 0; i < raw.length; i++)
+          {
+            const arrRawMaterials = raw[i].split(',');
+            const id =  arrRawMaterials[0];
+            const nombre = arrRawMaterials[1];
+    
+            let alert = await this.alertController.create({
+              header: nombre,
+              message: "Input Quantity",
+              inputs: [
+                {
+                  type: 'text',
+                  name: 'data'
+                }
+              ],
+              buttons: [
+                {
+                  text: 'Add',
+                  handler: (value) => {
+    
+                    this.quantityMaterials.push(
+                        {
+                          id: id,
+                          nombre: nombre
+                        });
+                    }
+                    
+                  }
+              ]
+            });
+            await alert.present();
+          }
+  }
+
+  async changeQuantity()
+  {
+    let alert = await this.alertController.create({
+      header: "Change product quantity",
+      message: "Input quantity",
+      inputs: [
+        {
+          type: 'text',
+          name: 'data'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Add',
+          handler: (value) => {
+            this.currentNumber = Number(value.data)
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async newProduct()
   {
     const loader = await this.loadingController.create({ message: 'Adding new product, please wait ...' });
@@ -63,7 +132,28 @@ export class AddProductPage implements OnInit {
 
       const producto = this.producto;
 
+      console.log(producto);
+      console.log(this.quantityMaterials);
+
+      const json = JSON.stringify(this.quantityMaterials);
+
+      const postParams = {
+        body: {
+          tipo: producto.type,
+          nombre: producto.name,
+          descripcion: producto.description,
+          precio: producto.price,
+          quantity: this.currentNumber,
+          category: producto.category,
+          rawMaterials: json
+        }
+      }
+
+      await API.post('ERP', '/erp/newProduct', postParams);
+
       loader.dismiss();
+
+      this.router.navigate(['/list-product']);
     }
     catch(err) 
     {
@@ -79,6 +169,7 @@ export class AddProductPage implements OnInit {
       loader.present();
       const productCategories = await API.get('ERP', '/erp/productCategories', {});
       this.productcategories = productCategories;
+      console.log(this.productcategories);
       const rawMaterials = await API.get('ERP', '/erp/rawMaterials', {});
       this.rawMaterials = rawMaterials;
       loader.dismiss();
