@@ -150,6 +150,14 @@ const routes: Routes = [
     path: 'list-rawmaterials',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./Products/list-rawmaterials/list-rawmaterials.module').then( m => m.ListRawmaterialsPageModule)
+  },
+  {
+    path: 'add-supplier',
+    loadChildren: () => import('./Supplier/add-supplier/add-supplier.module').then( m => m.AddSupplierPageModule)
+  },
+  {
+    path: 'list-suppliers',
+    loadChildren: () => import('./Supplier/list-suppliers/list-suppliers.module').then( m => m.ListSuppliersPageModule)
   }
 ];
 

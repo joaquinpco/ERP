@@ -7,6 +7,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
+<form (ngSubmit)="newSell()">
+  <ion-item>
+    <ion-label>
+      Customer:
+    </ion-label>
+    <ion-select placeholder="Select One">
+      <ion-select-option value="{{ customer.id }}" *ngFor="let customer of customers">{{ customer.nombre }}</ion-select-option>
+    </ion-select>
+  </ion-item>
 
+  <ion-item>
+    <ion-label>
+      Product:
+    </ion-label>
+    <ion-select placeholder="Select One">
+      <ion-select-option value="{{ product.id }}" *ngFor="let product of products">{{ product.nombre }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+</form>
 </ion-content>

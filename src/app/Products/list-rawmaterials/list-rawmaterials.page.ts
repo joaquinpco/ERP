@@ -28,6 +28,7 @@ export class ListRawmaterialsPage implements OnInit {
       loader.present();
       const rawMaterials = await API.get('ERP', '/erp/rawMaterials', {});
       this.rawMaterials = rawMaterials;
+      console.log(this.rawMaterials);
       loader.dismiss();
     }
     catch(err) 
