@@ -74,6 +74,7 @@ const cognito = new AWS.CognitoIdentityServiceProvider();
 
 const customUsersPoolParams = require('./cognito');
 const { raw } = require('express');
+const { CognitoIdentityServiceProvider } = require('aws-sdk');
 
 (async ()=>{
   try
@@ -177,7 +178,7 @@ app.put('/erp/normalizeUser', async function(req, res){
           },
           {
             Name: 'custom:PROFILE_PICTURE',
-            Value: 'default'
+            Value: 'default.png'
           }
         ],
         UserPoolId: process.env.POOL_ID,
@@ -297,7 +298,8 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
         'custom:NIF',
         'custom:STR_PHONE',
         'custom:ADDRESS',
-        'custom:STRG_NSS'
+        'custom:STRG_NSS',
+        'custom:PROFILE_PICTURE'
         /* more items */
       ]
     };
@@ -887,6 +889,43 @@ app.post('/erp/newProduct', async function(req, res) {
   {
     return res.json(err);
   }
+
+});
+
+app.post('/erp/uploadProfilePhoto', async function(req, res) {
+
+  const imageProfile  = Buffer.from(req.body.dataUrl.split(',')[1], 'base64');
+  const type = req.body.dataUrl.split(';')[0].split('/')[1];
+  const sub  = req.body.sub;
+
+  const params = {
+    Bucket: process.env.BUCKET_NAME,
+    Key: sub + "." + type,
+    Body: imageProfile,
+    ACL: 'public-read',
+    ContentEncoding: 'base64',
+    ContentType: 'image/' + type
+  };
+
+  const urlProfile = await s3.upload(params).promise();
+
+  let userParams = {
+    UserAttributes: [ /* required */
+      {
+        Name: 'custom:PROFILE_PICTURE', /* required */
+        Value: urlProfile.Location
+      },
+      /* more items */
+    ],
+    UserPoolId: process.env.POOL_ID, /* required */
+    Username: sub, /* required */
+  }
+
+  try
+  {
+    const request = await cognito.adminUpdateUserAttributes(userParams).promise();
+  }
+  catch(err){}
 
 });
 

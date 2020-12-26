@@ -19,14 +19,25 @@ export class CameraService {
   async takePicture()
   {
     try {
+
+      //This is for preventing camera ionic library console.error 
+      const errorConsoleFunction = console.error;
+      console.error = function() {};
+
       const profilePicture = await Camera.getPhoto({
         quality: 90,
         allowEditing: false,
         resultType: CameraResultType.DataUrl,
       });
       this.guestPicture = profilePicture.dataUrl;
+      console.log(this.guestPicture);
+
+      console.error = errorConsoleFunction
+
+      return this.guestPicture;
     } catch (error) {
       //console.error(error);
+      return error;
     }
   }
 

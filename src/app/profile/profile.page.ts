@@ -32,8 +32,17 @@ export class ProfilePage implements OnInit {
     await this.menuService.enableMenu(await this.menuService.getUserRoleFromStorage());
   }
 
-  addPhotoToProfile() {
-    this.myCameraService.takePicture();
+  async addPhotoToProfile() {
+    const dataUrl = await this.myCameraService.takePicture();
+
+    let params = {
+      body: {
+        sub: this.user.normalizeAttr['sub'],
+        dataUrl: dataUrl
+      }
+    }
+
+    await API.post('ERP', '/erp/uploadProfilePhoto', params);
   }
 
   async openActionSheet()
@@ -145,7 +154,11 @@ export class ProfilePage implements OnInit {
           'Username' : currentUser.username
         }
       };
-      this.user = await API.get('ERP', '/erp/getNormalizeUser', params)
+      this.user = await API.get('ERP', '/erp/getNormalizeUser', params);
+
+      this.myCameraService.guestPicture = this.user.normalizeAttr['custom:PROFILE_PICTURE'];
+
+      console.log(this.user);
 
       loader.dismiss();
     }

@@ -20,6 +20,14 @@
         "program": "${workspaceFolder}/amplify/backend/function/erp/src/app.js",
         "cwd": "${workspaceFolder}/amplify/backend/function/erp/src",
         "runtimeExecutable": "/Users/joaquinpco/.nvm/versions/node/v14.12.0/bin/node"
+      },
+      {
+        "name": "Launch in Chrome",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:8100/",
+        "sourceMaps": true,
+        "webRoot": "${workspaceFolder}",
       }
     ]
 } 
