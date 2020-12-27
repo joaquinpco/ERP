@@ -11,13 +11,15 @@
   <div *ngIf="user.normalizeAttr != undefined">
     <ion-list lines="none">
       <form (submit)="editUser()">
-        <br>
-        <ion-item class="profile-item">
-          <div class="profile-picture big-profile-picture">
-            <img src="#">
+        <div class="card">
+          <div class="header">
+            <div class="avatar">
+                <img [src]="user.normalizeAttr['custom:PROFILE_PICTURE']">
+            </div>
           </div>
-          
-        </ion-item>
+        </div>
+        <br>
+        <br>
         <br>
         <ion-item>
           <ion-label>
@@ -70,12 +72,11 @@
           <ion-input placeholder="{{ user.normalizeAttr['custom:ADDRESS'] }}" value="{{ user.normalizeAttr['custom:ADDRESS'] }}" [(ngModel)]="edituser.address" name="address"></ion-input>
         </ion-item>
 
-        <ion-item>
-          <ion-button color="warning" (click)="updateUser(sub)">Update user</ion-button>
-        </ion-item>
-        <ion-item *ngIf="user.Enabled == false">
-          <ion-button color="success" (click)="enableUser(sub)">Enable User</ion-button>
-        </ion-item>
+        <ion-button color="warning" (click)="updateUser(sub)" expand="full">Update user</ion-button>
+        
+        <div *ngIf="user.Enabled == false">
+          <ion-button color="success" (click)="enableUser(sub)" expand="full">Enable User</ion-button>
+        </div>
       </form>
     </ion-list>
   </div>

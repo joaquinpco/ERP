@@ -382,7 +382,7 @@ app.put('/erp/updateEmployee', async function(req, res){
             Value: req.body.role
           },
           {
-            Name: 'custom:STR_NSS',
+            Name: 'custom:STRG_NSS',
             Value: req.body.nss
           },
           {

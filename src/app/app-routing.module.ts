@@ -153,10 +153,12 @@ const routes: Routes = [
   },
   {
     path: 'add-supplier',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./Supplier/add-supplier/add-supplier.module').then( m => m.AddSupplierPageModule)
   },
   {
     path: 'list-suppliers',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./Supplier/list-suppliers/list-suppliers.module').then( m => m.ListSuppliersPageModule)
   }
 ];

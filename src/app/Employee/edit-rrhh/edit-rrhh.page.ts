@@ -28,12 +28,12 @@ export class EditRrhhPage implements OnInit {
   public edituser : EditUser;
 
   constructor(
-                private activatedRoute : ActivatedRoute,
-                private router : Router,
-                public loadingCtrl: LoadingController,
-                private myCameraService: CameraService,
-                public alertController: AlertController,
-                public menuService: MenuService
+    private activatedRoute : ActivatedRoute,
+    private router : Router,
+    public loadingCtrl: LoadingController,
+    private myCameraService: CameraService,
+    public alertController: AlertController,
+    public menuService: MenuService
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
