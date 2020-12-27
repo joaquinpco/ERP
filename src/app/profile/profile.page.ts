@@ -156,8 +156,15 @@ export class ProfilePage implements OnInit {
       };
       this.user = await API.get('ERP', '/erp/getNormalizeUser', params);
 
-      this.myCameraService.guestPicture = this.user.normalizeAttr['custom:PROFILE_PICTURE'];
-
+      if(this.user.normalizeAttr['custom:PROFILE_PICTURE'] === 'profile.png')
+      {
+        console.log("no tiene imagen definida aun")
+        this.myCameraService.guestPicture = "/assets/img/" + this.user.normalizeAttr['custom:PROFILE_PICTURE'];
+      }
+      else
+      {
+        this.myCameraService.guestPicture = this.user.normalizeAttr['custom:PROFILE_PICTURE'];
+      }
       console.log(this.user);
 
       loader.dismiss();

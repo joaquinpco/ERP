@@ -30,7 +30,6 @@ export class CameraService {
         resultType: CameraResultType.DataUrl,
       });
       this.guestPicture = profilePicture.dataUrl;
-      console.log(this.guestPicture);
 
       console.error = errorConsoleFunction
 
