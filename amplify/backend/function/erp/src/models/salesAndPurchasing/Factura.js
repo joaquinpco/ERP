@@ -11,7 +11,6 @@ Factura.init(
             autoIncrement: true,
             primaryKey:    true
         },
-        fecha: DataTypes.DATE,
         idVenta: DataTypes.INTEGER,
         sub: DataTypes.STRING
     },

@@ -13,7 +13,7 @@
     <ion-label>
       Customer:
     </ion-label>
-    <ion-select placeholder="Select One">
+    <ion-select placeholder="Select One" [(ngModel)]="customer" name="customer">
       <ion-select-option value="{{ customer.id }}" *ngFor="let customer of customers">{{ customer.nombre }}</ion-select-option>
     </ion-select>
   </ion-item>
@@ -22,8 +22,8 @@
     <ion-label>
       Product:
     </ion-label>
-    <ion-select placeholder="Select One">
-      <ion-select-option value="{{ product.id }}" *ngFor="let product of products">{{ product.nombre }}</ion-select-option>
+    <ion-select multiple="true" placeholder="Select one at least!" [(ngModel)]="productsSelect" name="productsSelect" (ionChange)="selectedProducts($event)">
+      <ion-select-option value="{{ product.id }}-{{ product.cantidad }}-{{ product.nombre }}-{{ product.precio }}" *ngFor="let product of products">{{ product.nombre }} - {{ product.cantidad }} units</ion-select-option>
     </ion-select>
   </ion-item>
 

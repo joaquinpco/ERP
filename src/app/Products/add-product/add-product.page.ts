@@ -12,6 +12,11 @@ export class Producto
   public price: string;
   public quantity: string;
   public rawMaterials: Array<any>;
+
+  constructor()
+  {
+    this.description = "";
+  }
 }
 
 @Component({

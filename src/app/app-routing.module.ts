@@ -160,6 +160,11 @@ const routes: Routes = [
     path: 'list-suppliers',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./Supplier/list-suppliers/list-suppliers.module').then( m => m.ListSuppliersPageModule)
+  },
+  {
+    path: 'sell-list',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./Products/sell-list/sell-list.module').then( m => m.SellListPageModule)
   }
 ];
 

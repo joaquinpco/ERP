@@ -75,6 +75,7 @@ const cognito = new AWS.CognitoIdentityServiceProvider();
 const customUsersPoolParams = require('./cognito');
 const { raw } = require('express');
 const { CognitoIdentityServiceProvider } = require('aws-sdk');
+const Factura = require('./models/salesAndPurchasing/Factura');
 
 (async ()=>{
   try
@@ -927,6 +928,55 @@ app.post('/erp/uploadProfilePhoto', async function(req, res) {
   }
   catch(err){}
 
+});
+
+app.post('/erp/newBill', async function(req, res) {
+  try
+  {
+    const productos = JSON.parse(req.body.productos);
+    const idCliente = req.body.cliente;
+    
+    let sequelizeProductos = [];
+    let total = 0;
+
+    for(let producto of productos)
+    {
+      const idProducto = producto.id;
+      const cantidadVendida = producto.cantidad;
+      let prdct = await Producto.findOne({where: {id: producto.id}});
+      prdct.cantidad -= cantidadVendida;
+      total += cantidadVendida * prdct.precio;
+      await prdct.save();
+      sequelizeProductos.push(prdct);
+    }
+
+    let venta = await Venta.create({
+      total: total,
+      sub: req.body.sub 
+    });
+
+    let factura = await Factura.create({
+      idVenta: venta.id,
+      sub: req.body.sub
+    });
+
+    let i = 0;
+    for(let seqProducto of sequelizeProductos)
+    {
+      await venta.addProducto(seqProducto);
+      let ventaProducto = await VentaProducto.findOne({where: { VentumId: venta.id, 
+        ProductoId: seqProducto.id }});
+      ventaProducto.cantidad = productos[i].cantidad;
+      await ventaProducto.save();
+      i++;
+    }
+
+    res.json(factura);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
 });
 
 app.get('/erp/*', function(req, res) {

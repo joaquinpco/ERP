@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
 @Component({
@@ -15,6 +15,7 @@ export class AddProductcategoryPage implements OnInit {
 
   constructor(
     public loadingController: LoadingController,
+    public alertController: AlertController,
     public router: Router
   ) { }
 
@@ -24,6 +25,11 @@ export class AddProductcategoryPage implements OnInit {
     try
     {
       loader.present();
+
+      if(this.productcategory === undefined)
+      {
+        throw("Product category cannot be empty");
+      }
 
       const bodyParams = {
         body: {
@@ -40,6 +46,16 @@ export class AddProductcategoryPage implements OnInit {
     catch(err)
     {
       loader.dismiss();
+      
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Alert',
+        subHeader: '',
+        message: err,
+        buttons: ['OK']
+      });
+
+      alert.present();
     }
   }
 

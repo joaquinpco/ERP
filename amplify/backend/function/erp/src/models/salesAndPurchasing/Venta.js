@@ -12,7 +12,6 @@ Venta.init(
             autoIncrement: true,
             primaryKey:    true
         },
-        fecha: DataTypes.DATE,
         total: DataTypes.DOUBLE,
         sub: DataTypes.STRING
     },
