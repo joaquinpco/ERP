@@ -129,7 +129,7 @@ const routes: Routes = [
   {
     path: 'sell-product',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./Products/sell-product/sell-product.module').then( m => m.SellProductPageModule)
+    loadChildren: () => import('./Sales/sell-product/sell-product.module').then( m => m.SellProductPageModule)
   },
   {
     path: 'add-productcategory',
@@ -164,7 +164,7 @@ const routes: Routes = [
   {
     path: 'sell-list',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./Products/sell-list/sell-list.module').then( m => m.SellListPageModule)
+    loadChildren: () => import('./Sales/sell-list/sell-list.module').then( m => m.SellListPageModule)
   }
 ];
 

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sales</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let sale of sales">
+    <ion-item>
+      <ion-icon name="rocket-outline" slot="start"></ion-icon>
+      <ion-label>{{ sale.createdAt | date:'MM/dd/yyyy' }}</ion-label>
+      <ion-button fill="outline" slot="end">Generate Invoice</ion-button>
+    </ion-item>
+  
+    <ion-card-content>
+      <div *ngFor="let product of sale.Productos">
+        <ion-card>
+          <ion-card-content>
+            <p><b>Name:</b> {{ product.nombre }}</p>
+            <p><b>Description:</b> {{ product.descripcion }}</p>
+            <p><b>Quantity sold:</b> {{ product.VentaProducto.cantidad }} <label *ngIf="product.tipo == 'INTANGIBLE'">keys</label><label *ngIf="product.tipo == 'TANGIBLE'">units</label></p>
+            <p><b>Price:</b> {{ product.precio }}€</p>
+            <p><b>Type:</b> {{ product.tipo }}</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <h2><b>Sold by:</b> {{ sale.usuario?.normalizeAttr['custom:FIRST_NAME'] }}</h2>
+      <h2><b>Purchased by:</b></h2>
+      <h2><b>Total to pay:</b> {{ sale.total }}€</h2>
+    </ion-card-content>
+  </ion-card>
+  
+
+</ion-content>

@@ -957,7 +957,8 @@ app.post('/erp/newBill', async function(req, res) {
 
     let factura = await Factura.create({
       idVenta: venta.id,
-      sub: req.body.sub
+      sub: req.body.sub,
+      cliente_id: idCliente
     });
 
     let i = 0;
@@ -972,6 +973,56 @@ app.post('/erp/newBill', async function(req, res) {
     }
 
     res.json(factura);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.get('/erp/sales', async function(req, res) {
+  try
+  {
+    let venta = await Venta.findAll({
+      include: [{
+        model: Producto
+      }]
+    });
+
+    res.json(venta);
+  }
+  catch(err)
+  {
+    res.json(err)
+  }
+});
+
+app.get('/erp/suppliers', async function(req, res) {
+  try
+  {
+    let proveedor = await Proveedor.findAll();
+    res.json(proveedor);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.post('/erp/newSupplier', async function(req, res) {
+  try
+  {
+    const nombre = req.body.nombre;
+    const telefono = req.body.telefono;
+    const email = req.body.email;
+
+    const proveedor = await Proveedor.create({
+      nombre: nombre,
+      telefono: telefono,
+      email: email
+    })
+
+    res.json(proveedor);
   }
   catch(err)
   {

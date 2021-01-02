@@ -8,5 +8,19 @@
 </ion-header>
 
 <ion-content>
-
+  <form (ngSubmit)="newSupplier()">
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input placeholder="Enter supplier name" [(ngModel)]="fullname" name="fullname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Phone:</ion-label>
+      <ion-input placeholder="Enter supplier phone" [(ngModel)]="phone" name="phone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email:</ion-label>
+      <ion-input placeholder="Enter supplier email" [(ngModel)]="email" name="email"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+  </form>
 </ion-content>

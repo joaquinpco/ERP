@@ -100,9 +100,10 @@ export class SellProductPage implements OnInit {
 
   async newSell()
   {
-
+    const loader = await this.alertController.create({message: ''})
     try
     {
+      loader.present();
       if(this.customer === undefined)
       {
         throw("Select a customer!");
@@ -123,11 +124,12 @@ export class SellProductPage implements OnInit {
       }
 
       await API.post('ERP', '/erp/newBill', postParams);
-
-      //this.router.navigate(['/bills'])
+      loader.dismiss();
+      this.router.navigate(['/sell-list']);
     }
     catch(err)
     {
+      loader.dismiss();
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
         header: 'Alert',
