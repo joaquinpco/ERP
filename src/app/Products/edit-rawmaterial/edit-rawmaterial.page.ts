@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
@@ -22,7 +22,8 @@ export class EditRawmaterialPage implements OnInit {
 
   constructor(
     public activatedRoute: ActivatedRoute,
-    public loader: LoadingController
+    public loader: LoadingController,
+    public route: Router
   ) {
     this.rawMaterialId = this.activatedRoute.snapshot.queryParams.id;
   }
@@ -44,9 +45,9 @@ export class EditRawmaterialPage implements OnInit {
         }
       }
 
-      console.log(putParams);
-
       let rawMaterial = await API.put('ERP', '/erp/updateRawMaterial', putParams);
+
+      this.route.navigate(['/list-rawmaterials'])
     }
     catch(err)
     {
