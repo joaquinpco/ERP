@@ -165,6 +165,16 @@ const routes: Routes = [
     path: 'sell-list',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./Sales/sell-list/sell-list.module').then( m => m.SellListPageModule)
+  },
+  {
+    path: 'edit-supplier',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./Supplier/edit-supplier/edit-supplier.module').then( m => m.EditSupplierPageModule)
+  },
+  {
+    path: 'edit-rawmaterial',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./Products/edit-rawmaterial/edit-rawmaterial.module').then( m => m.EditRawmaterialPageModule)
   }
 ];
 

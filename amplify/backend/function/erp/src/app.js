@@ -830,8 +830,17 @@ app.post('/erp/newRawMaterial', async function(req, res){
 
 app.get('/erp/rawMaterials', async function(req, res) {
   try{
-    const rawMaterials = await MateriaPrima.findAll();
-    res.json(rawMaterials);
+    if(req.query.queryType == '1')
+    {
+      const rawMaterialId = req.query.id;
+      let rawMaterial = await MateriaPrima.findOne({ where: { id: rawMaterialId } });
+      res.json(rawMaterial); 
+    }
+    else
+    {
+      const rawMaterials = await MateriaPrima.findAll();
+      res.json(rawMaterials);
+    }
   }
   catch(err){
     res.json(rawMaterial);
@@ -1000,8 +1009,18 @@ app.get('/erp/sales', async function(req, res) {
 app.get('/erp/suppliers', async function(req, res) {
   try
   {
-    let proveedor = await Proveedor.findAll();
-    res.json(proveedor);
+    const queryType = req.query.queryType;
+    
+    if(queryType == 1)
+    {
+      let proveedor = await Proveedor.findOne({ where: { id: req.query.id } });
+      res.json(proveedor);
+    }
+    else
+    {
+      let proveedores = await Proveedor.findAll();
+      res.json(proveedores);
+    }
   }
   catch(err)
   {
@@ -1023,6 +1042,55 @@ app.post('/erp/newSupplier', async function(req, res) {
     })
 
     res.json(proveedor);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.put('/erp/updateSupplier', async function(req, res) {
+  try
+  {
+    const nombre = req.body.nombre;
+    const telefono = req.body.telefono;
+    const email = req.body.email;
+    const supplierId = req.body.supplierId;
+
+    let supplier = await Proveedor.findOne({ where: { id: supplierId } });
+    supplier.nombre = nombre;
+    supplier.telefono = telefono;
+    supplier.email = email;
+    
+    await supplier.save()
+
+    res.json(supplier);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.put('/erp/updateRawMaterial', async function(req, res) {
+  try
+  {
+    const nombre = req.body.nombre;
+    const peso = req.body.peso;
+    const cantidad = req.body.cantidad;
+    const proveedorId = req.body.proveedorId;
+    const id = req.body.id;
+
+    let rawMaterial = await MateriaPrima.findOne({ where: { id: id } });
+    
+    rawMaterial.nombre = nombre;
+    rawMaterial.peso = peso;
+    rawMaterial.cantidad = cantidad;
+    rawMaterial.proveedor_id = proveedorId;
+
+    await rawMaterial.save();
+
+    res.json(rawMaterial);
   }
   catch(err)
   {

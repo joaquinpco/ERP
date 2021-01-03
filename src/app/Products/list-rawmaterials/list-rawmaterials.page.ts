@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
@@ -12,12 +13,17 @@ export class ListRawmaterialsPage implements OnInit {
   public rawMaterials: Array<any>;
 
   constructor(
-      public loadingController:LoadingController
+      public loadingController:LoadingController,
+      public router: Router
     ) { 
     this.rawMaterials = [];
   }
 
   ngOnInit() {
+  }
+
+  edit(id) {
+    this.router.navigate(['/edit-rawmaterial'], { queryParams : { 'id' : id } });
   }
 
   async ionViewWillEnter()
@@ -28,7 +34,6 @@ export class ListRawmaterialsPage implements OnInit {
       loader.present();
       const rawMaterials = await API.get('ERP', '/erp/rawMaterials', {});
       this.rawMaterials = rawMaterials;
-      console.log(this.rawMaterials);
       loader.dismiss();
     }
     catch(err) 

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Supplier</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="editSupplier()">
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input placeholder="Enter supplier name" [(ngModel)]="fullname" name="fullname" value="{{ supplier?.nombre }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Phone:</ion-label>
+      <ion-input placeholder="Enter supplier phone" [(ngModel)]="phone" name="phone" value="{{ supplier?.telefono }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email:</ion-label>
+      <ion-input placeholder="Enter supplier email" [(ngModel)]="email" name="email" value="{{ supplier?.email }}"></ion-input>
+    </ion-item>
+    <ion-button color="warning" (click)="updateSupplier(id)" expand="full">Update user</ion-button>
+  </form>
+</ion-content>

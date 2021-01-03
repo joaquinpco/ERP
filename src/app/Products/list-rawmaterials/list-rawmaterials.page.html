@@ -16,6 +16,7 @@
       <h3>Price: {{ rawMaterial.precio }} €</h3>
       <h3>Quantity: {{ rawMaterial.cantidad }} units</h3>
       <h3>Weight: {{ rawMaterial.peso }} KG</h3>
+      <ion-button color="primary" (click)="edit(rawMaterial.id)"><ion-icon name="create-outline"></ion-icon></ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

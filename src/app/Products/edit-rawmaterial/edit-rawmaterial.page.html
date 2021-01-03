@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Raw Material</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input placeholder="Enter raw material name" [(ngModel)]="name" name="name" value="{{ rawMaterial?.nombre }}"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Weight:</ion-label>
+      <ion-input placeholder="Enter raw material phone" [(ngModel)]="weight" name="weight" value="{{ rawMaterial?.peso }}"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Quantity:</ion-label>
+      <ion-input placeholder="Enter supplier email" [(ngModel)]="quantity" name="quantity" value="{{ rawMaterial?.cantidad }}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Supplier:</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="supplier" name="supplier" value="{{ rawMaterial?.proveedor_id }}">
+        <ion-select-option value="{{ supplier.id }}" *ngFor="let supplier of suppliers">{{ supplier.nombre }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button color="warning" (click)="editRawMaterial(rawMaterial.id)" expand="full">Update user</ion-button>
+  </form>
+</ion-content>
