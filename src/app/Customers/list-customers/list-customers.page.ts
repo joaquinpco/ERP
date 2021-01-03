@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
@@ -12,12 +13,18 @@ export class ListCustomersPage implements OnInit {
   public customers: Array<any>;
 
   constructor(
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public router: Router
   ) {
     this.customers = [];
   }
 
   ngOnInit() {
+  }
+
+  async edit(id)
+  {
+    this.router.navigate(['/edit-customers'], { queryParams : { 'id' : id } });
   }
 
   async ionViewWillEnter()

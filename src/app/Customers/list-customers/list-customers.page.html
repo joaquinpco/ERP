@@ -15,6 +15,7 @@
     <ion-card-content>
       <ion-text><h2><ion-icon name="call-outline" slot="start"></ion-icon><a href="tel:{{ customer.telefono }}">{{ customer.telefono }}</a></h2></ion-text>
       <ion-text><h2><ion-icon name="business-outline" slot="start"></ion-icon>{{ customer.direccion }}</h2></ion-text>
+      <ion-button color="primary" (click)="edit(customer.id)"><ion-icon name="create-outline"></ion-icon></ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

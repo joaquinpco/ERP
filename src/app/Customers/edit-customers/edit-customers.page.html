@@ -1,9 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>edit-customers</ion-title>
+    <ion-title>Edit customers</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form>
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input placeholder="Enter customer name" [(ngModel)]="fullname" name="fullname" value="{{ customer?.nombre }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Phone:</ion-label>
+      <ion-input placeholder="Enter customer phone" [(ngModel)]="phone" name="phone" value="{{ customer?.telefono }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Address:</ion-label>
+      <ion-input placeholder="Enter customer address" [(ngModel)]="address" name="address" value="{{ customer?.direccion }}"></ion-input>
+    </ion-item>
+    <ion-button color="warning" (click)="updateCustomer(customer.id)" expand="full">Update Customer</ion-button>
+  </form>
 </ion-content>

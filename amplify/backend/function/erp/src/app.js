@@ -734,8 +734,18 @@ app.post('/erp/payWithPaypall', async function(req, res) {
 app.get('/erp/customers', async function(req, res) {
   try
   {
-    const clientes = await Cliente.findAll();
-    return res.json(clientes);
+    if(req.query.queryType === '1')
+    {
+      const customerId = req.query.customerId;
+
+      let cliente = await Cliente.findOne({ where: { id: customerId } });
+      res.json(cliente);
+    }
+    else
+    {
+      const clientes = await Cliente.findAll();
+      res.json(clientes);
+    }
   }
   catch(err)
   {
@@ -761,6 +771,29 @@ app.post('/erp/newCustomer', async function(req, res) {
   catch(err)
   {
     return res.json(err);
+  }
+});
+
+app.put('/erp/updateCustomer', async function(req, res) {
+  try
+  {
+    const nombre = req.body.nombre;
+    const direccion = req.body.direccion;
+    const telefono = req.body.telefono;
+
+    let cliente = await Cliente.findOne({ where: { id: req.body.id } });
+    
+    cliente.telefono = telefono;
+    cliente.nombre = nombre;
+    cliente.direccion = direccion;
+
+    cliente.save();
+  
+    res.json(cliente);
+  }
+  catch(err)
+  {
+    res.json(err);
   }
 });
 
