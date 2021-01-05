@@ -27,6 +27,16 @@ export class ListCustomersPage implements OnInit {
     this.router.navigate(['/edit-customers'], { queryParams : { 'id' : id } });
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
+
   async ionViewWillEnter()
   {
     const loader = await this.loadingController.create({message: "Fetching data, please wait ..."});

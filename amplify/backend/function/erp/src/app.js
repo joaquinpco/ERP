@@ -692,7 +692,7 @@ app.post('/erp/newPayroll', async function(req, res){
   }
 });
 
-app.post('/erp/payWithPaypall', async function(req, res) {
+app.post('/erp/payWithPaypal', async function(req, res) {
   
   var create_payment_json = {
     "intent": "sale",
@@ -715,20 +715,21 @@ app.post('/erp/payWithPaypall', async function(req, res) {
         },
         "amount": {
             "currency": "USD",
-            "total": "1.00"
+            "total": req.body.total
         },
-        "description": "This is the payment description."
+        "description": req.body.paymentDescription
     }]
   };
 
-  try
-  {
-    await paypal.payment.create(create_payment_json).promise();
-  }
-  catch(err)
-  {
-    console.log(err);  
-  }
+  paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+        throw error;
+    } else {
+        console.log("Create Payment Response");
+        console.log(payment);
+    }
+  });
+  
 });
 
 app.get('/erp/customers', async function(req, res) {

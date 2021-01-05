@@ -175,6 +175,10 @@ const routes: Routes = [
     path: 'edit-rawmaterial',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./Products/edit-rawmaterial/edit-rawmaterial.module').then( m => m.EditRawmaterialPageModule)
+  },
+  {
+    path: 'add-purchasing',
+    loadChildren: () => import('./Purchasing/add-purchasing/add-purchasing.module').then( m => m.AddPurchasingPageModule)
   }
 ];
 

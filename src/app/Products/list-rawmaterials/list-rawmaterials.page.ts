@@ -22,8 +22,12 @@ export class ListRawmaterialsPage implements OnInit {
   ngOnInit() {
   }
 
+  purchase(id) {
+    this.router.navigate(['/add-purchasing'], { queryParams: { 'id': id } });
+  }
+
   edit(id) {
-    this.router.navigate(['/edit-rawmaterial'], { queryParams : { 'id' : id } });
+    this.router.navigate(['/edit-rawmaterial'], { queryParams: { 'id': id } });
   }
 
   async ionViewWillEnter()
