@@ -1,3 +1,23 @@
 {
-    "HOME": "INICIO"
+    "HOME": "INICIO",
+    "Add": "Añadir",
+    "List": "Listar",
+    "Employee": "Empleado",
+    "Payroll": "Nómina",
+    "Concepts": "Conceptos",
+    "Categories": "Categorías",
+    "Report": "Informe",
+    "Customer": "Cliente",
+    "Product": "Producto",
+    "Sales": "Ventas",
+    "Raw Materials": "Materias Primas",
+    "Supplier": "Proveedor",
+    "Admin Area": "Área de administración",
+    "Profile": "Perfil",
+    "Settings": "Configuración",
+    "LOG OUT": "CERRAR SESIÓN",
+    "English": "Inglés",
+    "Spanish": "Español",
+    "Light Mode": "Modo Claro",
+    "Dark Mode": "Modo Oscuro"
 }

@@ -723,10 +723,9 @@ app.post('/erp/payWithPaypal', async function(req, res) {
 
   paypal.payment.create(create_payment_json, function (error, payment) {
     if (error) {
-        throw error;
+        res.json(error);
     } else {
-        console.log("Create Payment Response");
-        console.log(payment);
+        res.json(payment);
     }
   });
   
@@ -788,7 +787,7 @@ app.put('/erp/updateCustomer', async function(req, res) {
     cliente.nombre = nombre;
     cliente.direccion = direccion;
 
-    cliente.save();
+    await cliente.save();
   
     res.json(cliente);
   }

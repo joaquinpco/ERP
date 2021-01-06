@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SettingsPage implements OnInit {
 
   public tgglCheckValue: boolean;
+  public language: string
 
   constructor(
     private renderer: Renderer2, 
@@ -27,11 +28,37 @@ export class SettingsPage implements OnInit {
       this.tgglCheckValue = result;
       if(this.tgglCheckValue == undefined)
       {
-      this.tgglCheckValue = false;
+        this.tgglCheckValue = false;
+      }
+
+    });
+
+    this.storage.get('toggleLanguage').then((result) => {
+
+      this.language = result;
+      if(this.language == undefined)
+      {
+        this.language = 'en';
       }
 
     });
     
+  }
+
+  onLanguageChanged($event)
+  {
+    const currentLanguage = $event.detail.value
+    switch(currentLanguage)
+    {
+      case "en":
+          this.translate.use(currentLanguage);
+          this.storage.set("toggleLanguage", currentLanguage);
+        break;
+      case "es":
+          this.translate.use(currentLanguage);
+          this.storage.set("toggleLanguage", currentLanguage);
+        break;
+    }
   }
 
   onToggleColorTheme(event)

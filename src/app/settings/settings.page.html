@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+    <ion-title>{{ 'Settings' | translate }}</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -12,10 +12,19 @@
     <ion-row>
       <ion-col size="12" >
         <ion-item>
-          <ion-label *ngIf="tgglCheckValue == true">Dark Mode</ion-label>
-          <ion-label *ngIf="tgglCheckValue == false">Light Mode</ion-label>
-          <ion-label *ngIf="tgglCheckValue == undefined">Light Mode</ion-label>
+          <ion-label *ngIf="tgglCheckValue == true">{{ 'Dark Mode' | translate }}</ion-label>
+          <ion-label *ngIf="tgglCheckValue == false">{{ 'Light Mode' | translate }}</ion-label>
+          <ion-label *ngIf="tgglCheckValue == undefined">{{ 'Light Mode' | translate }}</ion-label>
           <ion-toggle [(ngModel)]="theme" (ionChange)="onToggleColorTheme($event)" checked="{{ tgglCheckValue }}"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label *ngIf="language === 'es'">{{ 'Spanish' | translate }}</ion-label>
+          <ion-label *ngIf="language === 'en'">{{ 'English' | translate }}</ion-label>
+          <ion-label *ngIf="language === undefined">{{ 'English' | translate }}</ion-label>
+          <ion-select placeholder="Select One" [(ngModel)]="language" value="{{ language }}" (ionChange)="onLanguageChanged($event)">
+            <ion-select-option value="en">{{ 'English' | translate }}</ion-select-option>
+            <ion-select-option value="es">{{ 'Spanish' | translate }}</ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>

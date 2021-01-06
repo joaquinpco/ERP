@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Auth } from 'aws-amplify';
 import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +14,30 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class AppComponent{
 
+  public language;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public storage: Storage
   ) 
   {
-    translate.setDefaultLang('es');
-    translate.use('es');
+    this.storage.get('toggleLanguage').then((result) => {
+
+      this.language = result;
+      if(this.language == undefined)
+      {
+        this.language = 'en';
+        translate.use(this.language);
+      }
+      else
+      {
+        translate.use(this.language);
+      }
+
+    });
     this.initializeApp();
   }
 
