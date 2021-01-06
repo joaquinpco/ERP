@@ -245,7 +245,7 @@
       <ion-list>
         <ion-item routerLink="/home">
           <ion-icon name="home-outline" slot="start"></ion-icon>
-          <ion-label>HOME</ion-label>
+          <ion-label>{{ 'HOME' | translate }}</ion-label>
         </ion-item>
         <ion-item (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
           <ion-icon name="briefcase-outline" slot="start"></ion-icon>

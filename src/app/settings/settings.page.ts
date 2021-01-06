@@ -2,6 +2,8 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { MenuService } from '../services/menu.service';
 
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -15,7 +17,8 @@ export class SettingsPage implements OnInit {
   constructor(
     private renderer: Renderer2, 
     private storage: Storage,
-    public menuService: MenuService
+    public menuService: MenuService,
+    public translate: TranslateService
     ) 
   {
     
@@ -28,6 +31,7 @@ export class SettingsPage implements OnInit {
       }
 
     });
+    
   }
 
   onToggleColorTheme(event)
