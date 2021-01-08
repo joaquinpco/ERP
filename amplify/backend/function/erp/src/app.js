@@ -1022,6 +1022,36 @@ app.post('/erp/newBill', async function(req, res) {
   }
 });
 
+app.get('/erp/invoices', async function(req, res) {
+  try {
+    if(req.query.queryType == '1')
+    {
+      let factura = await Factura.findOne({ where: { id: req.query.id } });
+
+      res.json(factura)
+    }
+    else if(req.query.queryType == '2')
+    {
+      let factura = await Factura.findOne({ where: { idVenta: req.query.idVenta } });
+      let cliente = await Cliente.findOne({ where: { id: factura.cliente_id } });
+
+      res.json(cliente);
+    }
+    else
+    {
+      const facturas = await Factura.findAll({
+        include: [{
+          model: Cliente
+        }]
+      });
+      res.json(facturas);
+    }
+  }
+  catch(err) {
+    res.json(err);
+  }
+});
+
 app.get('/erp/sales', async function(req, res) {
   try
   {

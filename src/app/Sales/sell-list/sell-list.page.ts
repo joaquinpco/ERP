@@ -35,7 +35,15 @@ export class SellListPage implements OnInit {
         }
       }
 
+      const invoiceParams = {
+        queryStringParameters: {
+          idVenta: sale.id,
+          queryType: 2
+        }
+      }
+
       sale.usuario = await API.get('ERP', '/erp/getNormalizeUser', employeeParams);
+      sale.cliente = await API.get('ERP', '/erp/invoices', invoiceParams);
     }
 
     console.log(this.sales);

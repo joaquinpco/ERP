@@ -29,7 +29,7 @@
         </ion-card>
       </div>
       <h2><b>Sold by:</b> {{ sale.usuario?.normalizeAttr['custom:FIRST_NAME'] }}</h2>
-      <h2><b>Purchased by:</b></h2>
+      <h2><b>Purchased by: </b>{{ sale.cliente?.nombre }}</h2>
       <h2><b>Total to pay:</b> {{ sale.total }}€</h2>
     </ion-card-content>
   </ion-card>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { Auth } from 'aws-amplify';
+import { TranslateService } from '@ngx-translate/core';
 
 export class LoginProps
 {
@@ -18,13 +19,15 @@ export class LoginProps
 
 export class LoginPage implements OnInit
 {
-    public loginProps : LoginProps;
+    public loginProps: LoginProps;
+    public language: string;
 
     constructor(
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
         public router: Router,
         public menuController: MenuController,
+        public translator: TranslateService,
         private renderer: Renderer2,
         private storage: Storage
     )
@@ -41,6 +44,22 @@ export class LoginPage implements OnInit
           {
             this.renderer.setAttribute(document.body, 'color-theme', 'light');
           }
+        });
+
+        //Get previous language preferences
+        this.storage.get('toggleLanguage').then((result) => {
+
+          this.language = result;
+          if(this.language == undefined)
+          {
+            this.language = 'en';
+            this.translator.use(this.language);
+          }
+          else
+          {
+            this.translator.use(this.language);
+          }
+    
         });
     }
 
