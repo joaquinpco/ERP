@@ -18,6 +18,9 @@ var cors = require('cors')
 //Paypal Config
 var paypal = require('paypal-rest-sdk');
 
+//PDFMaker
+const pdfmake = require('@alheimsins/pdf-make');
+
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
   'client_id': process.env.CLIENT_ID,
@@ -1020,6 +1023,63 @@ app.post('/erp/newBill', async function(req, res) {
   {
     res.json(err);
   }
+});
+
+app.get('/erp/invoicePDF', async function(req, res) {
+  const saleId = req.query.id;
+
+  let content = []
+
+  const invoice  = await Factura.findOne({ where: { idVenta: saleId } });
+  const customer = await Cliente.findOne({ where: {  id: invoice.cliente_id } });
+  const sale = await Venta.findOne({ where: { id: invoice.idVenta }, include: [
+    Producto
+  ] }); 
+
+  content.push({
+    text: 'Invoice '+ invoice.id + "\nDate: " + invoice.createdAt,
+    style: 'header'
+  });
+  content.push({
+    text: 'Customer Data\n\n Name:' + customer.nombre + "\n" + "Phone:" + 
+      customer.telefono + "\n" + "Address:" + customer.direccion,
+    style: 'subheader'
+  })
+
+
+  const docDefinition = {
+    content: content,
+    pageOrientation: 'portrait',
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true,
+        margin: [0, 10, 0, 0]
+      },
+      subheader: {
+        fontSize: 14,
+        bold: true,
+        margin: [0, 5, 0, 0]
+      },
+      normal: {
+        alignment: 'justify'
+      },
+      normalBold: {
+        alignment: 'justify',
+        bold: true
+      }
+    }
+  }
+
+  const buffer = await pdfmake(docDefinition);
+
+  const pdfBase64 = buffer.toString('base64');
+
+  res.json({
+    success: 'pdf created!',
+    url: req.url,
+    pdf: pdfBase64
+  });
 });
 
 app.get('/erp/invoices', async function(req, res) {

@@ -13,7 +13,7 @@
     <ion-item>
       <ion-icon name="rocket-outline" slot="start"></ion-icon>
       <ion-label>{{ sale.createdAt | date:'MM/dd/yyyy' }}</ion-label>
-      <ion-button fill="outline" slot="end">Generate Invoice</ion-button>
+      <ion-button fill="outline" slot="end" (click)="generatePdf(sale.id)">Generate Invoice</ion-button>
     </ion-item>
   
     <ion-card-content>

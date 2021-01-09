@@ -18,6 +18,32 @@ export class SellListPage implements OnInit {
   ngOnInit() {
   }
 
+  async generatePdf(id)
+  {
+    const queryParams = {
+      queryStringParameters: {
+        id: id
+      }
+    }
+
+    //Fill and download pdf
+    const pdfBase64 = await API.get('ERP', '/erp/invoicePdf', queryParams);
+
+    const pdfData = pdfBase64.pdf;
+    const byteCharacters = atob(pdfData);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++)
+    {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+
+    const data = new Blob([byteArray], { type: 'application/pdf' });
+    const url = window.URL.createObjectURL(data);
+    window.open(url);
+
+  }
+
   async ionViewWillEnter()
   {
     const loader = await this.loadingController.create({ message: "Fetching Sales, please wait ..." });
