@@ -53,7 +53,7 @@ const Valoracion = require('./models/rrhh/Valoracion');
 const Concepto = require('./models/rrhh/Concepto');
 const NominaConcepto = require('./models/rrhh/NominaConcepto');
 
-//Loading Models
+//Loading Models SALES, PURCHASING & FINANCES
 
 const Cliente = require('./models/salesAndPurchasing/Cliente');
 const MateriaPrima = require('./models/salesAndPurchasing/MateriaPrima');
@@ -66,6 +66,7 @@ const VentaProducto = require('./models/salesAndPurchasing/VentaProducto');
 const CategoriaProducto = require('./models/salesAndPurchasing/CategoriaProducto');
 const Factura = require('./models/salesAndPurchasing/Factura');
 const Compra = require('./models/salesAndPurchasing/Compra');
+const CuentaBancaria = require('./models/salesAndPurchasing/CuentaBancaria');
 
 AWS.config.update({ 
   region: process.env.REGION, 
