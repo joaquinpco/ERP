@@ -70,17 +70,6 @@ var params = {
         }
       },
       {
-        AttributeDataType: 'Number',
-        DeveloperOnlyAttribute:false,
-        Mutable:true,
-        Name: 'NSS',
-        Required: false,
-        NumberAttributeConstraints: {
-          MaxValue: '8',
-          MinValue: '6'
-        }
-      },
-      {
         AttributeDataType: 'String',
         DeveloperOnlyAttribute:false,
         Mutable:true,

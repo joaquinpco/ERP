@@ -43,11 +43,16 @@ export class AddReportPage implements OnInit {
     {
       loader.present();
 
+      if(this.sub === undefined || this.fileName.length === 0 || this.period === undefined)
+      {
+        throw("Inputs cannot be empty");
+      }
+
       let name = this.fileName.split('.')[0];
       let type = this.file.type;
       let fullFileString = name + Math.floor((Math.random() * 1000) + 1) + '.' + type.split('/')[1];
       console.log(fullFileString);
-      
+
       const postParams = {
         body: {
           feedback: this.feedback,
@@ -64,6 +69,14 @@ export class AddReportPage implements OnInit {
     }
     catch(err)
     {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Alert',
+        subHeader: '',
+        message: err,
+        buttons: ['OK']
+      });
+      alert.present();
       loader.dismiss();
     }
     finally

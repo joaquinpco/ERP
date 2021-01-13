@@ -54,10 +54,19 @@ export class AddPayrollPage implements OnInit {
       
       loader.present();
 
-      console.log(this.concepts);
+
+      if(this.sub === undefined || this.periodstart === undefined || this.periodend === undefined 
+          || this.totaldays === undefined || this.ssbase === undefined || this.atdesbase === undefined
+          || this.irpf === undefined || this.category === undefined || this.concepts.length == 0)
+      {
+        throw("Fields cannot be empty!");
+      }
+      if(this.periodstart == this.periodend)
+      {
+        throw("Dates have to be different!");
+      }
 
       let json = JSON.stringify(this.concepts);
-      
     
       let params = {
         body: {
@@ -80,6 +89,15 @@ export class AddPayrollPage implements OnInit {
     catch(err)
     {
       loader.dismiss();
+
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Alert',
+        subHeader: '',
+        message: err,
+        buttons: ['OK']
+      });
+      alert.present();
     }
   }
 

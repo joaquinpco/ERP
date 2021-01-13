@@ -62,7 +62,21 @@ export class AddRrhhPage implements OnInit {
       {
         throw("Blank Inputs");
       }
-      
+      if(this.signupuser.nif.length < 9)
+      {
+        throw("Not valid NIF");
+      }
+      if(this.signupuser.nss.length < 11)
+      {
+        throw("Not valid nss");
+      }
+      const expresion = /(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}/;
+
+      if(!this.signupuser.phone.match(expresion))
+      {
+        throw("Invalid Phone number");
+      }
+
       const postParams = {
         body: {
           email: this.signupuser.username,

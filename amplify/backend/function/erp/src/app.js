@@ -64,6 +64,8 @@ const Proveedor = require('./models/salesAndPurchasing/Proveedor');
 const Venta = require('./models/salesAndPurchasing/Venta');
 const VentaProducto = require('./models/salesAndPurchasing/VentaProducto');
 const CategoriaProducto = require('./models/salesAndPurchasing/CategoriaProducto');
+const Factura = require('./models/salesAndPurchasing/Factura');
+const Compra = require('./models/salesAndPurchasing/Compra');
 
 AWS.config.update({ 
   region: process.env.REGION, 
@@ -78,7 +80,7 @@ const cognito = new AWS.CognitoIdentityServiceProvider();
 const customUsersPoolParams = require('./cognito');
 const { raw } = require('express');
 const { CognitoIdentityServiceProvider } = require('aws-sdk');
-const Factura = require('./models/salesAndPurchasing/Factura');
+
 
 (async ()=>{
   try
@@ -1029,6 +1031,7 @@ app.get('/erp/invoicePDF', async function(req, res) {
   const saleId = req.query.id;
 
   let content = []
+  let products = []
 
   const invoice  = await Factura.findOne({ where: { idVenta: saleId } });
   const customer = await Cliente.findOne({ where: {  id: invoice.cliente_id } });
@@ -1037,7 +1040,7 @@ app.get('/erp/invoicePDF', async function(req, res) {
   ] }); 
 
   content.push({
-    text: 'Invoice '+ invoice.id + "\nDate: " + invoice.createdAt,
+    text: 'Invoice number: '+ invoice.id + "\nDate: " + invoice.createdAt,
     style: 'header'
   });
   content.push({
@@ -1045,6 +1048,22 @@ app.get('/erp/invoicePDF', async function(req, res) {
       customer.telefono + "\n" + "Address:" + customer.direccion,
     style: 'subheader'
   })
+
+  content.push({
+    table: {
+      // headers are automatically repeated if the table spans over multiple pages
+      // you can declare how many rows should be treated as headers
+      headerRows: 1,
+      widths: [ '*', 'auto', 100, '*' ],
+
+      body: [
+        [ 'First', 'Second', 'Third', 'The last one' ],
+        [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
+        [ { text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4' ]
+      ]
+    }
+  })
+
 
 
   const docDefinition = {

@@ -11,7 +11,10 @@ Categoria.init(
             autoIncrement: true,
             primaryKey:    true
         },
-        nombre: DataTypes.STRING
+        nombre: {
+            type: DataTypes.STRING,
+            unique: true
+        }
     },
     {
         sequelize

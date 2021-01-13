@@ -173,6 +173,13 @@ export class AddProductPage implements OnInit {
         }
       }
 
+      if(producto.type === undefined || producto.name === undefined 
+          || producto.description === undefined || producto.price === undefined 
+            || producto.category === undefined)
+      {
+        throw("Inputs cannot be empty");
+      }
+
       await API.post('ERP', '/erp/newProduct', postParams);
 
       loader.dismiss();
@@ -182,6 +189,14 @@ export class AddProductPage implements OnInit {
     catch(err) 
     {
       loader.dismiss()
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Alert',
+        subHeader: '',
+        message: err,
+        buttons: ['OK']
+      });
+      alert.present()
     }
   }
 

@@ -1,30 +1,26 @@
 const { DataTypes, Model } = require('sequelize');
-const Producto = require('./Producto');
 const sequelize = require('../../sequelize');
 
-class CategoriaProducto extends Model {}
+class Compra extends Model {}
 
-CategoriaProducto.init(
+Compra.init(
     {
         id: {
             type:          DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey:    true
         },
-        nombre: {
-            type: DataTypes.STRING,
-            unique: true
-        }
+        precio_ud: DataTypes.BIGINT,  
     },
     {
         sequelize
     }
 );
 
-CategoriaProducto.hasMany(Producto, { foreignKey: 'categoriaproducto_id' });
+
 
 (async ()=> {
     await sequelize.sync();
 })();
 
-module.exports = CategoriaProducto;
+module.exports = Compra;

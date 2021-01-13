@@ -100,7 +100,7 @@ export class SellProductPage implements OnInit {
 
   async newSell()
   {
-    const loader = await this.alertController.create({message: ''})
+    const loader = await this.alertController.create({message: 'Adding new sale, please wait ..'})
     try
     {
       loader.present();
