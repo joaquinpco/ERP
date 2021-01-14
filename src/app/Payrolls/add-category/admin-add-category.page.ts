@@ -27,7 +27,7 @@ export class AdminAddCategoryPage implements OnInit {
 
   async newCategory()
   {
-    const loader = await this.loadingController.create({ message: '' });
+    const loader = await this.loadingController.create({ message: 'Adding a new Category, please wait ...' });
     try
     {
       loader.present();
