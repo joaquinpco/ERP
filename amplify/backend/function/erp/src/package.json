@@ -7,6 +7,7 @@
     "@alheimsins/pdf-make": "^1.0.10",
     "aws-sdk": "^2.784.0",
     "aws-serverless-express": "^3.3.5",
+    "axios": "^0.21.1",
     "body-parser": "^1.17.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -17,11 +18,10 @@
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
-    "mocha": "^8.2.1",
-    "supertest": "^6.0.1"
+    "mocha": "^8.2.1"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 60000"
   },
   "author": "",
   "license": "ISC"

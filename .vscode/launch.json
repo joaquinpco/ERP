@@ -29,6 +29,17 @@
         "runtimeExecutable": "/Users/joaquinpco/.nvm/versions/node/v14.12.0/bin/node"
       },
       {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch test js",
+        "cwd": "${workspaceFolder}/amplify/backend/function/erp/src",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+          "run", "test"
+        ],
+        "port": 5858
+      },
+      {
         "name": "Launch in Chrome",
         "type": "chrome",
         "request": "launch",

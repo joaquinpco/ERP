@@ -1255,6 +1255,20 @@ app.put('/erp/updateRawMaterial', async function(req, res) {
   }
 });
 
+app.post('/erp/newBankAccount', async function(req, res) {
+  try
+  {
+    let bankAccount = await CuentaBancaria.create({
+      IBAN: req.body.IBAN
+    });
+    res.json(bankAccount);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
 app.get('/erp/*', function(req, res) {
   // Add your code here
   res.json({success: 'get call succeed!', url: req.url});

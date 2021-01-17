@@ -5,10 +5,6 @@ const sequelize = new Sequelize(
     {
         dialect: 'postgres',
         dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false
-            }
         },
         logging: process.env.LOGGING_SEQUELIZE === "true"
     }

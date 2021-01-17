@@ -1,4 +1,4 @@
-version: "1"
+version: "2.2"
 services:
 #  Create a service named db.
 #  psql -h localhost -p 5432 -U u_demo -d db_demo_uno 
