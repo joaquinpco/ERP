@@ -62,13 +62,13 @@ export class AddRrhhPage implements OnInit {
       {
         throw("Blank Inputs");
       }
-      if(this.signupuser.nif.length < 9)
+      if(this.signupuser.nif.length != 9)
       {
         throw("Not valid NIF");
       }
-      if(this.signupuser.nss.length < 11)
+      if(this.signupuser.nss.length != 12)
       {
-        throw("Not valid nss");
+        throw("Not valid nss, 12 characters allowed");
       }
       const expresion = /(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}/;
 

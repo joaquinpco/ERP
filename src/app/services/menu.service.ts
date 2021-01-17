@@ -20,7 +20,8 @@ export class MenuService {
                       'menu-purchasing', 
                       'menu-finances',
                       'menu-sales',
-                      'menu-guest'
+                      'menu-guest',
+                      'menu-manufacturing'
                     ];
   }
 
@@ -66,6 +67,10 @@ export class MenuService {
       else if(userRole === "SALES")
       {
         await this.menuController.enable(true, 'menu-sales');
+      }
+      else if(userRole === "MANUFACTURING")
+      {
+        await this.menuController.enable(true, 'menu-manufacturing');
       }
       else
       {

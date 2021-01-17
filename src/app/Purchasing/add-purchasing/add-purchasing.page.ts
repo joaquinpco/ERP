@@ -19,7 +19,6 @@ export class AddPurchasingPage implements OnInit {
   ) { 
     this.rawMaterialId = this.activatedRoute.snapshot.queryParams.id;
     this.rawMaterial = [];
-    this.rawMaterial.supplier = {nombre: ""};
   }
 
   ngOnInit() {

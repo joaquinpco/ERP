@@ -183,10 +183,12 @@ const routes: Routes = [
   },
   {
     path: 'add-bankaccount',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./BankAccounts/add-bankaccount/add-bankaccount.module').then( m => m.AddBankaccountPageModule)
   },
   {
     path: 'list-accounts',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./BankAccounts/list-accounts/list-accounts.module').then( m => m.ListAccountsPageModule)
   }
 ];
