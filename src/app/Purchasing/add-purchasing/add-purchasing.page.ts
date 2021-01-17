@@ -18,6 +18,8 @@ export class AddPurchasingPage implements OnInit {
     public alertController: AlertController
   ) { 
     this.rawMaterialId = this.activatedRoute.snapshot.queryParams.id;
+    this.rawMaterial = [];
+    this.rawMaterial.supplier = {nombre: ""};
   }
 
   ngOnInit() {
@@ -49,6 +51,7 @@ export class AddPurchasingPage implements OnInit {
 
             const postParams = {
               body: {
+                id: this.rawMaterial.id,
                 returnurl: '/list-rawmaterials',
                 cancelurl: '/home',
                 name: this.rawMaterial.nombre,
@@ -80,7 +83,7 @@ export class AddPurchasingPage implements OnInit {
 
     let rawMaterial = await API.get('ERP', '/erp/rawMaterials', queryParamsRM);
     this.rawMaterial = rawMaterial;
-
+    console.log(rawMaterial);
     const queryParamsSP = {
       'queryStringParameters': {
         id: this.rawMaterial.proveedor_id,
@@ -91,6 +94,8 @@ export class AddPurchasingPage implements OnInit {
     let supplier = await API.get('ERP', '/erp/suppliers', queryParamsSP)
     console.log(supplier);
     this.rawMaterial.supplier = supplier;
+
+    //location.reload();
   }
 
 }

@@ -14,6 +14,8 @@ export class DelteRrhhPage implements OnInit {
   public sub : string;
   public user : any;
 
+  public imgSource: string;
+
   constructor(
                 private activatedRoute : ActivatedRoute,
                 private router : Router,
@@ -23,6 +25,7 @@ export class DelteRrhhPage implements OnInit {
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
     this.user = { normalizeAttr : [] };
+    this.imgSource = "/assets/img/profile.png";
   }
 
   async ngOnInit() 
@@ -51,6 +54,14 @@ export class DelteRrhhPage implements OnInit {
 
       const res = await API.get('ERP', '/erp/getNormalizeUser', params);
       this.user = res;
+      if(this.user.normalizeAttr['custom:PROFILE_PICTURE'] === 'profile.png')
+      {
+        console.log("no tiene imagen definida aun")
+      }
+      else
+      {
+        this.imgSource = this.user.normalizeAttr['custom:PROFILE_PICTURE']
+      }
       this.loadingCtrl.dismiss();
     }
     catch(err)

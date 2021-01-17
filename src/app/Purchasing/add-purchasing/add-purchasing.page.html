@@ -11,27 +11,27 @@
   <ion-card class="welcome-card">
     <ion-img src="/assets/img/paypal.jpg"></ion-img>
     <ion-card-header>
-      <ion-card-subtitle>Pay with Paypal to {{ rawMaterial?.supplier?.nombre }}</ion-card-subtitle>
-      <ion-card-title>{{ rawMaterial?.nombre }}</ion-card-title>
+      <ion-card-subtitle>Pay with Paypal to {{ rawMaterial.supplier?.nombre }}</ion-card-subtitle>
+      <ion-card-title>{{ rawMaterial.nombre }}</ion-card-title>
       <ion-row>
         <br>
         <ion-col>
-          {{ rawMaterial?.precio }}€ per unit
+          {{ rawMaterial.precio }}€ per unit
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          Available quantity: {{ rawMaterial?.cantidad }} units
+          Available quantity: {{ rawMaterial.cantidad }} units
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          Weight per unit: {{ rawMaterial?.peso }} KG
+          Weight per unit: {{ rawMaterial.peso }} KG
         </ion-col>
       </ion-row>
     </ion-card-header>
     <ion-card-content>
-      <ion-button color="warning" shape="round" (click)="payWithPaypal()">Paypal</ion-button>
+      <ion-button color="warning" shape="round" (click)="payWithPaypal()" *ngIf="rawMaterial.proveedor_id != null">Paypal</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

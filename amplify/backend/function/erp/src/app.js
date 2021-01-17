@@ -727,10 +727,24 @@ app.post('/erp/payWithPaypal', async function(req, res) {
     }]
   };
 
-  paypal.payment.create(create_payment_json, function (error, payment) {
+  paypal.payment.create(create_payment_json, async function (error, payment) {
+    
     if (error) {
         res.json(error);
     } else {
+        const idRawMaterial = Number(req.body.id);
+        let rawMaterial = await MateriaPrima.findOne({ where: {id: idRawMaterial} });
+        
+        rawMaterial.cantidad += Number(req.body.quantity);
+        await rawMaterial.save();//Update quantity
+        
+        //Update Compras table
+        const compra = await Compra.create({
+          precio_ud: Number(req.body.price),
+          materiaprima_id: rawMaterial.id,
+          proveedor_id: rawMaterial.proveedor_id
+        })
+
         res.json(payment);
     }
   });

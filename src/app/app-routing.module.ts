@@ -178,7 +178,16 @@ const routes: Routes = [
   },
   {
     path: 'add-purchasing',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./Purchasing/add-purchasing/add-purchasing.module').then( m => m.AddPurchasingPageModule)
+  },
+  {
+    path: 'add-bankaccount',
+    loadChildren: () => import('./BankAccounts/add-bankaccount/add-bankaccount.module').then( m => m.AddBankaccountPageModule)
+  },
+  {
+    path: 'list-accounts',
+    loadChildren: () => import('./BankAccounts/list-accounts/list-accounts.module').then( m => m.ListAccountsPageModule)
   }
 ];
 

@@ -57,12 +57,12 @@ export class SellProductPage implements OnInit {
             text: 'Add',
             handler: async (value) => {
               const quantity = value.data;
-              console.log(quantity)
-              if(units - Number(quantity) < 0)
+              console.log(quantity);
+              if(quantity === undefined || Number(quantity) <= 0)
               {
                 try
                 {
-                  throw("Available units:" + units);
+                  throw("Error in input");
                 }
                 catch(err)
                 {
@@ -75,17 +75,39 @@ export class SellProductPage implements OnInit {
                   });
 
                   await alert.present();
-
-                  productList = [];
-                  this.productsAux = [];
                 }
               }
               else
               {
-                this.productsAux.push({
-                  id: Number(product.split('-')[0]),
-                  cantidad: quantity
-                });
+                if(units - Number(quantity) < 0)
+                {
+                  try
+                  {
+                    throw("Available units:" + units);
+                  }
+                  catch(err)
+                  {
+                    const alert = await this.alertController.create({
+                      cssClass: 'my-custom-class',
+                      header: 'Alert',
+                      subHeader: '',
+                      message: err,
+                      buttons: ['OK']
+                    });
+  
+                    await alert.present();
+  
+                    productList = [];
+                    this.productsAux = [];
+                  }
+                }
+                else
+                {
+                  this.productsAux.push({
+                    id: Number(product.split('-')[0]),
+                    cantidad: quantity
+                  });
+                }
               }
             }
           }

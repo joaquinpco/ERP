@@ -57,7 +57,7 @@ export class AddPayrollPage implements OnInit {
 
       if(this.sub === undefined || this.periodstart === undefined || this.periodend === undefined 
           || this.totaldays === undefined || this.ssbase === undefined || this.atdesbase === undefined
-          || this.irpf === undefined || this.category === undefined || this.concepts.length == 0)
+          || this.irpf === undefined || this.category === undefined)
       {
         throw("Fields cannot be empty!");
       }
