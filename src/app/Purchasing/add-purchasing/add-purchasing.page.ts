@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 
 @Component({
@@ -15,7 +15,9 @@ export class AddPurchasingPage implements OnInit {
 
   constructor(
     public activatedRoute: ActivatedRoute,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public router: Router,
+    public loadingController: LoadingController
   ) { 
     this.rawMaterialId = this.activatedRoute.snapshot.queryParams.id;
     this.rawMaterial = [];
@@ -48,6 +50,9 @@ export class AddPurchasingPage implements OnInit {
           text: 'Ok',
           handler: async (value) => {
 
+            const loader = await this.loadingController.create({message: 'Purchasing new raw material, please wait ...'});
+            
+            loader.present();
             const postParams = {
               body: {
                 id: this.rawMaterial.id,
@@ -63,6 +68,9 @@ export class AddPurchasingPage implements OnInit {
             }
 
             await API.post('ERP', '/erp/payWithPaypal', postParams);
+
+            loader.dismiss();
+            this.router.navigate(['/list-rawmaterials'])
           }
         }
       ]

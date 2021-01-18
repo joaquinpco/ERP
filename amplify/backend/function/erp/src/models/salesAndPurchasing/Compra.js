@@ -11,6 +11,7 @@ Compra.init(
             primaryKey:    true
         },
         precio_ud: DataTypes.BIGINT,  
+        cantidad: DataTypes.INTEGER
     },
     {
         sequelize

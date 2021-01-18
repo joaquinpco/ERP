@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Auth } from 'aws-amplify';
 
 @Injectable({
@@ -14,6 +14,7 @@ export class AuthGuardService implements CanActivate {
     try
     {
       const currentUser = await Auth.currentAuthenticatedUser();
+      //console.log(activateRoute.pathFromRoot);
       return true;
     }
     catch(err)

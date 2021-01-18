@@ -190,6 +190,11 @@ const routes: Routes = [
     path: 'list-accounts',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./BankAccounts/list-accounts/list-accounts.module').then( m => m.ListAccountsPageModule)
+  },
+  {
+    path: 'show',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./Statistics/show/show.module').then( m => m.ShowPageModule)
   }
 ];
 

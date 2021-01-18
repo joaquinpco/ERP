@@ -742,7 +742,8 @@ app.post('/erp/payWithPaypal', async function(req, res) {
         const compra = await Compra.create({
           precio_ud: Number(req.body.price),
           materiaprima_id: rawMaterial.id,
-          proveedor_id: rawMaterial.proveedor_id
+          proveedor_id: rawMaterial.proveedor_id,
+          cantidad: Number(req.body.quantity)
         })
 
         res.json(payment);
@@ -1262,6 +1263,50 @@ app.post('/erp/newBankAccount', async function(req, res) {
       IBAN: req.body.IBAN
     });
     res.json(bankAccount);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.get('/erp/bankAccounts', async function(req, res) {
+  try
+  {
+    let cuentaBancaria = await CuentaBancaria.findAll();
+    res.json(cuentaBancaria);
+  }
+  catch(err)
+  { 
+    res.json(err);
+  }
+});
+
+app.get('erp/audits', async function(req, res) {
+  try
+  {
+    let audits = await Audit.findAll();
+    res.json(audits);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.post('/erp/newAudit', async function(req, res) {
+  try
+  {
+    let audit  = await Audit.create({
+      title: req.body.title,
+      endpoint: req.body.endpoint,
+      data: req.body.data,
+      result: req.body.result,
+      infoFront: req.body.infofront,
+      description: req.body.description
+    });
+
+    res.json(audit);
   }
   catch(err)
   {
