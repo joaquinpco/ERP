@@ -1044,77 +1044,93 @@ app.post('/erp/newBill', async function(req, res) {
 });
 
 app.get('/erp/invoicePDF', async function(req, res) {
-  const saleId = req.query.id;
+  try
+  {
+    const saleId = req.query.id;
 
-  let content = []
-  let products = []
+    let content = []
+    let products = []
 
-  const invoice  = await Factura.findOne({ where: { idVenta: saleId } });
-  const customer = await Cliente.findOne({ where: {  id: invoice.cliente_id } });
-  const sale = await Venta.findOne({ where: { id: invoice.idVenta }, include: [
-    Producto
-  ] }); 
+    const invoice  = await Factura.findOne({ where: { idVenta: saleId } });
+    const customer = await Cliente.findOne({ where: {  id: invoice.cliente_id } });
+    const sale = await Venta.findOne({ where: { id: invoice.idVenta }, include: [
+      Producto
+    ] }); 
 
-  content.push({
-    text: 'Invoice number: '+ invoice.id + "\nDate: " + invoice.createdAt,
-    style: 'header'
-  });
-  content.push({
-    text: 'Customer Data\n\n Name:' + customer.nombre + "\n" + "Phone:" + 
-      customer.telefono + "\n" + "Address:" + customer.direccion,
-    style: 'subheader'
-  })
+    const productos = sale.Productos;
 
-  content.push({
-    table: {
-      // headers are automatically repeated if the table spans over multiple pages
-      // you can declare how many rows should be treated as headers
-      headerRows: 1,
-      widths: [ '*', 'auto', 100, '*' ],
+    products.push(['Name', 'Description', 'Price', 'Quantity']);
 
-      body: [
-        [ 'First', 'Second', 'Third', 'The last one' ],
-        [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
-        [ { text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4' ]
-      ]
+    for(let producto of productos)
+    { 
+      products.push([producto.nombre, producto.descripcion , producto.precio, producto.cantidad]);
     }
-  })
+
+    content.push({
+      text: 'Invoice number: '+ invoice.id + "\nDate: " + invoice.createdAt,
+      style: 'header'
+    });
+    content.push({
+      text: '\n\n Name:' + customer.nombre + "\n" + "Phone:" + 
+        customer.telefono + "\n" + "Address:" + customer.direccion + "\n\n",
+      style: 'subheader'
+    })
+
+    content.push({
+      table: {
+        // headers are automatically repeated if the table spans over multiple pages
+        // you can declare how many rows should be treated as headers
+        headerRows: 1,
+        widths: [ '*', 'auto', 100, '*' ],
+        body: products
+      }
+    })
+
+    content.push({
+      text: '\n\n\n\nTotal:' + sale.total + "€",
+      style: 'header'
+    })
 
 
 
-  const docDefinition = {
-    content: content,
-    pageOrientation: 'portrait',
-    styles: {
-      header: {
-        fontSize: 18,
-        bold: true,
-        margin: [0, 10, 0, 0]
-      },
-      subheader: {
-        fontSize: 14,
-        bold: true,
-        margin: [0, 5, 0, 0]
-      },
-      normal: {
-        alignment: 'justify'
-      },
-      normalBold: {
-        alignment: 'justify',
-        bold: true
+    const docDefinition = {
+      content: content,
+      pageOrientation: 'portrait',
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 10, 0, 0]
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 5, 0, 0]
+        },
+        normal: {
+          alignment: 'justify'
+        },
+        normalBold: {
+          alignment: 'justify',
+          bold: true
+        }
       }
     }
+
+    const buffer = await pdfmake(docDefinition);
+
+    const pdfBase64 = buffer.toString('base64');
+
+    res.json({
+      success: 'pdf created!',
+      url: req.url,
+      pdf: pdfBase64
+    });
   }
+  catch(err)
+  {
 
-  const buffer = await pdfmake(docDefinition);
-
-  const pdfBase64 = buffer.toString('base64');
-
-  res.json({
-    success: 'pdf created!',
-    url: req.url,
-    pdf: pdfBase64
-  });
+  }
 });
 
 app.get('/erp/invoices', async function(req, res) {
@@ -1307,6 +1323,18 @@ app.post('/erp/newAudit', async function(req, res) {
     });
 
     res.json(audit);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+});
+
+app.get('/erp/purchasings', async function(req, res) {
+  try
+  {
+    let compras = await Compra.findAll();
+    res.json(compras);
   }
   catch(err)
   {
