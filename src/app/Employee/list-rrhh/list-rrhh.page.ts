@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
@@ -47,8 +47,14 @@ export class ListRRHHPage implements OnInit {
 
     try
     {
+
+      let user = await Auth.currentAuthenticatedUser();
+      console.log(user);
+
       const ress = await API.get('ERP', '/erp/rrhh/listUsers', {
-        queryStringParameters: {}
+        queryStringParameters: {
+          username: user.username
+        }
       });
 
       this.users = ress;

@@ -134,6 +134,27 @@ const { CognitoIdentityServiceProvider } = require('aws-sdk');
 
    return usersNormalizedAttr;
  }
+
+ function getIndexFromArray(array, value)
+ {
+   let i = 0;
+   let flag = false;
+
+   let index = -1;
+
+   while(i < array.length && !flag)
+   {
+     if(array[i].Username == value)
+     {
+        index = i;
+        flag = true;
+     }
+     i++;
+   }
+
+   return index;
+ }
+
 /**********************
  * Route methods  *
  **********************/
@@ -294,6 +315,9 @@ app.get('/erp', function(req, res) {
 app.get('/erp/rrhh/listUsers', async function(req, res){
   try
   {
+
+    const sub = req.query.username;
+
     var params = {
       UserPoolId: process.env.POOL_ID,
       AttributesToGet: [
@@ -312,6 +336,11 @@ app.get('/erp/rrhh/listUsers', async function(req, res){
     };
 
     const dataUsers = await cognito.listUsers(params).promise();
+
+    index = getIndexFromArray(dataUsers.Users, sub);
+
+    dataUsers.Users.splice(index, 1);
+
     const usersNormalized = normalizeListUser(dataUsers);
 
     res.json(usersNormalized);
