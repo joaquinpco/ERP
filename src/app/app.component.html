@@ -11,7 +11,7 @@
       <ion-list>
         <ion-item routerLink="/home">
           <ion-icon name="home-outline" slot="start"></ion-icon>
-          <ion-label>HOME</ion-label>
+          <ion-label>{{ 'HOME' | translate }}</ion-label>
         </ion-item>
         
         <ion-item (click)="isCustomer === 1 ? isCustomer = 0 : isCustomer = 1">
@@ -161,7 +161,7 @@
       <ion-list>
         <ion-item routerLink="/home">
           <ion-icon name="home-outline" slot="start"></ion-icon>
-          <ion-label>{{ 'HOME' | translate</ion-label>
+          <ion-label>{{ 'HOME' | translate }}</ion-label>
         </ion-item>
         <ion-item lines="none" (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
           <ion-icon name="briefcase-outline" slot="start"></ion-icon>
@@ -324,7 +324,7 @@
       <ion-list>
         <ion-item routerLink="/home">
           <ion-icon name="home-outline" slot="start"></ion-icon>
-          <ion-label>HOME</ion-label>
+          <ion-label>{{ 'HOME' | translate }}</ion-label>
         </ion-item>
         
         <ion-item (click)="isFinance === 1 ? isFinance = 0 : isFinance = 1">
