@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-audits',
@@ -14,27 +15,11 @@ export class AuditsPage implements OnInit {
   tablestyle = 'bootstrap';
 
   //Data Tests
-  public rows = [
-    {
-      "title": "Employee Added",
-      "data": "New Employee",
-      "endpoint": "/erp/rrhh/newEmployee",
-      "infoFront": "add-rrhh",
-      "result": "CREATED",
-      "description": "user x storage a new employee"
-    },
-    {
-      "title": "Employee Updated",
-      "data": "Edit Employee",
-      "endpoint": "/erp/rrhh/newEmployee",
-      "infoFront": "edit-rrhh",
-      "result": "UPDATED",
-      "description": "user x updated y employee"
-    }
-  ];
+  public rows: Array<any>;
 
   constructor(
-    public navController: NavController
+    public navController: NavController,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -54,7 +39,19 @@ export class AuditsPage implements OnInit {
 
   async ionViewWillEnter()
   {
+    const loader = await this.loadingController.create({message: 'Fetching audits, please wait ...'});
+    try{
+      await loader.present();
 
+      let audits = await API.get('ERP', '/erp/audits', {});
+      console.log(audits);
+      this.rows = audits;
+      
+      loader.dismiss();
+    }
+    catch(err){
+
+    }
   }
 
 }

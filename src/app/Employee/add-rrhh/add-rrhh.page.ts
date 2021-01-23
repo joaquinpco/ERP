@@ -3,6 +3,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { API } from 'aws-amplify';
 import { Router } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
+import { AuditsService } from '../../services/audits.service';
 
 export class Signupuser
 {
@@ -31,7 +32,8 @@ export class AddRrhhPage implements OnInit {
               public alertController: AlertController, 
               public route:Router,
               public loadingCtrl: LoadingController,
-              public menuService: MenuService
+              public menuService: MenuService,
+              public auditService: AuditsService
              ) 
   {
     this.signupuser = new Signupuser();
@@ -108,6 +110,10 @@ export class AddRrhhPage implements OnInit {
       }
       else
       {
+        const title = `New employee ${this.signupuser.firstname} ${this.signupuser.lastname}`;
+        await this.auditService.generateAudit(title, '/erp/rrhh/newEmployee', JSON.stringify(postParams), 
+          `Succesfully inserted!`, '/add-rrhh', `Updated user ${this.signupuser.firstname} ${this.signupuser.lastname}` + new Date())
+
         this.route.navigate(['/list-rrhh'])
       }
     }

@@ -1327,7 +1327,7 @@ app.get('/erp/bankAccounts', async function(req, res) {
   }
 });
 
-app.get('erp/audits', async function(req, res) {
+app.get('/erp/audits', async function(req, res) {
   try
   {
     let audits = await Audit.findAll();
@@ -1347,7 +1347,7 @@ app.post('/erp/newAudit', async function(req, res) {
       endpoint: req.body.endpoint,
       data: req.body.data,
       result: req.body.result,
-      infoFront: req.body.infofront,
+      infoFront: req.body.infoFront,
       description: req.body.description
     });
 

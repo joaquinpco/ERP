@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { AuditsService } from 'src/app/services/audits.service';
 import { CameraService } from '../../services/camera.service';
 import { MenuService } from '../../services/menu.service';
 
@@ -33,7 +34,8 @@ export class EditRrhhPage implements OnInit {
     public loadingCtrl: LoadingController,
     private myCameraService: CameraService,
     public alertController: AlertController,
-    public menuService: MenuService
+    public menuService: MenuService,
+    public auditService: AuditsService
              ) 
   { 
     this.sub = this.activatedRoute.snapshot.queryParams.sub;
@@ -79,6 +81,9 @@ export class EditRrhhPage implements OnInit {
         
         await API.put('ERP', '/erp/updateEmployee', putParams);
 
+        await this.auditService.generateAudit(`Updated employee ${this.edituser.firstname} ${this.edituser.lastname}`, '/erp/updateEmployee', JSON.stringify(putParams),
+        `Succesfully updated`, '/audits', `Updated user ${this.edituser.firstname} ${this.edituser.lastname}` + new Date());
+        
         this.router.navigate(['/list-rrhh']);
 
         loading.dismiss();
