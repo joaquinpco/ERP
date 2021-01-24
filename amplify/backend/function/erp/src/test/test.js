@@ -68,34 +68,6 @@ describe("Describe ERP Endpoints", () => {
         assert.strictEqual(res.status, 200, "Error when inserting data")
     });
 
-    it("Handles POST Request from /erp/newPayroll", async() => {
-        
-        const sub = "123189731297894923";
-        const periodstart = "";
-        const periodend = "";
-        const totaldays = "";
-        const ssbase = "";
-        const atdesbase = ""
-        const irpf = "";
-        const category = "";
-
-        const concepto = [];
-
-        concepto.push({
-            codigo: 999,
-            tipo: "DEDDUCCION",
-            nombre: conceptAttributes[2],
-            id: conceptAttributes[3],
-            porcentaje: '17.5',
-            precio: value.data
-        })
-
-        const res = await axios.post('http://localhost:3000/erp/newPayroll');
-        
-        //assert.strictEqual(res.data[0].)
-        
-    });
-
     after( () => {
         
     });
