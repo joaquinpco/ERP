@@ -835,7 +835,7 @@ app.put('/erp/updateCustomer', async function(req, res) {
     let cliente = await Cliente.findOne({ where: { id: req.body.id } });
     
     cliente.telefono = telefono;
-    cliente.nombre = nombre;
+    cliente.nombre = nombre.toUpperCase();
     cliente.direccion = direccion;
 
     await cliente.save();
@@ -1240,7 +1240,7 @@ app.post('/erp/newSupplier', async function(req, res) {
     const email = req.body.email;
 
     const proveedor = await Proveedor.create({
-      nombre: nombre,
+      nombre: nombre.toUpperCase(),
       telefono: telefono,
       email: email
     })
@@ -1262,7 +1262,7 @@ app.put('/erp/updateSupplier', async function(req, res) {
     const supplierId = req.body.supplierId;
 
     let supplier = await Proveedor.findOne({ where: { id: supplierId } });
-    supplier.nombre = nombre;
+    supplier.nombre = nombre.toUpperCase();
     supplier.telefono = telefono;
     supplier.email = email;
     
