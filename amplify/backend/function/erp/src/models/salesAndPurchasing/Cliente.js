@@ -11,7 +11,10 @@ Cliente.init(
             autoIncrement: true,
             primaryKey:    true
         },
-        nombre: DataTypes.STRING,
+        nombre: {
+            type: DataTypes.STRING,
+            unique: true
+        },
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING
     },

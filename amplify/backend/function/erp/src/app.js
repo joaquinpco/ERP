@@ -812,7 +812,7 @@ app.post('/erp/newCustomer', async function(req, res) {
     const telefono = req.body.phone;
 
     const cliente = await Cliente.create({
-      nombre: nombre,
+      nombre: nombre.toUpperCase(),
       direccion: direccion,
       telefono: telefono
     })
