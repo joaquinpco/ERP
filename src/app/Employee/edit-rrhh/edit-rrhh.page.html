@@ -14,7 +14,8 @@
         <div class="card">
           <div class="header">
             <div class="avatar">
-                <img [src]="user.normalizeAttr['custom:PROFILE_PICTURE']">
+                <img *ngIf="user.normalizeAttr['custom:PROFILE_PICTURE'] !== 'profile.png'" [src]="user.normalizeAttr['custom:PROFILE_PICTURE']">
+                <img *ngIf="user.normalizeAttr['custom:PROFILE_PICTURE'] === 'profile.png'" src="assets/img/profile.png">
             </div>
           </div>
         </div>

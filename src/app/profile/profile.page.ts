@@ -158,14 +158,12 @@ export class ProfilePage implements OnInit {
 
       if(this.user.normalizeAttr['custom:PROFILE_PICTURE'] === 'profile.png')
       {
-        console.log("no tiene imagen definida aun")
         this.myCameraService.guestPicture = "/assets/img/" + this.user.normalizeAttr['custom:PROFILE_PICTURE'];
       }
       else
       {
-        this.myCameraService.guestPicture = this.user.normalizeAttr['custom:PROFILE_PICTURE'];
+        this.myCameraService.guestPicture = this.user?.normalizeAttr['custom:PROFILE_PICTURE'];
       }
-      console.log(this.user);
 
       loader.dismiss();
     }

@@ -54,11 +54,7 @@ export class DelteRrhhPage implements OnInit {
 
       const res = await API.get('ERP', '/erp/getNormalizeUser', params);
       this.user = res;
-      if(this.user.normalizeAttr['custom:PROFILE_PICTURE'] === 'profile.png')
-      {
-        console.log("no tiene imagen definida aun")
-      }
-      else
+      if(this.user.normalizeAttr['custom:PROFILE_PICTURE'] !== 'profile.png')
       {
         this.imgSource = this.user.normalizeAttr['custom:PROFILE_PICTURE']
       }
