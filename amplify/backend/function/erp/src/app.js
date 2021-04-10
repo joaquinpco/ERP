@@ -1020,8 +1020,14 @@ app.post('/erp/uploadProfilePhoto', async function(req, res) {
   try
   {
     const request = await cognito.adminUpdateUserAttributes(userParams).promise();
+    res.json(request);
   }
-  catch(err){}
+  catch(err)
+  {
+    res.json(err);
+  }
+
+
 
 });
 

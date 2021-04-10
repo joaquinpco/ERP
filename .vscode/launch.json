@@ -18,7 +18,7 @@
         "program": "${file}",
         "args": ["-f"],
         "cwd": "${fileDirname}",
-        "runtimeExecutable": "/Users/joaquinpco/.nvm/versions/node/v14.12.0/bin/node"
+        "runtimeExecutable": "node"
       },
       {
         "type": "node",
@@ -26,7 +26,7 @@
         "name": "Launch ERP js",
         "program": "${workspaceFolder}/amplify/backend/function/erp/src/app.js",
         "cwd": "${workspaceFolder}/amplify/backend/function/erp/src",
-        "runtimeExecutable": "/Users/joaquinpco/.nvm/versions/node/v14.12.0/bin/node"
+        "runtimeExecutable": "node"
       },
       {
         "type": "node",

@@ -1,6 +1,9 @@
 {
+  "providers": [
+    "awscloudformation"
+  ],
   "projectName": "ERP",
-  "version": "3.0",
+  "version": "3.1",
   "frontend": "javascript",
   "javascript": {
     "framework": "ionic",
@@ -10,8 +13,5 @@
       "BuildCommand": "npm run-script build",
       "StartCommand": "ionic serve"
     }
-  },
-  "providers": [
-    "awscloudformation"
-  ]
+  }
 }
