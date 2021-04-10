@@ -158,11 +158,11 @@ export class ProfilePage implements OnInit {
 
       if(this.user.normalizeAttr['custom:PROFILE_PICTURE'] === 'profile.png')
       {
-        this.myCameraService.guestPicture = "/assets/img/" + this.user.normalizeAttr['custom:PROFILE_PICTURE'];
+        this.myCameraService.guestPicture = "/assets/img/" + this.user.normalizeAttr['custom:PROFILE_PICTURE'] + "?" + new Date().getTime();
       }
       else
       {
-        this.myCameraService.guestPicture = this.user?.normalizeAttr['custom:PROFILE_PICTURE'];
+        this.myCameraService.guestPicture = this.user?.normalizeAttr['custom:PROFILE_PICTURE'] + "?" + new Date().getTime();
       }
 
       loader.dismiss();
